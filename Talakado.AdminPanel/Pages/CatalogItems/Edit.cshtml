@@ -1,0 +1,93 @@
+﻿@page
+@model Talakado.AdminPanel.Pages.CatalogItems.EditModel
+@{
+}
+<h3>ویرایش محصول</h3>
+<div class="row  mt-5">
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.Name"></label>
+            <input asp-for="CatalogItem.Name" class="form-control" />
+        </fieldset>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.CatalogBrand"></label>
+            <select id="Brand" asp-items="@Model.Brands" class="form-control" asp-for="CatalogItem.CatalogBrandId"></select>
+        </fieldset>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.CatalogType"></label>
+            <select id="Category" asp-items="@Model.Categories" class="form-control" asp-for="CatalogItem.CatalogTypeId"></select>
+        </fieldset>
+    </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.AvailableStock"></label>
+            <input asp-for="CatalogItem.AvailableStock" class="form-control" />
+        </fieldset>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.ReStockThreshold"></label>
+            <input asp-for="CatalogItem.ReStockThreshold" class="form-control" />
+        </fieldset>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <label asp-for="CatalogItem.MaxStockThreshold"></label>
+            <input asp-for="CatalogItem.MaxStockThreshold" class="form-control" />
+        </fieldset>
+    </div>
+</div>
+
+
+
+
+@* <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+        <tr>
+            <th>شناسه</th>
+            <th>نام کاتالوگ</th>
+            <th>برند</th>
+            <th>دسته بندی</th>
+            <th>تعداد موجودی </th>
+            <th>حداقل برای سفارش مجدد </th>
+            <th>حداکثر توان ذخیره در انبار </th>
+            <th>قیمت </th>
+            <th>عملیات</th>
+        </tr>
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Brand</td>
+                <td>@item.Type</td>
+                <td>@item.AvailableStock</td>
+                <td>@item.ReStockThreshold</td>
+                <td>@item.MaxStockThreshold</td>
+                <td>@item.Price</td>
+                <td>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    بیشتر <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="edit" asp-route-id="@item.Id">ویرایش</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="delete" asp-route-id="@item.Id">حذف</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="create" asp-route-parentId="@item.Id">جزئیات</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+
+    </table>
+</div> *@

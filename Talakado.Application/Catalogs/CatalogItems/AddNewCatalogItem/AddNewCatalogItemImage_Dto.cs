@@ -1,0 +1,7 @@
+﻿namespace Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem
+{
+    public class AddNewCatalogItemImage_Dto
+    {
+        public string Src { get; set; }
+    }
+}

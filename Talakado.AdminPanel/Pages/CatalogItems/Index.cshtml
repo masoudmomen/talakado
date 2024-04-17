@@ -1,0 +1,70 @@
+﻿@page
+@model Talakado.AdminPanel.Pages.CatalogItems.IndexModel
+@{
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="font-size:small!important">
+            <div class="box-header">
+                <a class="btn btn-default" asp-page="create">ثبت جدید</a>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="جستجو">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>شناسه</th>
+                        <th>نام کاتالوگ</th>
+                        <th>برند</th>
+                        <th>دسته بندی</th>
+                        <th>تعداد موجودی </th>
+                        <th>حداقل برای سفارش مجدد </th>
+                        <th>حداکثر توان ذخیره در انبار </th>
+                        <th>قیمت </th>
+                        <th>عملیات</th>
+                    </tr>
+                    @foreach (var item in Model.CatalogItems.Data)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Brand</td>
+                            <td>@item.Type</td>
+                            <td>@item.AvailableStock</td>
+                            <td>@item.ReStockThreshold</td>
+                            <td>@item.MaxStockThreshold</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                بیشتر <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="edit" asp-route-id="@item.Id">ویرایش</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="delete" asp-route-id="@item.Id">حذف</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" asp-page="create" asp-route-parentId="@item.Id">جزئیات</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

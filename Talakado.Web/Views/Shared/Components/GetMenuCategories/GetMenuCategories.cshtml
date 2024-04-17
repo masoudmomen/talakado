@@ -1,0 +1,77 @@
+﻿@using Talakado.Application.Catalogs.GetMenuItems;
+@model List<MenuItemDto>
+@{
+    Layout = null;
+}
+<style>
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<div class="sidebar-widget categories">
+    <h4>دسته بندی ها</h4>
+    <ul class="product-category-list list-style">
+        @foreach (var item in Model.Where(p=>p.ParentId == null))
+        {
+        <li class="has-subcat">
+            <a class="active" href="javascript:void(0)">@item.Name</a>
+                <ul class="list-style subcategory">
+                @foreach (var sub1 in item.SubMenu)
+                {
+                        <li class="">
+                            <a href="javascript:void(0)"><i class="las la-angle-left"></i>@sub1.Name</a>
+                        </li>
+                }
+            </ul>
+        </li>
+        }
+    </ul>
+</div>
+
+
+@* 
+<ul class="treeview-menu">
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-share"></i> <span>چندسطحی</span>
+        <span class="pull-left-container">
+            <i class="fa fa-angle-right pull-left"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="#"><i class="fa fa-circle-o"></i> سطح اول</a></li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-circle-o"></i> سطح اول
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> سطح دوم</a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> سطح دوم
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> سطح سوم</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> سطح سوم</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-circle-o"></i> سطح اول</a></li>
+    </ul>
+</li>
+</ul> *@

@@ -1,0 +1,243 @@
+﻿@page
+@model Talakado.AdminPanel.Pages.Visitor.IndexModel
+@{
+}
+@section Styles {
+    <link href="~/theme/adminlte_persian-master/dist/css/apexcharts.css" rel="stylesheet" />
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-yellow">
+               <h3 class="widget-user-username">آمار امروز</h3>
+            </div>
+            <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">تعداد بازدید <span class="pull-left badge bg-blue">@Model.ResultDailyReport.Today.PageViews</span></a></li>
+                    <li><a href="#">تعداد بازدید کنندگان <span class="pull-left badge bg-aqua">@Model.ResultDailyReport.Today.Visitors</span></a></li>
+                    <li><a href="#">بازدید به ازای هر نفر <span class="pull-left badge bg-green">@Model.ResultDailyReport.Today.ViewsPerVisitor</span></a></li>
+                    <li><a href="#">بازدید کنندگان آنلاین <span class="pull-left badge bg-red">@ViewData["OnlineVisitor"]</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-yellow">
+                <h3 class="widget-user-username">آمار کل بازدید</h3>
+            </div>
+            <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">تعداد بازدید <span class="pull-left badge bg-blue">@Model.ResultDailyReport.GeneralState.TotalPageViews</span></a></li>
+                    <li><a href="#">تعداد بازدید کنندگان <span class="pull-left badge bg-aqua">@Model.ResultDailyReport.GeneralState.TotalVisitor</span></a></li>
+                    <li><a href="#">بازدید به ازای هر نفر <span class="pull-left badge bg-green">@Model.ResultDailyReport.GeneralState.PageViewsPerVisit</span></a></li>
+                    <li><a href="#">تعداد ثبت نام ها<span class="pull-left badge bg-red">10</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Line chart -->
+        <div id="s-line" class=""></div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Line chart -->
+        <div id="s-lineDay" class=""></div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="font-size:small!important">
+            <div class="box-header">
+                <h3 class="box-title">بازدید های اخیر</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="جستجو">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Ip</th>
+                        <th>لینک</th>
+                        <th>لینک ارجاع</th>
+                        <th>مرورگر</th>
+                        <th>سیستم عامل</th>
+                        <th>خزنده؟</th>
+                        <th>زمان</th>
+                        <th>شناسه کاربر</th>
+                    </tr>
+                    @foreach (var item in Model.ResultDailyReport.Visitors)
+                    {
+                        <tr>
+                            <td style="width:10%">@item.Ip</td>
+                            <td>@item.CurrentLink</td>
+                            <td style="width:15%">@item.ReferrerLink</td>
+                            <td>
+                                @if (item.Browser.ToLower().Trim().Contains("chrome"))
+                                {
+                                    
+                                    <img width="30" height="30" src="~/theme/AdminLTE_Persian-master/dist/img/google.png" />
+                                }
+                                else if (item.Browser.ToLower().Trim().Contains("firefox"))
+                                {
+                                    <img width="30" height="30" src="~/theme/AdminLTE_Persian-master/dist/img/firefox.jpg" />
+                                }
+                                else
+                                {
+                                    <img width="30" height="30" src="~/theme/AdminLTE_Persian-master/dist/img/browser.jpg" />
+                                }
+                            </td>
+                            <td>@item.OperationSystem</td>
+                            <td>@item.IsSpider</td>
+                            <td>@item.Time</td>
+                            <td>@item.VisitorId</td>
+                        </tr>
+                    }
+                    
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/theme/AdminLTE_Persian-master/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/theme/adminlte_persian-master/dist/js/apexcharts.min.js"></script>
+    <script>
+        $(function () {
+            // Simple Line day
+
+            var displayHour = @Html.Raw(Json.Serialize(Model.ResultDailyReport.Today.VisitPerHour.Display))
+            var valueHour = @Html.Raw(Json.Serialize(Model.ResultDailyReport.Today.VisitPerHour.Value))
+
+        var sline = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    },
+                    toolbar: {
+                        show: false,
+                    },
+                    fontFamily: 'vazir, Arial, sans-serif'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                series: [{
+                    name: "بازدید",
+                    data: valueHour
+                }],
+                title: {
+                    text: 'نمودار بازدید 24 ساعت گذشته',
+                    align: 'right',
+                    offsetX: -170,
+                },
+                grid: {
+                    row: {
+                        colors: ['#f1f2f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: displayHour,
+                },
+                yaxis: {
+                    labels: {
+                        offsetX: -20,
+                    }
+                }
+            }
+
+            var chart = new ApexCharts(
+                document.querySelector("#s-line"),
+                sline
+            );
+
+            chart.render();
+
+
+
+
+            // Simple Line Month
+
+            var displayDay = @Html.Raw(Json.Serialize(Model.ResultDailyReport.GeneralState.VisitPerDay.Display))
+            var valueDay = @Html.Raw(Json.Serialize(Model.ResultDailyReport.GeneralState.VisitPerDay.Value))
+
+            var slineDay = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    },
+                    toolbar: {
+                        show: false,
+                    },
+                    fontFamily: 'vazir, Arial, sans-serif'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                series: [{
+                    name: "بازدید",
+                    data: valueDay
+                }],
+                title: {
+                    text: 'نمودار بازدید 30 روز گذشته',
+                    align: 'right',
+                    offsetX: -150,
+                },
+                grid: {
+                    row: {
+                        colors: ['#f1f2f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: displayDay,
+                },
+                yaxis: {
+                    labels: {
+                        offsetX: -20,
+                    }
+                }
+            }
+
+            var chart = new ApexCharts(
+                document.querySelector("#s-lineDay"),
+                slineDay
+            );
+
+            chart.render();
+
+
+        })
+    </script>
+}
+
