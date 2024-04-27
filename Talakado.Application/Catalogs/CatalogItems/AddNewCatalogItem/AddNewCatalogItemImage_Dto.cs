@@ -2,6 +2,7 @@
 {
     public class AddNewCatalogItemImage_Dto
     {
-        public string Src { get; set; }
+        public int Id { get; set; }
+        public string? Src { get; set; }
     }
 }

@@ -14,7 +14,9 @@ namespace Talakado.Application.Contexts
     {
         DbSet<CatalogBrand> CatalogBrands { get; set; }
         DbSet<CatalogType> CatalogTypes { get; set; }
-        public DbSet<CatalogItem> CatalogItems { get; set; }
+        DbSet<CatalogItem> CatalogItems { get; set; }
+        DbSet<CatalogItemImage> CatalogItemImage { get; set; }
+        DbSet<CatalogItemFeature> CatalogItemFeature { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

@@ -3,7 +3,6 @@
 @{
 }
 @section Styles{
-    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 }
 <section class="card">
     <div class="row">
@@ -169,7 +168,7 @@
 
 @section Scripts {
     
-<script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+
 @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 @* <script src="https://cdn.ckeditor.com/4.13.0/standard-all/ckeditor.js"></script>
 <script>
@@ -254,6 +253,7 @@
                 data.append('Features[' + i + '].Key', val.Key);
                 data.append('Features[' + i + '].Value', val.Value);
             });
+
 
             var ajaxRequest = $.ajax({
                 type: "POST",

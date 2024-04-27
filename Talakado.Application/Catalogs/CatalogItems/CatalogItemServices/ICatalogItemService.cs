@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
+using Talakado.Domain.Catalogs;
 
 namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
 {
@@ -41,6 +42,11 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         public BaseDto<CatalogItemsDto> FindById(int id)
         {
             var catalogItem = context.CatalogItems.Find(id);
+            if (catalogItem != null)
+            {
+                catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c=>c.CatalogItemId == id).ToList();
+                catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == id).ToList();
+            }
             var result = mapper.Map<CatalogItemsDto>(catalogItem);
             return new BaseDto<CatalogItemsDto>(true, null, result);
         }

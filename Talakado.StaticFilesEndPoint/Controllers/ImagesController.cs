@@ -49,6 +49,7 @@ namespace Talakado.StaticFilesEndPoint.Controllers
             string newName = Guid.NewGuid().ToString();
             var date = DateTime.Now;
             string folder = $@"Resources\images\{date.Year}-{date.Month}\";
+            string folderWebAdrress = $@"Resources/images/{date.Year}-{date.Month}/";
             var uploadsRootFolder = Path.Combine(_environment.WebRootPath, folder);
             if (!Directory.Exists(uploadsRootFolder)) 
             {
@@ -65,7 +66,7 @@ namespace Talakado.StaticFilesEndPoint.Controllers
                     {
                         file.CopyTo(fileStream);
                     }
-                    address.Add(folder + fileName);
+                    address.Add(folderWebAdrress + fileName);
                 }
             }
             return new UploadDto()
