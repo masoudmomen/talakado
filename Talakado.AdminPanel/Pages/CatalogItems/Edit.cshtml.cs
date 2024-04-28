@@ -71,7 +71,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             
 
             var resultService = CatalogItem;
-            return new JsonResult(true);
+            return new JsonResult(resultService);
 
         }
     }

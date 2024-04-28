@@ -290,7 +290,7 @@
                 data: data,
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function (result) {
-                    alert(result);
+                    console.log(result)
                     if (result.isSuccess == true) {
                         console.log(data)
                     }
