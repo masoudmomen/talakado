@@ -19,7 +19,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         List<ListCatalogTypeDto> GetCatalogType();
         PaginatedItemDto<CatalogItemListItemDto> GetCatalogList(int page, int pageSize);
         BaseDto<CatalogItemsDto> FindById(int id);
-
+        BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request);
     }
 
     public class CatalogItemService : ICatalogItemService
@@ -92,6 +92,37 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             return types;
         }
 
-         
+         public BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request)
+        {
+            var catalogItem = mapper.Map<CatalogItem>(request);
+            context.CatalogItems.Add(catalogItem);
+            if(request.RemovedFeatures != null && request.RemovedFeatures.Count() > 0)
+            {
+                foreach( var feature in request.RemovedFeatures)
+                {
+                    var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == request.Id);
+                    if (featureRecord != null) context.CatalogItemFeature.Remove(featureRecord);
+                }
+            }
+            if (request.RemovedImages != null && request.RemovedImages.Count() > 0)
+            {
+                foreach (var image in request.RemovedImages)
+                {
+                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c => c.Id == request.Id);
+                    if (imageRecord != null)
+                    {
+                        context.CatalogItemImage.Remove(imageRecord);
+                        // remove image file physically from the hard disk
+                    }
+                }
+            }
+            context.SaveChanges();
+            return new BaseDto<CatalogItemsDto>(
+                true,
+                new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
+                catalogItem
+                );
+                
+        }
     }
 }

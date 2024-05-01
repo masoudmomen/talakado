@@ -70,7 +70,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             }
             
 
-            var resultService = CatalogItem;
+            var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
+            catalogItemService.Edit(resultService);
             return new JsonResult(resultService);
 
         }

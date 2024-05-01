@@ -67,7 +67,7 @@
             {
                 var src = $"https://localhost:7238/{@item.Src}";
                 <span id="image-@item.Id" style="position:relative;margin:3px;display:inline-block">
-                    <button onclick="removeImage('@item.Id')" class="close AClass">
+                    <button type="button" onclick="removeImage('@item.Id')" class="close AClass">
                         <span>&times;</span>
                     </button>
                     <img class="fa-image" width="200px" height="200px" src="@src" />
@@ -263,7 +263,7 @@
             var catalogImages = document.getElementById("Images");
             if (catalogImages.files.length > 0) {
                 for (var i = 0; i < catalogImages.files.length; i++) {
-                    data.append('Images-' + i, catalogImages.files[i]);
+                    data.append('CatalogItemImages-' + i, catalogImages.files[i]);
                 }
             }
 
@@ -277,9 +277,9 @@
             }).get();
 
             $.each(dataFeaturesViewModel, function (i, val) {
-                data.append('Features[' + i + '].Group', val.Group);
-                data.append('Features[' + i + '].Key', val.Key);
-                data.append('Features[' + i + '].Value', val.Value);
+                data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
+                data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
+                data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
             });
 
             var ajaxRequest = $.ajax({

@@ -21,6 +21,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         public int ReStockThreshold { get; set; }
         public int MaxStockThreshold { get; set; }
 
+        public string[]? RemovedImages { get; set; }
+        public string[]? RemovedFeatures { get; set; }
         public ICollection<CatalogItemFeature> CatalogItemFeatures { get; set; }
         public ICollection<CatalogItemImage> CatalogItemImages { get; set; }
     }
