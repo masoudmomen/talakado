@@ -117,10 +117,11 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 }
             }
             context.SaveChanges();
+            var model = mapper.Map<CatalogItemsDto>(catalogItem);
             return new BaseDto<CatalogItemsDto>(
                 true,
                 new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
-                catalogItem
+                model
                 );
                 
         }
