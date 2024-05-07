@@ -16,7 +16,8 @@ using Talakado.Infrastructure.ExternalApi.ImageServer;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add services to the container.(IOC)
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddNewtonsoftJson(optiion =>
+optiion.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddScoped<IGetDailyReportService, GetDailyReportService>();
 builder.Services.AddTransient(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 builder.Services.AddTransient<IOnlineVisitorService, OnlineVisitorService>();
