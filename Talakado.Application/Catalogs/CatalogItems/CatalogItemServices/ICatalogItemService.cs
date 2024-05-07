@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
 using Talakado.Domain.Catalogs;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
 {
@@ -92,35 +93,49 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             return types;
         }
 
-         public BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request)
+        public BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request)
         {
-            var catalogItem = mapper.Map<CatalogItem>(request);
-            context.CatalogItems.Add(catalogItem);
-            if(request.RemovedFeatures != null && request.RemovedFeatures.Count() > 0)
+            var catalogItem = context.CatalogItems.SingleOrDefault(p => p.Id == request.Id);
+            if (catalogItem == null) return new BaseDto<CatalogItemsDto>(
+                false,
+                new List<string> { "کاتالوگ آیتم یافت نشد"},
+                request);
+            mapper.Map(request, catalogItem);
+            //context.SaveChanges();
+
+            if (request.RemovedFeatures != null && request.RemovedFeatures.Count() > 0)
             {
                 foreach( var feature in request.RemovedFeatures)
                 {
-                    var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == request.Id);
-                    if (featureRecord != null) context.CatalogItemFeature.Remove(featureRecord);
+                    if (feature == null) continue;
+                    var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == int.Parse(feature));
+                    if (featureRecord != null)
+                    {
+                        //context.CatalogItemFeature.Remove(featureRecord);
+                        catalogItem.CatalogItemFeatures.Remove(featureRecord);
+                    }
                 }
             }
             if (request.RemovedImages != null && request.RemovedImages.Count() > 0)
             {
                 foreach (var image in request.RemovedImages)
                 {
-                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c => c.Id == request.Id);
+                    if(image == null) continue;
+                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c => c.Id == int.Parse(image));
                     if (imageRecord != null)
                     {
-                        context.CatalogItemImage.Remove(imageRecord);
+                        //context.CatalogItemImage.Remove(imageRecord);
+                        catalogItem.CatalogItemImages.Remove(imageRecord);
                         // remove image file physically from the hard disk
                     }
                 }
             }
             context.SaveChanges();
+            var model = mapper.Map<CatalogItemsDto>(catalogItem);
             return new BaseDto<CatalogItemsDto>(
                 true,
                 new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
-                catalogItem
+                model
                 );
                 
         }
