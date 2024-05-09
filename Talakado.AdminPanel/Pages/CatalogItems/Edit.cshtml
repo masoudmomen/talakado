@@ -12,6 +12,7 @@
 <div class="container" style="padding:15px;">
     <h3>ویرایش محصول</h3>
     <form id="editForm" class="form" asp-antiforgery="true" onsubmit="return Edit(event)">
+        <input type="hidden" asp-for="CatalogItem.Id" id="Id" />
         <div class="row">
         <div class="col-md-4">
             <fieldset>
@@ -63,16 +64,20 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-12">
             <h4 style="color:gray">تصاویر کاتالوگ</h4>
-            @foreach (var item in Model.CatalogItem.CatalogItemImages)
-            {
-                var src = $"https://localhost:7238/{@item.Src}";
-                <span id="image-@item.Id" style="position:relative;margin:3px;display:inline-block">
-                    <button type="button" onclick="removeImage('@item.Id')" class="close AClass">
-                        <span>&times;</span>
-                    </button>
-                    <img class="fa-image" width="200px" height="200px" src="@src" />
-                </span>
-            }
+                @if (Model.CatalogItem.CatalogItemImages != null)
+                {
+                    @foreach (var item in Model.CatalogItem.CatalogItemImages)
+                    {
+                        var src = $"https://localhost:7238/{@item.Src}";
+                        <span id="image-@item.Id" style="position:relative;margin:3px;display:inline-block">
+                            <button type="button" onclick="removeImage('@item.Id')" class="close AClass">
+                                <span>&times;</span>
+                            </button>
+                            <img class="fa-image" width="200px" height="200px" src="@src" />
+                        </span>
+                    }
+                }
+                
         </div>
     </div>
     <div class="row" style="margin-top: 30px;">
@@ -234,7 +239,7 @@
         }
         
         function Edit(e) {
-            e.preventDefault();
+            //e.preventDefault();
             var form = $("#editForm");
             form.validate();
             if (form.valid() == false) {
@@ -249,6 +254,7 @@
 
             var data = new FormData();
             //دریافت مقادیر از تکس باکس ها و....
+            data.append("Id", $("#Id").val());
             data.append("Name", $("#Name").val());
             data.append("AvailableStock", $("#AvailableStock").val());
             data.append("ReStockThreshold", $("#ReStockThreshold").val());
