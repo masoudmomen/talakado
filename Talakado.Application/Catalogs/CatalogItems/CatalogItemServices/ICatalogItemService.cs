@@ -100,8 +100,45 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 false,
                 new List<string> { "کاتالوگ آیتم یافت نشد"},
                 request);
-            mapper.Map(request, catalogItem);
+            catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList();
+            catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList();
+            //mapper.Map(request, catalogItem);
             //context.SaveChanges();
+            catalogItem.Name = request.Name;
+            catalogItem.Price = request.Price;
+            catalogItem.CatalogBrandId = request.CatalogBrandId;
+            catalogItem.CatalogTypeId = request.CatalogTypeId;
+            catalogItem.AvailableStock = request.AvailableStock;
+            catalogItem.MaxStockThreshold = request.MaxStockThreshold;
+            catalogItem.ReStockThreshold = request.MaxStockThreshold;
+            catalogItem.Description = request.Description;
+
+            if (request.CatalogItemImages.Count > 0)
+            {
+                foreach (var item in request.CatalogItemImages)
+                {
+                    catalogItem.CatalogItemImages.Add(new CatalogItemImage()
+                    {
+                        CatalogItemId = request.Id,
+                        CatalogItem = catalogItem,
+                        Src = item.Src
+                    });
+                }
+            }
+            if (request.CatalogItemFeatures.Count > 0)
+            {
+                foreach (var item in request.CatalogItemFeatures)
+                {
+                    catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
+                    {
+                        CatalogItem = catalogItem,
+                        CatalogItemId = request.Id,
+                        Group = item.Group,
+                        Key = item.Key,
+                        Value = item.Value
+                    });
+                }
+            }
 
             if (request.RemovedFeatures != null && request.RemovedFeatures.Count() > 0)
             {
@@ -111,23 +148,16 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == int.Parse(feature));
                     if (featureRecord != null)
                     {
-                        //context.CatalogItemFeature.Remove(featureRecord);
+                        context.CatalogItemFeature.Remove(featureRecord);
                         catalogItem.CatalogItemFeatures.Remove(featureRecord);
                     }
                 }
             }
             if (request.RemovedImages != null && request.RemovedImages.Count() > 0)
             {
-                foreach (var image in request.RemovedImages)
+                for (int i = 0; i < request.RemovedImages.Count(); i++)
                 {
-                    if(image == null) continue;
-                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c => c.Id == int.Parse(image));
-                    if (imageRecord != null)
-                    {
-                        //context.CatalogItemImage.Remove(imageRecord);
-                        catalogItem.CatalogItemImages.Remove(imageRecord);
-                        // remove image file physically from the hard disk
-                    }
+
                 }
             }
             context.SaveChanges();
@@ -141,3 +171,4 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         }
     }
 }
+

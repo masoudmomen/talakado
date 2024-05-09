@@ -117,34 +117,40 @@
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-12">
-            <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
-                <thead>
-                    <tr>
-                        <th>
-                            گروه
-                        </th>
-                        <th>
-                            نام ویژگی
-                        </th>
-                        <th>
-                            مقدار ویژگی
-                        </th>
-                        <th>
-                            عملیات
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CatalogItem.CatalogItemFeatures)
-                    {
-                        <tr id="feature-@item.Id">
-                            @* <input type="hidden" value="@item.Id" /> *@
-                            <td>@item.Group</td>
-                            <td>@item.Key</td>
-                            <td>@item.Value</td>
-                            <td><img style="cursor:pointer" onclick="removeFeature('@item.Id')" width="20px" src="~/image/trash_remove_icon.png" /></td>
+                <table id="tbl_Features1" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                گروه
+                            </th>
+                            <th>
+                                نام ویژگی
+                            </th>
+                            <th>
+                                مقدار ویژگی
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CatalogItem.CatalogItemFeatures)
+                        {
+                            <tr id="feature-@item.Id">
+                                @* <input type="hidden" value="@item.Id" /> *@
+                                <td>@item.Group</td>
+                                <td>@item.Key</td>
+                                <td>@item.Value</td>
+                                <td><img style="cursor:pointer" onclick="removeFeature('@item.Id')" width="20px" src="~/image/trash_remove_icon.png" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                
+                <tbody>
+                    
                 </tbody>
             </table>
         </div>
@@ -239,7 +245,7 @@
         }
         
         function Edit(e) {
-            //e.preventDefault();
+            e.preventDefault();
             var form = $("#editForm");
             form.validate();
             if (form.valid() == false) {
@@ -301,6 +307,11 @@
                     console.log(result)
                     if (result.isSuccess == true) {
                         console.log(result)
+                        swal.fire(
+                            'هشدار!',
+                            "کاتالوگ با موفقیت ویرایش شد",
+                            'success'
+                        );
                     }
                     else {
                         swal.fire(
