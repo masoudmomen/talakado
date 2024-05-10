@@ -11,7 +11,7 @@
 
 <div class="container" style="padding:15px;">
     <h3>ویرایش محصول</h3>
-    <form id="editForm" class="form" asp-antiforgery="true" onsubmit="return Edit(event)">
+    @* <form id="editForm" class="form" asp-antiforgery="true" onsubmit="return Edit(event)"> *@
         <input type="hidden" asp-for="CatalogItem.Id" id="Id" />
         <div class="row">
         <div class="col-md-4">
@@ -64,7 +64,7 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-12">
             <h4 style="color:gray">تصاویر کاتالوگ</h4>
-                @if (Model.CatalogItem.CatalogItemImages != null)
+                @if (Model != null && Model.CatalogItem != null && Model.CatalogItem.CatalogItemImages != null && Model.CatalogItem.CatalogItemImages.Count > 0)
                 {
                     @foreach (var item in Model.CatalogItem.CatalogItemImages)
                     {
@@ -169,11 +169,11 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
             <fieldset class="form-group">
-                <button type="submit" onclick="Edit()" class="btn btn-success col-md-12"> ثبت کاتالوگ</button>
+                <button type="button" onclick="Edit()" class="btn btn-success col-md-12"> ثبت کاتالوگ</button>
             </fieldset>
         </div>
     </div>
-    </form>
+    @* </form> *@
 </div>
 
 
@@ -245,81 +245,126 @@
         }
         
         function Edit(e) {
-            e.preventDefault();
-            var form = $("#editForm");
-            form.validate();
-            if (form.valid() == false) {
-                swal.fire(
-                    'هشدار!',
-                    "اطلاعات فرم به درستی وارد نشده است!",
-                    'warning'
-                );
-                return false;
-            }
-       
 
-            var data = new FormData();
-            //دریافت مقادیر از تکس باکس ها و....
-            data.append("Id", $("#Id").val());
-            data.append("Name", $("#Name").val());
-            data.append("AvailableStock", $("#AvailableStock").val());
-            data.append("ReStockThreshold", $("#ReStockThreshold").val());
-            data.append("MaxStockThreshold", $("#MaxStockThreshold").val());
-            data.append("Price", $("#Price").val());
-            data.append("Description", $("#Description").val());
-            data.append("RemovedImages", imageForRemoveList);
-            data.append("RemovedFeatures", featureForRemoveList);
-
-            data.append("CatalogTypeId", $('#Category').find('option:selected').val());
-            data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
-
-            //دریافت عکس های انتخاب شده توسط کاربر و قرار دادن عکس ها در متغیر data
+            //دریافت عکس های انتخاب شده توسط کاربر 
+            var addedImagesList = []
             var catalogImages = document.getElementById("Images");
             if (catalogImages.files.length > 0) {
                 for (var i = 0; i < catalogImages.files.length; i++) {
-                    data.append('CatalogItemImages-' + i, catalogImages.files[i]);
+                    addedImagesList.push(catalogImages.files[i]);
                 }
             }
 
-            //دریافت ویژگی های محصول از جدول
-            var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
-                return {
-                    Group: $(this.cells[0]).text(),
-                    Key: $(this.cells[1]).text(),
-                    Value: $(this.cells[2]).text(),
-                };
-            }).get();
+            //دریافت ویژگی های اضاافه شده از جدول
+            var addedFeaturesList = []
+            $('#tbl_Features tr').each(function () {
+                var addedFeatureRow = []
+                $(this).find('.feature').each(function (i,txt) {
+                    addedFeatureRow.push(txt.textContent)
+                })
+                addedFeaturesList.push(addedFeatureRow)
+            })
 
-            $.each(dataFeaturesViewModel, function (i, val) {
-                data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
-                data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
-                data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
-            });
+
+            // var addedFeaturesList = $('#tbl_Features tr:gt(0)').map(function () {
+            //     return {
+            //         Group: $(this.cells[0]).text(),
+            //         Key: $(this.cells[1]).text(),
+            //         Value: $(this.cells[2]).text(),
+            //     };
+            // }).get();
+            // $.each(dataFeaturesViewModel, function (i, val) {
+            //     data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
+            //     data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
+            //     data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
+            // });
+
+            var model = {
+                Id: $("#Id").val(),
+                Name: $("#Name").val(),
+                AvailableStock: $("#AvailableStock").val(),
+                ReStockThreshold: $("#ReStockThreshold").val(),
+                MaxStockThreshold: $("#MaxStockThreshold").val(),
+                Price: $("#Price").val(),
+                Description: $("#Description").val(),
+                CatalogTypeId: $('#Category').find('option:selected').val(),
+                CatalogBrandId: $('#Brand').find('option:selected').val(),
+                RemovedImages: imageForRemoveList,
+                RemovedFeatures: featureForRemoveList,
+                AddedImages: addedImagesList,
+                AddedFeatures: addedFeaturesList,
+            }
+
+
+
+
+
+
+
+            // var data = new FormData();
+            // //دریافت مقادیر از تکس باکس ها و....
+            // data.append("Id", $("#Id").val());
+            // data.append("Name", $("#Name").val());
+            // data.append("AvailableStock", $("#AvailableStock").val());
+            // data.append("ReStockThreshold", $("#ReStockThreshold").val());
+            // data.append("MaxStockThreshold", $("#MaxStockThreshold").val());
+            // data.append("Price", $("#Price").val());
+            // data.append("Description", $("#Description").val());
+            // data.append("RemovedImages", imageForRemoveList);
+            // data.append("RemovedFeatures", featureForRemoveList);
+
+            // data.append("CatalogTypeId", $('#Category').find('option:selected').val());
+            // data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
+
+            // //دریافت عکس های انتخاب شده توسط کاربر و قرار دادن عکس ها در متغیر data
+            // var catalogImages = document.getElementById("Images");
+            // if (catalogImages.files.length > 0) {
+            //     for (var i = 0; i < catalogImages.files.length; i++) {
+            //         data.append('CatalogItemImages-' + i, catalogImages.files[i]);
+            //     }
+            // }
+
+            // //دریافت ویژگی های محصول از جدول
+            // var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
+            //     return {
+            //         Group: $(this.cells[0]).text(),
+            //         Key: $(this.cells[1]).text(),
+            //         Value: $(this.cells[2]).text(),
+            //     };
+            // }).get();
+
+            // $.each(dataFeaturesViewModel, function (i, val) {
+            //     data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
+            //     data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
+            //     data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
+            // });
+
+
+            //console.log(model)
 
             var ajaxRequest = $.ajax({
                 type: "post",
                 url: "/catalogItems/edit",
-                contentType: false,
+                contentType: JSON,
                 processData: false,
-                data: data,
-                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                data: model,
                 success: function (result) {
                     console.log(result)
-                    if (result.isSuccess == true) {
-                        console.log(result)
-                        swal.fire(
-                            'هشدار!',
-                            "کاتالوگ با موفقیت ویرایش شد",
-                            'success'
-                        );
-                    }
-                    else {
-                        swal.fire(
-                            'هشدار!',
-                            "کاتالوگ ویرایش نشد",
-                            'error'
-                        );
-                    }
+                    // if (result.isSuccess == true) {
+                    //     console.log(result)
+                    //     swal.fire(
+                    //         'هشدار!',
+                    //         "کاتالوگ با موفقیت ویرایش شد",
+                    //         'success'
+                    //     );
+                    // }
+                    // else {
+                    //     swal.fire(
+                    //         'هشدار!',
+                    //         "کاتالوگ ویرایش نشد",
+                    //         'error'
+                    //     );
+                    // }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -346,7 +391,7 @@
                 );
             }
             else {
-                $('#tbl_Features tbody').append('<tr><td>' + txtGroup + '</td>  <td>' + txtDisplayName + '</td>  <td>' + txtValue + '</td> <td><img style="cursor:pointer" onclick="removeFeature1(this)" width="20px" src="../../image/trash_remove_icon.png" /> </td> </tr>');
+                $('#tbl_Features tbody').append('<tr><td class="feature">' + txtGroup + '</td>  <td class="feature">' + txtDisplayName + '</td>  <td class="feature">' + txtValue + '</td> <td><img style="cursor:pointer" onclick="removeFeature1(this)" width="20px" src="../../image/trash_remove_icon.png" /> </td> </tr>');
             }
         });
     </script>

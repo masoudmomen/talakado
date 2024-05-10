@@ -42,37 +42,37 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             Message = model.Message;
         }
 
-        public JsonResult OnPost()
+        public JsonResult OnPost(CatalogItemEditRequestViewmodel request)
         {
-            if (!ModelState.IsValid)
-            {
-                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                return new JsonResult(new BaseDto<int>(false, allErrors.Select(p => p.ErrorMessage).ToList(), 0));
-            }
-            for (int i = 0; i < Request.Form.Files.Count; i++)
-            {
-                var file = Request.Form.Files[i];
-                Files.Add(file);
-            }
-            List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
-            if (Files.Count > 0)
-            {
-                //Uploud
-                var result = imageUploadService.Upload(Files);
-                foreach (var item in result)
-                {
-                    images.Add(new AddNewCatalogItemImage_Dto { Src = item });
-                }
-            }
-            if (images.Count > 0)
-            {
-                CatalogItem.CatalogItemImages = images;
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+            //    return new JsonResult(new BaseDto<int>(false, allErrors.Select(p => p.ErrorMessage).ToList(), 0));
+            //}
+            //for (int i = 0; i < Request.Form.Files.Count; i++)
+            //{
+            //    var file = Request.Form.Files[i];
+            //    Files.Add(file);
+            //}
+            //List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
+            //if (Files.Count > 0)
+            //{
+            //    //Uploud
+            //    var result = imageUploadService.Upload(Files);
+            //    foreach (var item in result)
+            //    {
+            //        images.Add(new AddNewCatalogItemImage_Dto { Src = item });
+            //    }
+            //}
+            //if (images.Count > 0)
+            //{
+            //    CatalogItem.CatalogItemImages = images;
+            //}
             
 
-            var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
-            var model = catalogItemService.Edit(resultService);
-            return new JsonResult(model);
+            //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
+            //var model = catalogItemService.Edit(resultService);
+            return new JsonResult(request);
 
         }
     }

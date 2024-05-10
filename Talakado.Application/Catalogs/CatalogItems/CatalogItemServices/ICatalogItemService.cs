@@ -139,11 +139,12 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     });
                 }
             }
-
-            if (request.RemovedFeatures != null && request.RemovedFeatures.Count() > 0)
+            
+            if (request.RemovedFeatures != null && request.RemovedFeatures.Length > 0)
             {
-                foreach( var feature in request.RemovedFeatures)
+                for (int i = 0; i < request.RemovedFeatures.Length; i++)
                 {
+                    string? feature = request.RemovedFeatures[i];
                     if (feature == null) continue;
                     var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == int.Parse(feature));
                     if (featureRecord != null)
@@ -153,11 +154,19 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     }
                 }
             }
-            if (request.RemovedImages != null && request.RemovedImages.Count() > 0)
+            if (request.RemovedImages != null && request.RemovedImages.Length > 0)
             {
-                for (int i = 0; i < request.RemovedImages.Count(); i++)
+                for (int i = 0; i < request.RemovedImages.Length; i++)
                 {
-
+                    string? image = request.RemovedImages[i];
+                    if (image == null) continue;
+                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c=>c.Id == int.Parse(image));
+                    if (imageRecord != null)
+                    {
+                        context.CatalogItemImage.Remove(imageRecord);
+                        //remove image file physically
+                        catalogItem.CatalogItemImages.Remove(imageRecord);
+                    }
                 }
             }
             context.SaveChanges();
