@@ -11,7 +11,7 @@
 
 <div class="container" style="padding:15px;">
     <h3>ویرایش محصول</h3>
-    @* <form id="editForm" class="form" asp-antiforgery="true" onsubmit="return Edit(event)"> *@
+    <form id="editForm" class="form" asp-antiforgery="true" method="post">
         <input type="hidden" asp-for="CatalogItem.Id" id="Id" />
         <div class="row">
         <div class="col-md-4">
@@ -173,7 +173,7 @@
             </fieldset>
         </div>
     </div>
-    @* </form> *@
+    </form>
 </div>
 
 
@@ -184,14 +184,6 @@
         imageForRemoveList = [];
         featureForRemoveList = [];
 
-        var CatalogItemFeatire = {
-            Key:"",
-            Value:"",
-            Group:""
-        }
-        var CatalogItemImage = {
-            Src: ""
-        }
         function removeImage(id) {
             Swal.fire({
                 title: "آیا از حذف تصویر اطمینان دارید؟",
@@ -244,7 +236,7 @@
             });
         }
         
-        function Edit(e) {
+        function Edit() {
 
             //دریافت عکس های انتخاب شده توسط کاربر 
             var addedImagesList = []
@@ -282,24 +274,24 @@
             var model = {
                 Id: $("#Id").val(),
                 Name: $("#Name").val(),
+                Description: $("#Description").val(),
+                Price: $("#Price").val(),
+                CatalogTypeId: $('#Category').find('option:selected').val(),
+                CatalogBrandId: $('#Brand').find('option:selected').val(),
                 AvailableStock: $("#AvailableStock").val(),
                 ReStockThreshold: $("#ReStockThreshold").val(),
                 MaxStockThreshold: $("#MaxStockThreshold").val(),
-                Price: $("#Price").val(),
-                Description: $("#Description").val(),
-                CatalogTypeId: $('#Category').find('option:selected').val(),
-                CatalogBrandId: $('#Brand').find('option:selected').val(),
                 RemovedImages: imageForRemoveList,
                 RemovedFeatures: featureForRemoveList,
-                AddedImages: addedImagesList,
                 AddedFeatures: addedFeaturesList,
+                AddedImages: addedImagesList,
             }
 
 
 
 
 
-
+            console.log(model)
 
             // var data = new FormData();
             // //دریافت مقادیر از تکس باکس ها و....
@@ -344,10 +336,21 @@
 
             var ajaxRequest = $.ajax({
                 type: "post",
-                url: "/catalogItems/edit",
-                contentType: JSON,
-                processData: false,
-                data: model,
+                // headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                headers:
+                {
+                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                url: "/catalogItems/edit?handler=Edit",
+                // contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                //data: JSON.stringify(model),                
+                data: model,                
+                //data: {"id":'23' },
                 success: function (result) {
                     console.log(result)
                     // if (result.isSuccess == true) {

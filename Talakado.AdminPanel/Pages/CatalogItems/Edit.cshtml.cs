@@ -42,7 +42,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             Message = model.Message;
         }
 
-        public JsonResult OnPost(CatalogItemEditRequestViewmodel request)
+        public JsonResult OnPostEdit(CatalogItemEditRequestViewmodel request)
         {
             //if (!ModelState.IsValid)
             //{
@@ -73,7 +73,6 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
             //var model = catalogItemService.Edit(resultService);
             return new JsonResult(request);
-
         }
     }
 }
