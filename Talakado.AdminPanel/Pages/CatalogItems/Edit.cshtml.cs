@@ -44,6 +44,31 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
 
         public JsonResult OnPostEdit(CatalogItemEditRequestViewmodel request)
         {
+            //upload images:
+            //if (request != null && request.AddedImages != null && request.AddedImages.Length>0) 
+            //{
+            //    for (int i = 0; i < request.AddedImages.Length; i++)
+            //    {
+            //        var file = request.AddedImages[i];
+            //        Files.Add(file);
+            //    }
+            //}
+            //List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
+            //if (Files.Count > 0)
+            //{
+            //    //Uploud
+            //    var result = imageUploadService.Upload(Files);
+            //    foreach (var item in result)
+            //    {
+            //        images.Add(new AddNewCatalogItemImage_Dto { Src = item });
+            //    }
+            //}
+            //if (images.Count > 0)
+            //{
+            //    CatalogItem.CatalogItemImages = images;
+            //}
+
+
             //if (!ModelState.IsValid)
             //{
             //    var allErrors = ModelState.Values.SelectMany(v => v.Errors);
@@ -68,11 +93,17 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             //{
             //    CatalogItem.CatalogItemImages = images;
             //}
-            
+
+
+            if(Request.Form.Files.Count > 0)
+            {
+                return new JsonResult("ok");
+            }
+            else 
 
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
             //var model = catalogItemService.Edit(resultService);
-            return new JsonResult(request);
+            return new JsonResult("request");
         }
     }
 }

@@ -11,7 +11,7 @@
 
 <div class="container" style="padding:15px;">
     <h3>ویرایش محصول</h3>
-    <form id="editForm" class="form" asp-antiforgery="true" method="post">
+    
         <input type="hidden" asp-for="CatalogItem.Id" id="Id" />
         <div class="row">
         <div class="col-md-4">
@@ -84,7 +84,10 @@
         <div class="col-md-4">
             <fieldset class="form-group">
                 <label for="basicInput">افزودن تصویر </label>
-                <input type="file" multiple class="form-control" accept="image/*" id="Images">
+                <form id="editForm" class="form" asp-antiforgery="true"  method="post">
+                    <input type="file" multiple class="form-control" accept="image/*" id="Images">
+                    <input type="button" id="sendImageBtn" value="ارسال تصویر" class="btn btn-default" />
+                </form>
             </fieldset>
         </div>
     </div>
@@ -135,15 +138,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.CatalogItem.CatalogItemFeatures)
+                        @if (Model != null && Model.CatalogItem != null && Model.CatalogItem.CatalogItemFeatures!= null && Model.CatalogItem.CatalogItemFeatures.Count > 0)
                         {
-                            <tr id="feature-@item.Id">
-                                @* <input type="hidden" value="@item.Id" /> *@
-                                <td>@item.Group</td>
-                                <td>@item.Key</td>
-                                <td>@item.Value</td>
-                                <td><img style="cursor:pointer" onclick="removeFeature('@item.Id')" width="20px" src="~/image/trash_remove_icon.png" /></td>
-                            </tr>
+                            @foreach (var item in Model.CatalogItem.CatalogItemFeatures)
+                            {
+                                <tr id="feature-@item.Id">
+                                    @* <input type="hidden" value="@item.Id" /> *@
+                                    <td>@item.Group</td>
+                                    <td>@item.Key</td>
+                                    <td>@item.Value</td>
+                                    <td><img style="cursor:pointer" onclick="removeFeature('@item.Id')" width="20px" src="~/image/trash_remove_icon.png" /></td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -156,8 +162,6 @@
         </div>
     </div>
     <div class="row">
-        
-        
         <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
             <fieldset class="form-group">
                 <label for="basicInput"> توضیحات</label>
@@ -173,7 +177,6 @@
             </fieldset>
         </div>
     </div>
-    </form>
 </div>
 
 
@@ -235,8 +238,39 @@
                 }
             });
         }
-        
+
+
+        $('#sendImageBtn').click(function () {
+            alert()
+            $.ajax({
+                type: "post",
+                contentType: "multipart/form-data",
+                processData: false,
+                headers:
+                {
+                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                traditional: true,
+                url: "/catalogItems/edit?handler=Edit",
+
+                data: "",
+                success: function (result) {
+                    console.log(result)
+
+                }
+            })
+        });
+
+
         function Edit() {
+            // e.preventDefault();
+
+            
+
 
             //دریافت عکس های انتخاب شده توسط کاربر 
             var addedImagesList = []
@@ -345,6 +379,7 @@
                     xhr.setRequestHeader("XSRF-TOKEN",
                         $('input:hidden[name="__RequestVerificationToken"]').val());
                 },
+                traditional: true,
                 url: "/catalogItems/edit?handler=Edit",
                 // contentType: "application/json; charset=utf-8",
                 // dataType: "json",
