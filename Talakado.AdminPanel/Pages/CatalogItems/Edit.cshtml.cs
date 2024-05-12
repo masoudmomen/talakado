@@ -42,12 +42,12 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             Message = model.Message;
         }
 
-        public JsonResult OnPostEdit(CatalogItemEditRequestViewmodel request)
+        public JsonResult OnPost(CatalogItemEditRequestViewmodel request)
         {
             //upload images:
-            //if (request != null && request.AddedImages != null && request.AddedImages.Length>0) 
+            //if (request != null && request.AddedImages != null && request.AddedImages.Count > 0)
             //{
-            //    for (int i = 0; i < request.AddedImages.Length; i++)
+            //    for (int i = 0; i < request.AddedImages.Count; i++)
             //    {
             //        var file = request.AddedImages[i];
             //        Files.Add(file);
@@ -95,15 +95,15 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             //}
 
 
-            if(Request.Form.Files.Count > 0)
-            {
-                return new JsonResult("ok");
-            }
-            else 
+            //if(Request.Form.Files.Count > 0)
+            //{
+            //    return new JsonResult("ok");
+            //}
+            //else 
 
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
             //var model = catalogItemService.Edit(resultService);
-            return new JsonResult("request");
+            return new JsonResult(request);
         }
     }
 }

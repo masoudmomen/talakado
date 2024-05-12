@@ -84,10 +84,8 @@
         <div class="col-md-4">
             <fieldset class="form-group">
                 <label for="basicInput">افزودن تصویر </label>
-                <form id="editForm" class="form" asp-antiforgery="true"  method="post">
                     <input type="file" multiple class="form-control" accept="image/*" id="Images">
                     <input type="button" id="sendImageBtn" value="ارسال تصویر" class="btn btn-default" />
-                </form>
             </fieldset>
         </div>
     </div>
@@ -239,38 +237,8 @@
             });
         }
 
-
-        $('#sendImageBtn').click(function () {
-            alert()
-            $.ajax({
-                type: "post",
-                contentType: "multipart/form-data",
-                processData: false,
-                headers:
-                {
-                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val()
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                },
-                traditional: true,
-                url: "/catalogItems/edit?handler=Edit",
-
-                data: "",
-                success: function (result) {
-                    console.log(result)
-
-                }
-            })
-        });
-
-
         function Edit() {
             // e.preventDefault();
-
-            
-
 
             //دریافت عکس های انتخاب شده توسط کاربر 
             var addedImagesList = []
@@ -291,19 +259,9 @@
                 addedFeaturesList.push(addedFeatureRow)
             })
 
-
-            // var addedFeaturesList = $('#tbl_Features tr:gt(0)').map(function () {
-            //     return {
-            //         Group: $(this.cells[0]).text(),
-            //         Key: $(this.cells[1]).text(),
-            //         Value: $(this.cells[2]).text(),
-            //     };
-            // }).get();
-            // $.each(dataFeaturesViewModel, function (i, val) {
-            //     data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
-            //     data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
-            //     data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
-            // });
+            //گرفتن فایل عکس از طریق form data
+            var imageData = new FormData();
+            imageData.append("AddedImages", catalogImages[0].files[0]);
 
             var model = {
                 Id: $("#Id").val(),
@@ -318,12 +276,9 @@
                 RemovedImages: imageForRemoveList,
                 RemovedFeatures: featureForRemoveList,
                 AddedFeatures: addedFeaturesList,
-                AddedImages: addedImagesList,
+                // AddedImages: addedImagesList,
+                AddedImages: imageData,
             }
-
-
-
-
 
             console.log(model)
 
