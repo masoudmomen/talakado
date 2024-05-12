@@ -1,4 +1,5 @@
 using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,6 +31,12 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         public List<string> Message { get; set; }
         //public CatalogItemEditRequestViewmodel Data { get; set; }
         public List<IFormFile> Files { get; set; }
+        public class UploadImageModel
+        {
+            public IFormFile? File { get; set; }
+            public string? UploadedFilePath { get; set; }
+            public bool IsUploaded { get; set; }
+        }
         public void OnGet(int id)
         {
             Categories = new SelectList(catalogItemService.GetCatalogType(), "Id", "Type");
@@ -42,7 +49,19 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             Message = model.Message;
         }
 
-        public JsonResult OnPost(CatalogItemEditRequestViewmodel request)
+
+        public JsonResult OnPostAsync(IFormFile formFile)
+        {
+            if (formFile != null && formFile.Length>0) {
+                return new JsonResult("ok");
+            }
+            else if(Request.Form.Files.Count>0) {
+                return new JsonResult("ok1");
+            }
+            return new JsonResult("no");
+        }
+
+        public JsonResult OnPostEdit(CatalogItemEditRequestViewmodel request)
         {
             //upload images:
             //if (request != null && request.AddedImages != null && request.AddedImages.Count > 0)
