@@ -31,12 +31,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         public List<string> Message { get; set; }
         //public CatalogItemEditRequestViewmodel Data { get; set; }
         public List<IFormFile> Files { get; set; }
-        public class UploadImageModel
-        {
-            public IFormFile? File { get; set; }
-            public string? UploadedFilePath { get; set; }
-            public bool IsUploaded { get; set; }
-        }
+        
         public void OnGet(int id)
         {
             Categories = new SelectList(catalogItemService.GetCatalogType(), "Id", "Type");
@@ -50,75 +45,56 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         }
 
 
-        public JsonResult OnPostAsync(IFormFile formFile)
+        public JsonResult OnPostAsync()
         {
-            if (formFile != null && formFile.Length>0) {
-                return new JsonResult("ok");
+            if(Request.Form.Files.Count>0) 
+            {
+                for (int i = 0; i < Request.Form.Files.Count; i++)
+                {
+                    var file = Request.Form.Files[i];
+                    Files.Add(file);
+                }
+                return new JsonResult("File Uploaded in Memory");
             }
-            else if(Request.Form.Files.Count>0) {
-                return new JsonResult("ok1");
-            }
-            return new JsonResult("no");
+            return new JsonResult("File Upload Failed");
         }
 
         public JsonResult OnPostEdit(CatalogItemEditRequestViewmodel request)
         {
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new JsonResult(new BaseDto<int>(false, allErrors.Select(p => p.ErrorMessage).ToList(), 0));
+            }
+
             //upload images:
-            //if (request != null && request.AddedImages != null && request.AddedImages.Count > 0)
-            //{
-            //    for (int i = 0; i < request.AddedImages.Count; i++)
-            //    {
-            //        var file = request.AddedImages[i];
-            //        Files.Add(file);
-            //    }
-            //}
-            //List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
-            //if (Files.Count > 0)
-            //{
-            //    //Uploud
-            //    var result = imageUploadService.Upload(Files);
-            //    foreach (var item in result)
-            //    {
-            //        images.Add(new AddNewCatalogItemImage_Dto { Src = item });
-            //    }
-            //}
+            List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
+            if (Files.Count > 0)
+            {
+                //Uploud
+                //var result = imageUploadService.Upload(Files);
+                //foreach (var item in result)
+                //{
+                //    images.Add(new AddNewCatalogItemImage_Dto { Src = item });
+                //}
+                string[] files = new string[Files.Count];
+                for (int i = 0; i<Files.Count; i++) 
+                {
+                    files[i] = Files[i].FileName;
+                }
+                request.AddedImages = files;
+            }
             //if (images.Count > 0)
             //{
             //    CatalogItem.CatalogItemImages = images;
             //}
 
 
-            //if (!ModelState.IsValid)
-            //{
-            //    var allErrors = ModelState.Values.SelectMany(v => v.Errors);
-            //    return new JsonResult(new BaseDto<int>(false, allErrors.Select(p => p.ErrorMessage).ToList(), 0));
-            //}
-            //for (int i = 0; i < Request.Form.Files.Count; i++)
-            //{
-            //    var file = Request.Form.Files[i];
-            //    Files.Add(file);
-            //}
-            //List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
-            //if (Files.Count > 0)
-            //{
-            //    //Uploud
-            //    var result = imageUploadService.Upload(Files);
-            //    foreach (var item in result)
-            //    {
-            //        images.Add(new AddNewCatalogItemImage_Dto { Src = item });
-            //    }
-            //}
-            //if (images.Count > 0)
-            //{
-            //    CatalogItem.CatalogItemImages = images;
-            //}
+            
+            
 
 
-            //if(Request.Form.Files.Count > 0)
-            //{
-            //    return new JsonResult("ok");
-            //}
-            //else 
+            
 
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
             //var model = catalogItemService.Edit(resultService);

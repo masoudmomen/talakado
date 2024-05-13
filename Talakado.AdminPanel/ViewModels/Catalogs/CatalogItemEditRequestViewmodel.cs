@@ -17,6 +17,6 @@ namespace Talakado.AdminPanel.ViewModels.Catalogs
         public string[]? RemovedImages { get; set; }
         public string[]? RemovedFeatures { get; set; }
         public string[]? AddedFeatures { get; set; }
-        public List<IFormFile> AddedImages { get; set; }
+        public string[]? AddedImages { get; set; }
     }
 }

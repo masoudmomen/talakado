@@ -283,7 +283,6 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                //traditional: true,
                 success: function (response) {
                     console.log(response);
                 },
@@ -299,13 +298,13 @@
             // e.preventDefault();
 
             //دریافت عکس های انتخاب شده توسط کاربر 
-            var addedImagesList = []
-            var catalogImages = document.getElementById("Images");
-            if (catalogImages.files.length > 0) {
-                for (var i = 0; i < catalogImages.files.length; i++) {
-                    addedImagesList.push(catalogImages.files[i]);
-                }
-            }
+            // var addedImagesList = []
+            // var catalogImages = document.getElementById("Images");
+            // if (catalogImages.files.length > 0) {
+            //     for (var i = 0; i < catalogImages.files.length; i++) {
+            //         addedImagesList.push(catalogImages.files[i]);
+            //     }
+            // }
 
             //دریافت ویژگی های اضاافه شده از جدول
             var addedFeaturesList = []
@@ -326,11 +325,13 @@
 
 
             //گرفتن فایل عکس از طریق form data
-            var formData = new FormData();
-            formData.append("file", catalogImages.files[0]);
+            // var formData = new FormData();
+            // formData.append("file", catalogImages.files[0]);
             
-            var formDataList =[]
-            formDataList.push(formData)
+            // var formDataList =[]
+            // formDataList.push(formData)
+
+            var AddedImages = []
 
             var model = {
                 Id: $("#Id").val(),
@@ -345,8 +346,7 @@
                 RemovedImages: imageForRemoveList,
                 RemovedFeatures: featureForRemoveList,
                 AddedFeatures: addedFeaturesList,
-                // AddedImages: addedImagesList,
-                AddedImages: formDataList,
+                AddedImages: AddedImages
             }
             
 
