@@ -72,29 +72,23 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             if (Files.Count > 0)
             {
                 //Uploud
-                //var result = imageUploadService.Upload(Files);
-                //foreach (var item in result)
-                //{
-                //    images.Add(new AddNewCatalogItemImage_Dto { Src = item });
-                //}
-                string[] files = new string[Files.Count];
-                for (int i = 0; i<Files.Count; i++) 
+                var result = imageUploadService.Upload(Files);
+                foreach (var item in result)
                 {
-                    files[i] = Files[i].FileName;
+                    images.Add(new AddNewCatalogItemImage_Dto { Src = item });
                 }
-                request.AddedImages = files;
             }
-            //if (images.Count > 0)
-            //{
-            //    CatalogItem.CatalogItemImages = images;
-            //}
+            if (images.Count > 0)
+            {
+                CatalogItem.CatalogItemImages = images;
+            }
+            CatalogItem.Price = request.Price;
+            CatalogItem.Description = request.Description;
 
 
-            
-            
 
 
-            
+
 
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
             //var model = catalogItemService.Edit(resultService);

@@ -190,6 +190,8 @@
     <script>
         imageForRemoveList = [];
         featureForRemoveList = [];
+        isUploadImages = false;
+
 
         function removeImage(id) {
             Swal.fire({
@@ -244,29 +246,7 @@
         }
 
 
-        //گرفتن فایل عکس از طریق formdata
-        // $(document).ready(function () {
-        //     $('#sendImageBtn').on('click', function () {
-        //         var catalogImages = document.getElementById("Images")
-        //         var file = catalogImages.files[0];
-        //         var formData = new FormData();
-        //         formData.append('file', file);
-        //         console.log(formData)
-        //         $.ajax({
-        //             url: "/catalogItems/edit",
-        //             method: "POST",
-        //             data: formData,
-        //             processData: false,
-        //             contentType: false,
-        //             success: function (response) {
-        //                 console.log(response);
-        //             },
-        //             error: function (error) {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     });
-        // });
+       
 
 
        function upload(e){
@@ -285,6 +265,7 @@
                 contentType: false,
                 success: function (response) {
                     console.log(response);
+                    isUploadImages = true;
                 },
                 error: function (error) {
                     console.log(error);
@@ -298,40 +279,30 @@
             // e.preventDefault();
 
             //دریافت عکس های انتخاب شده توسط کاربر 
-            // var addedImagesList = []
-            // var catalogImages = document.getElementById("Images");
-            // if (catalogImages.files.length > 0) {
-            //     for (var i = 0; i < catalogImages.files.length; i++) {
-            //         addedImagesList.push(catalogImages.files[i]);
-            //     }
-            // }
+            var catalogImages = document.getElementById("Images");
+            if ((catalogImages.files.length > 0 && isUploadImages == true) || (catalogImages.files.length == 0 && isUploadImages == false)) {
+                sendDataForEdit()
+            }
+            else {
+                swal.fire(
+                    'هشدار!',
+                    "قبل از ثبت ویرایش ارسال تصویر را کلیک کنید",
+                    'warning'
+                );
+            }
+        }
 
+        function sendDataForEdit() {
             //دریافت ویژگی های اضاافه شده از جدول
             var addedFeaturesList = []
             $('#tbl_Features tr').each(function () {
                 var addedFeatureRow = []
-                $(this).find('.feature').each(function (i,txt) {
+                $(this).find('.feature').each(function (i, txt) {
                     addedFeatureRow.push(txt.textContent)
                 })
                 addedFeaturesList.push(addedFeatureRow)
             })
 
-
-
-
-            
-            
-
-
-
-            //گرفتن فایل عکس از طریق form data
-            // var formData = new FormData();
-            // formData.append("file", catalogImages.files[0]);
-            
-            // var formDataList =[]
-            // formDataList.push(formData)
-
-            var AddedImages = []
 
             var model = {
                 Id: $("#Id").val(),
@@ -346,54 +317,12 @@
                 RemovedImages: imageForRemoveList,
                 RemovedFeatures: featureForRemoveList,
                 AddedFeatures: addedFeaturesList,
-                AddedImages: AddedImages
+                //AddedImages: addedImagesList
             }
-            
-
 
             console.log(model)
 
-            // var data = new FormData();
-            // //دریافت مقادیر از تکس باکس ها و....
-            // data.append("Id", $("#Id").val());
-            // data.append("Name", $("#Name").val());
-            // data.append("AvailableStock", $("#AvailableStock").val());
-            // data.append("ReStockThreshold", $("#ReStockThreshold").val());
-            // data.append("MaxStockThreshold", $("#MaxStockThreshold").val());
-            // data.append("Price", $("#Price").val());
-            // data.append("Description", $("#Description").val());
-            // data.append("RemovedImages", imageForRemoveList);
-            // data.append("RemovedFeatures", featureForRemoveList);
-
-            // data.append("CatalogTypeId", $('#Category').find('option:selected').val());
-            // data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
-
-            // //دریافت عکس های انتخاب شده توسط کاربر و قرار دادن عکس ها در متغیر data
-            // var catalogImages = document.getElementById("Images");
-            // if (catalogImages.files.length > 0) {
-            //     for (var i = 0; i < catalogImages.files.length; i++) {
-            //         data.append('CatalogItemImages-' + i, catalogImages.files[i]);
-            //     }
-            // }
-
-            // //دریافت ویژگی های محصول از جدول
-            // var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
-            //     return {
-            //         Group: $(this.cells[0]).text(),
-            //         Key: $(this.cells[1]).text(),
-            //         Value: $(this.cells[2]).text(),
-            //     };
-            // }).get();
-
-            // $.each(dataFeaturesViewModel, function (i, val) {
-            //     data.append('CatalogItemFeatures[' + i + '].Group', val.Group);
-            //     data.append('CatalogItemFeatures[' + i + '].Key', val.Key);
-            //     data.append('CatalogItemFeatures[' + i + '].Value', val.Value);
-            // });
-
-
-            //console.log(model)
-
+            // ارسال مدل به سرور
             var ajaxRequest = $.ajax({
                 type: "post",
                 // headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
@@ -409,8 +338,8 @@
                 url: "/catalogItems/edit?handler=Edit",
                 // contentType: "application/json; charset=utf-8",
                 // dataType: "json",
-                //data: JSON.stringify(model),                
-                data: model,                
+                //data: JSON.stringify(model),
+                data: model,
                 //data: {"id":'23' },
                 success: function (result) {
                     console.log(result)
@@ -440,6 +369,7 @@
                 // Do other operation
             });
         }
+
 
         $("#btnAddFeatures").on("click", function () {
             
