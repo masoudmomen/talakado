@@ -142,16 +142,30 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             }
             if (request.AddedFeatures != null && request.AddedFeatures.Length > 0)
             {
-                for (var i =0; i< request.AddedFeatures.Length; i++)
+                for (var i = 0; i < request.AddedFeatures.Length; i++)           //< request.AddedFeatures.Length
                 {
-                    catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
+                    //catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
+                    //{
+                    //    CatalogItem = catalogItem,
+                    //    CatalogItemId = request.Id,
+                    //    Group = request.AddedFeatures[i][0],
+                    //    Key = request.AddedFeatures[i][1],
+                    //    Value = request.AddedFeatures[i][2]
+                    //});
+
+                    string Group = request.AddedFeatures[i][0];
+                    string Key = request.AddedFeatures[i][1];
+                    string Value = request.AddedFeatures[i][2];
+
+                    context.CatalogItemFeature.Add(new CatalogItemFeature()
                     {
                         CatalogItem = catalogItem,
                         CatalogItemId = request.Id,
-                        Group = request.AddedFeatures[i][0],
-                        Key = request.AddedFeatures[i][1],
-                        Value = request.AddedFeatures[i][2]
+                        Group = Group,
+                        Key = Key,
+                        Value = Value
                     });
+
                 }
                 //foreach (var item in request.AddedFeatures)
                 //{
