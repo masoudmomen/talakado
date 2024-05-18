@@ -1,9 +1,13 @@
-﻿using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
-using Talakado.Domain.Catalogs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
 
-namespace Talakado.AdminPanel.ViewModels.Catalogs
+namespace Talakado.Application.Catalogs.CatalogItems
 {
-    public class CatalogItemEditRequestViewmodel
+    public class CatalogItemEditRequestDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +21,6 @@ namespace Talakado.AdminPanel.ViewModels.Catalogs
         public string[]? RemovedImages { get; set; }
         public string[]? RemovedFeatures { get; set; }
         public string[][]? AddedFeatures { get; set; }
-        //public string[]? AddedImages { get; set; }
+        public List<AddNewCatalogItemImage_Dto>? AddedImages { get; set; }
     }
 }

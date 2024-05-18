@@ -20,7 +20,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         List<ListCatalogTypeDto> GetCatalogType();
         PaginatedItemDto<CatalogItemListItemDto> GetCatalogList(int page, int pageSize);
         BaseDto<CatalogItemsDto> FindById(int id);
-        BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request);
+        BaseDto<CatalogItemsDto> Edit(CatalogItemEditRequestDto request);
     }
 
     public class CatalogItemService : ICatalogItemService
@@ -93,15 +93,30 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             return types;
         }
 
-        public BaseDto<CatalogItemsDto> Edit(CatalogItemsDto request)
+        public BaseDto<CatalogItemsDto> Edit(CatalogItemEditRequestDto request)
         {
             var catalogItem = context.CatalogItems.SingleOrDefault(p => p.Id == request.Id);
             if (catalogItem == null) return new BaseDto<CatalogItemsDto>(
                 false,
-                new List<string> { "کاتالوگ آیتم یافت نشد"},
-                request);
-            catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList();
-            catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList();
+                new List<string> { "کاتالوگ آیتم یافت نشد" },
+                new CatalogItemsDto
+                {
+                    Id = request.Id,
+                    Name = request.Name,
+                    AvailableStock = request.AvailableStock,
+                    CatalogBrandId = request.CatalogBrandId,
+                    CatalogTypeId = request.CatalogTypeId,
+                    Description = request.Description,
+                    MaxStockThreshold = request.MaxStockThreshold,
+                    Price = request.Price,
+                    ReStockThreshold = request.ReStockThreshold,
+                    CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList(),
+                    CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList(),
+                    RemovedFeatures = request.RemovedFeatures,
+                    RemovedImages = request.RemovedImages
+                });
+            //catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList();
+            //catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList();
             //mapper.Map(request, catalogItem);
             //context.SaveChanges();
             catalogItem.Name = request.Name;
@@ -113,9 +128,9 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             catalogItem.ReStockThreshold = request.MaxStockThreshold;
             catalogItem.Description = request.Description;
 
-            if (request.CatalogItemImages.Count > 0)
+            if (request.AddedImages != null && request.AddedImages.Count > 0)
             {
-                foreach (var item in request.CatalogItemImages)
+                foreach (var item in request.AddedImages)
                 {
                     catalogItem.CatalogItemImages.Add(new CatalogItemImage()
                     {
@@ -125,19 +140,30 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     });
                 }
             }
-            if (request.CatalogItemFeatures.Count > 0)
+            if (request.AddedFeatures != null && request.AddedFeatures.Length > 0)
             {
-                foreach (var item in request.CatalogItemFeatures)
+                for (var i =0; i< request.AddedFeatures.Length; i++)
                 {
                     catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
                     {
                         CatalogItem = catalogItem,
                         CatalogItemId = request.Id,
-                        Group = item.Group,
-                        Key = item.Key,
-                        Value = item.Value
+                        Group = request.AddedFeatures[i][0],
+                        Key = request.AddedFeatures[i][1],
+                        Value = request.AddedFeatures[i][2]
                     });
                 }
+                //foreach (var item in request.AddedFeatures)
+                //{
+                //    catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
+                //    {
+                //        CatalogItem = catalogItem,
+                //        CatalogItemId = request.Id,
+                //        Group = item[0],
+                //        Key = item[1],
+                //        Value = item[2]
+                //    });
+                //}
             }
             
             if (request.RemovedFeatures != null && request.RemovedFeatures.Length > 0)

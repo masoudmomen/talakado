@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Talakado.AdminPanel.ViewModels.Catalogs;
+using Talakado.Application.Catalogs.CatalogItems;
 using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
 using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using Talakado.Application.Dtos;
@@ -67,6 +68,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
                 return new JsonResult(new BaseDto<int>(false, allErrors.Select(p => p.ErrorMessage).ToList(), 0));
             }
 
+            var model = new CatalogItemEditRequestDto();
+
             //upload images:
             List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
             if (Files.Count > 0)
@@ -80,19 +83,29 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             }
             if (images.Count > 0)
             {
-                CatalogItem.CatalogItemImages = images;
+                //CatalogItem.CatalogItemImages = images;
+                model.AddedImages = images;
             }
-            CatalogItem.Price = request.Price;
-            CatalogItem.Description = request.Description;
 
 
-
+            model.Price = request.Price;
+            model.Description = request.Description;
+            model.AvailableStock = request.AvailableStock;
+            model.CatalogBrandId = request.CatalogBrandId;
+            model.CatalogTypeId = request.CatalogTypeId;
+            model.ReStockThreshold = request.ReStockThreshold;
+            model.MaxStockThreshold = request.MaxStockThreshold;
+            model.Id = request.Id;
+            model.Name = request.Name;
+            model.AddedFeatures = request.AddedFeatures;
+            model.RemovedFeatures = request.RemovedFeatures;
+            model.RemovedImages = request.RemovedImages;
 
 
 
             //var resultService = mapper.Map<CatalogItemsDto>(CatalogItem);
-            //var model = catalogItemService.Edit(resultService);
-            return new JsonResult(request);
+            var resultService = catalogItemService.Edit(model);
+            return new JsonResult(resultService);
         }
     }
 }

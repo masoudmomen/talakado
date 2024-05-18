@@ -294,7 +294,7 @@
 
         function sendDataForEdit() {
             //دریافت ویژگی های اضاافه شده از جدول
-            var addedFeaturesList = []
+            var addedFeaturesList = [[]]
             $('#tbl_Features tr').each(function () {
                 var addedFeatureRow = []
                 $(this).find('.feature').each(function (i, txt) {
@@ -302,7 +302,7 @@
                 })
                 addedFeaturesList.push(addedFeatureRow)
             })
-
+            addedFeaturesList.splice(0, 1);
 
             var model = {
                 Id: $("#Id").val(),
