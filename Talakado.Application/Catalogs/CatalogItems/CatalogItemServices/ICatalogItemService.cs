@@ -2,6 +2,7 @@
 using Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using MongoDB.Driver.Core.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,10 +116,13 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     RemovedFeatures = request.RemovedFeatures,
                     RemovedImages = request.RemovedImages
                 });
+
             //catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList();
             //catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList();
             //mapper.Map(request, catalogItem);
             //context.SaveChanges();
+
+            #region Edit Catalog Item Fields
             catalogItem.Name = request.Name;
             catalogItem.Price = request.Price;
             catalogItem.CatalogBrandId = request.CatalogBrandId;
@@ -127,7 +131,9 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             catalogItem.MaxStockThreshold = request.MaxStockThreshold;
             catalogItem.ReStockThreshold = request.MaxStockThreshold;
             catalogItem.Description = request.Description;
+            #endregion
 
+            #region Add Image
             if (request.AddedImages != null && request.AddedImages.Count > 0)
             {
                 foreach (var item in request.AddedImages)
@@ -140,46 +146,33 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     });
                 }
             }
+            #endregion
+
+            #region Add Feature
             if (request.AddedFeatures != null && request.AddedFeatures.Length > 0)
             {
-                for (var i = 0; i < request.AddedFeatures.Length; i++)           //< request.AddedFeatures.Length
+                foreach (var item in request.AddedFeatures)
                 {
-                    //catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
-                    //{
-                    //    CatalogItem = catalogItem,
-                    //    CatalogItemId = request.Id,
-                    //    Group = request.AddedFeatures[i][0],
-                    //    Key = request.AddedFeatures[i][1],
-                    //    Value = request.AddedFeatures[i][2]
-                    //});
-
-                    string Group = request.AddedFeatures[i][0];
-                    string Key = request.AddedFeatures[i][1];
-                    string Value = request.AddedFeatures[i][2];
-
-                    context.CatalogItemFeature.Add(new CatalogItemFeature()
+                    if(item != null)
                     {
-                        CatalogItem = catalogItem,
-                        CatalogItemId = request.Id,
-                        Group = Group,
-                        Key = Key,
-                        Value = Value
-                    });
-
+                        string[] feature = item.Split(",");
+                        if (catalogItem != null)
+                        {
+                            context.CatalogItemFeature.Add(new CatalogItemFeature()
+                            {
+                                CatalogItem = catalogItem,
+                                CatalogItemId = request.Id,
+                                Group = feature[0],
+                                Key = feature[1],
+                                Value = feature[2]
+                            });
+                        }
+                    }
                 }
-                //foreach (var item in request.AddedFeatures)
-                //{
-                //    catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature()
-                //    {
-                //        CatalogItem = catalogItem,
-                //        CatalogItemId = request.Id,
-                //        Group = item[0],
-                //        Key = item[1],
-                //        Value = item[2]
-                //    });
-                //}
             }
-            
+            #endregion
+
+            #region Remove Feature
             if (request.RemovedFeatures != null && request.RemovedFeatures.Length > 0)
             {
                 for (int i = 0; i < request.RemovedFeatures.Length; i++)
@@ -194,6 +187,9 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     }
                 }
             }
+            #endregion
+
+            #region Remove Image
             if (request.RemovedImages != null && request.RemovedImages.Length > 0)
             {
                 for (int i = 0; i < request.RemovedImages.Length; i++)
@@ -209,6 +205,9 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     }
                 }
             }
+            #endregion
+
+
             context.SaveChanges();
             var model = mapper.Map<CatalogItemsDto>(catalogItem);
             return new BaseDto<CatalogItemsDto>(
@@ -216,7 +215,6 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
                 model
                 );
-                
         }
     }
 }
