@@ -296,9 +296,9 @@
             //دریافت ویژگی های اضاافه شده از جدول
             var addedFeaturesList = [[]]
             $('#tbl_Features tr').each(function () {
-                var addedFeatureRow = []
+                var addedFeatureRow = ""
                 $(this).find('.feature').each(function (i, txt) {
-                    addedFeatureRow.push(txt.textContent)
+                    addedFeatureRow += txt.textContent + ","
                 })
                 addedFeaturesList.push(addedFeatureRow)
             })
