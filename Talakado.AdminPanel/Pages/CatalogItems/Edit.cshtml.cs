@@ -31,7 +31,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         public SelectList Brands { get; set; }
         public List<string> Message { get; set; }
         //public CatalogItemEditRequestViewmodel Data { get; set; }
-        public List<IFormFile> Files { get; set; }
+        public List<IFormFile> Files { get; set; } = new List<IFormFile>();
         
         public void OnGet(int id)
         {
@@ -48,7 +48,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
 
         public JsonResult OnPostAsync()
         {
-            if(Request.Form.Files.Count>0) 
+            Files.RemoveRange(0, Files.Count);
+            if (Request.Form.Files.Count > 0)
             {
                 for (int i = 0; i < Request.Form.Files.Count; i++)
                 {
@@ -70,6 +71,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
 
             var model = new CatalogItemEditRequestDto();
 
+
+            
             //upload images:
             List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
             if (Files.Count > 0)
