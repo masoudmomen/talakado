@@ -53,7 +53,10 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
                 for (int i = 0; i < Request.Form.Files.Count; i++)
                 {
                     var file = Request.Form.Files[i];
-                    Files.Add(file);
+                    if (file != null)
+                    {
+                        Files.Add(file);
+                    }
                 }
                 return new JsonResult("File Uploaded in Memory");
             }
