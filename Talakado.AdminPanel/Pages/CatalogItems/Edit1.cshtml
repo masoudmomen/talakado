@@ -156,8 +156,21 @@
                 </tbody>
             </table>
             <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
-
-                <tbody>
+                <tbody><span>ویژگی های افزوده شده:</span>
+                        <tr style="visibility:hidden">
+                            <th>
+                                گروه
+                            </th>
+                            <th>
+                                نام ویژگی
+                            </th>
+                            <th>
+                                مقدار ویژگی
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
                 </tbody>
             </table>
         </div>
@@ -297,7 +310,6 @@
                     Value: $(this.cells[2]).text(),
                 };
             }).get();
-
             $.each(dataFeaturesViewModel, function (i, val) {
                 data.append('Features[' + i + '].Group', val.Group);
                 data.append('Features[' + i + '].Key', val.Key);
@@ -324,17 +336,6 @@
                 // Do other operation
             });
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -431,7 +432,7 @@
                 );
             }
             else {
-                $('#tbl_Features tbody').append('<tr><td class="feature">' + txtGroup + '</td>  <td class="feature">' + txtDisplayName + '</td>  <td class="feature">' + txtValue + '</td> <td><img style="cursor:pointer" onclick="removeFeature1(this)" width="20px" src="../../image/trash_remove_icon.png" /> </td> </tr>');
+                $('#tbl_Features tbody').append('<tr><td class="feature">' + txtGroup + '</td><td class="feature">' + txtDisplayName + '</td><td class="feature">' + txtValue + '</td> <td><img style="cursor:pointer" onclick="removeFeature1(this)" width="20px" src="../../image/trash_remove_icon.png" /></td> </tr>');
             }
         });
     </script>
