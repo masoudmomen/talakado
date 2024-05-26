@@ -293,6 +293,8 @@
             data.append("Description", $("#Description").val());
             data.append("CatalogTypeId", $('#Category').find('option:selected').val());
             data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
+            data.append("RemovedImages", imageForRemoveList);
+            data.append("RemovedFeatures", featureForRemoveList);
 
             //دریافت عکس های انتخاب شده توسط کاربر
             var catalogImages = document.getElementById("Images");
@@ -302,19 +304,36 @@
                     data.append("AddedImage-" + i, catalogImages.files[i]);
                 }
             }
+            //دریافت ویژگی های اضاافه شده از جدول
+            var addedFeaturesList = [[]]
+            $('#tbl_Features tr').each(function () {
+                var addedFeatureRow = ""
+                $(this).find('.feature').each(function (i, txt) {
+                    addedFeatureRow += txt.textContent + ","
+                })
+                addedFeaturesList.push(addedFeatureRow)
+            })
+            addedFeaturesList.splice(0, 1);
+            data.append("AddedFeatures", addedFeaturesList);
+
+
+
+
             //دریافت ویژگی های محصول از جدول
-            var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
-                return {
-                    Group: $(this.cells[0]).text(),
-                    Key: $(this.cells[1]).text(),
-                    Value: $(this.cells[2]).text(),
-                };
-            }).get();
-            $.each(dataFeaturesViewModel, function (i, val) {
-                data.append('Features[' + i + '].Group', val.Group);
-                data.append('Features[' + i + '].Key', val.Key);
-                data.append('Features[' + i + '].Value', val.Value);
-            });
+            
+            // var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
+            //     return {
+            //         Group: $(this.cells[0]).text(),
+            //         Key: $(this.cells[1]).text(),
+            //         Value: $(this.cells[2]).text(),
+            //     };
+            // }).get();
+            // data.append("AddedFeatures", dataFeaturesViewModel);
+            // $.each(dataFeaturesViewModel, function (i, val) {
+            //     data.append('Features[' + i + '].Group', val.Group);
+            //     data.append('Features[' + i + '].Key', val.Key);
+            //     data.append('Features[' + i + '].Value', val.Value);
+            // });
 
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({
