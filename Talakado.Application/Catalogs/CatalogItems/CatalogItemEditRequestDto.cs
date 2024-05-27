@@ -20,7 +20,7 @@ namespace Talakado.Application.Catalogs.CatalogItems
         public int MaxStockThreshold { get; set; }
         public string[]? RemovedImages { get; set; }
         public string[]? RemovedFeatures { get; set; }
-        public string[]? AddedFeatures { get; set; }
+        public string[][]? AddedFeatures { get; set; }
         //public List<AddNewCatalogItemFeature_Dto>? AddedFeature { get; set; }
         public List<AddNewCatalogItemImage_Dto>? AddedImages { get; set; }
     }

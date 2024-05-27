@@ -155,16 +155,16 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 {
                     if(item != null)
                     {
-                        string[] feature = item.Split(",");
+                        //string[] feature = item.Split(",");
                         if (catalogItem != null)
                         {
                             context.CatalogItemFeature.Add(new CatalogItemFeature()
                             {
                                 CatalogItem = catalogItem,
                                 CatalogItemId = request.Id,
-                                Group = feature[0],
-                                Key = feature[1],
-                                Value = feature[2]
+                                //Group = feature[0],
+                                //Key = feature[1],
+                                //Value = feature[2]
                             });
                         }
                     }

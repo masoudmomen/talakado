@@ -103,7 +103,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             model.MaxStockThreshold = request.MaxStockThreshold;
             model.Id = request.Id;
             model.Name = request.Name;
-            model.AddedFeatures = request.AddedFeatures;
+            //model.AddedFeatures = request.AddedFeatures;
             model.RemovedFeatures = request.RemovedFeatures;
             model.RemovedImages = request.RemovedImages;
 

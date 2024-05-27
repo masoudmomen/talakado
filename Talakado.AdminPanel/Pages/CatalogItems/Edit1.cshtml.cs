@@ -76,7 +76,16 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             }
             #endregion
             #region Add Feature
-            editRequest.AddedFeatures = Request.Form["AddedFeatures"];
+            string features = Request.Form["AddedFeatures"];            
+            string[] arrayOfFeature = features.Split(",");
+            string[][] array2DFeature = new string[(char)arrayOfFeature.Length/3][];
+            int j = 0;
+            for (int i = 1; i < arrayOfFeature.Length; i++)
+            {
+                if (i % 4 != 0) array2DFeature[j][i] = arrayOfFeature[i];
+                j++;
+            }
+            editRequest.AddedFeatures = array2DFeature;
             #endregion
             #region Remove Images and Feature
             editRequest.RemovedImages = Request.Form["RemovedImages"];

@@ -305,15 +305,16 @@
                 }
             }
             //دریافت ویژگی های اضاافه شده از جدول
-            var addedFeaturesList = [[]]
+            var addedFeaturesList = ""
             $('#tbl_Features tr').each(function () {
-                var addedFeatureRow = ""
+                addedFeaturesList += "-"
                 $(this).find('.feature').each(function (i, txt) {
-                    addedFeatureRow += txt.textContent + ","
+                    addedFeaturesList += txt.textContent + ","
                 })
-                addedFeaturesList.push(addedFeatureRow)
+                //addedFeaturesList.push(addedFeatureRow)
             })
-            addedFeaturesList.splice(0, 1);
+            //addedFeaturesList.splice(0, 1);
+            console.log(addedFeaturesList)
             data.append("AddedFeatures", addedFeaturesList);
 
 
@@ -357,86 +358,6 @@
         }
 
 
-
-        function sendDataForEdit() {
-            //دریافت ویژگی های اضاافه شده از جدول
-            var addedFeaturesList = [[]]
-            $('#tbl_Features tr').each(function () {
-                var addedFeatureRow = []
-                $(this).find('.feature').each(function (i, txt) {
-                    addedFeatureRow.push(txt.textContent)
-                })
-                addedFeaturesList.push(addedFeatureRow)
-            })
-            addedFeaturesList.splice(0, 1);
-
-            var model = {
-                Id: $("#Id").val(),
-                Name: $("#Name").val(),
-                Description: $("#Description").val(),
-                Price: $("#Price").val(),
-                CatalogTypeId: $('#Category').find('option:selected').val(),
-                CatalogBrandId: $('#Brand').find('option:selected').val(),
-                AvailableStock: $("#AvailableStock").val(),
-                ReStockThreshold: $("#ReStockThreshold").val(),
-                MaxStockThreshold: $("#MaxStockThreshold").val(),
-                RemovedImages: imageForRemoveList,
-                RemovedFeatures: featureForRemoveList,
-                AddedFeatures: addedFeaturesList,
-                //AddedImages: addedImagesList
-            }
-
-            console.log(model)
-
-            // ارسال مدل به سرور
-            var ajaxRequest = $.ajax({
-                type: "post",
-                // headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                headers:
-                {
-                    "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val()
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                },
-                traditional: true,
-                url: "/catalogItems/edit?handler=Edit",
-                // contentType: "application/json; charset=utf-8",
-                // dataType: "json",
-                //data: JSON.stringify(model),
-                data: model,
-                //data: {"id":'23' },
-                success: function (result) {
-                    console.log(result)
-                    // if (result.isSuccess == true) {
-                    //     console.log(result)
-                    //     swal.fire(
-                    //         'هشدار!',
-                    //         "کاتالوگ با موفقیت ویرایش شد",
-                    //         'success'
-                    //     );
-                    // }
-                    // else {
-                    //     swal.fire(
-                    //         'هشدار!',
-                    //         "کاتالوگ ویرایش نشد",
-                    //         'error'
-                    //     );
-                    // }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-
-            ajaxRequest.done(function (xhr, textStatus) {
-                // Do other operation
-            });
-        }
-
-
         $("#btnAddFeatures").on("click", function () {
 
             var txtDisplayName = $("#txtDisplayName").val();
@@ -452,6 +373,9 @@
             }
             else {
                 $('#tbl_Features tbody').append('<tr><td class="feature">' + txtGroup + '</td><td class="feature">' + txtDisplayName + '</td><td class="feature">' + txtValue + '</td> <td><img style="cursor:pointer" onclick="removeFeature1(this)" width="20px" src="../../image/trash_remove_icon.png" /></td> </tr>');
+                $("#txtDisplayName").val(null);
+                $("#txtValue").val(null);
+                $("#txtGroup").val(null);
             }
         });
     </script>
