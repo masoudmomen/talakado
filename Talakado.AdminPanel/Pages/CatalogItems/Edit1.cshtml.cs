@@ -46,6 +46,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         {
             var editRequest = new CatalogItemEditRequestDto();
             #region Fill Fields
+            editRequest.Id = int.Parse(Request.Form["Id"]);
             editRequest.Name = Request.Form["Name"];
             editRequest.CatalogBrandId = int.Parse(Request.Form["CatalogBrandId"]);
             editRequest.CatalogTypeId = int.Parse(Request.Form["CatalogTypeId"]);
@@ -76,24 +77,32 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             }
             #endregion
             #region Add Feature
-            string features = Request.Form["AddedFeatures"];            
-            string[] arrayOfFeature = features.Split(",");
-            string[][] array2DFeature = new string[(char)arrayOfFeature.Length/3][];
-            int j = 0;
-            for (int i = 1; i < arrayOfFeature.Length; i++)
+            string features = Request.Form["AddedFeatures"];
+            string[] array1Feature = features.Split("-");
+            string[][] array2Feature = new string[array1Feature.Length][];
+            for (int i = 0; i < array2Feature.Length; i++)
             {
-                if (i % 4 != 0) array2DFeature[j][i] = arrayOfFeature[i];
-                j++;
+                string[] arrayTemp = array1Feature[i].Split(",");
+                array2Feature[i] = arrayTemp;
             }
-            editRequest.AddedFeatures = array2DFeature;
+            editRequest.AddedFeatures = array2Feature;
             #endregion
             #region Remove Images and Feature
             editRequest.RemovedImages = Request.Form["RemovedImages"];
-            editRequest.RemovedFeatures = Request.Form["RemovedFeatures"];
+            editRequest.RemovedFeatures = new string[Request.Form["RemovedFeatures"].Count];
+            if (Request.Form["RemovedFeatures"].Count>0)
+            {
+                for (int i = 0; i < Request.Form["RemovedFeatures"].Count; i++)
+                {
+                    editRequest.RemovedFeatures[i] = Request.Form["RemovedFeatures"][i];
+                }
+            }
+            //editRequest.RemovedFeatures = Request.Form["RemovedFeatures"];
             #endregion
+
+            catalogItemService.Edit(editRequest);
 
             return new JsonResult(editRequest);
         }
-
     }
 }

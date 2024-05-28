@@ -37,7 +37,11 @@ builder.Services.AddTransient<IImageUploadService, ImageUploadService>();
 #region Connection String
 builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
 var connection = builder.Configuration["ConnectionString:sqlServer"];
-builder.Services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(connection));
+builder.Services.AddDbContext<DataBaseContext>(option =>
+{
+    option.UseSqlServer(connection);
+    option.EnableSensitiveDataLogging();
+});
 builder.Services.AddIdentityService(builder.Configuration);
 #endregion
 

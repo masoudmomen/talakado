@@ -285,6 +285,7 @@
         function Edit(e) {
             //e.preventDefault();
             var data = new FormData();
+            data.append("Id", $("#Id").val());
             data.append("Name", $("#Name").val());
             data.append("AvailableStock", $("#AvailableStock").val());
             data.append("ReStockThreshold", $("#ReStockThreshold").val());
@@ -311,9 +312,8 @@
                 $(this).find('.feature').each(function (i, txt) {
                     addedFeaturesList += txt.textContent + ","
                 })
-                //addedFeaturesList.push(addedFeatureRow)
             })
-            //addedFeaturesList.splice(0, 1);
+            addedFeaturesList = addedFeaturesList.replace("--", "");
             console.log(addedFeaturesList)
             data.append("AddedFeatures", addedFeaturesList);
 

@@ -138,11 +138,17 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             {
                 foreach (var item in request.AddedImages)
                 {
-                    catalogItem.CatalogItemImages.Add(new CatalogItemImage()
+                    //catalogItem.CatalogItemImages.Add(new CatalogItemImage()
+                    //{
+                    //    CatalogItemId = request.Id,
+                    //    CatalogItem = catalogItem,
+                    //    Src = (item.Src != null)? item.Src : "no src"
+                    //});
+                    context.CatalogItemImage.Add(new CatalogItemImage
                     {
-                        CatalogItemId = request.Id,
                         CatalogItem = catalogItem,
-                        Src = item.Src
+                        CatalogItemId = request.Id,
+                        Src = (item.Src != null) ? item.Src : "no src"
                     });
                 }
             }
@@ -153,37 +159,31 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             {
                 foreach (var item in request.AddedFeatures)
                 {
-                    if(item != null)
+                    context.CatalogItemFeature.Add(new CatalogItemFeature()
                     {
-                        //string[] feature = item.Split(",");
-                        if (catalogItem != null)
-                        {
-                            context.CatalogItemFeature.Add(new CatalogItemFeature()
-                            {
-                                CatalogItem = catalogItem,
-                                CatalogItemId = request.Id,
-                                //Group = feature[0],
-                                //Key = feature[1],
-                                //Value = feature[2]
-                            });
-                        }
-                    }
+                        CatalogItem = catalogItem,
+                        CatalogItemId = request.Id,
+                        Group = item[0],
+                        Key = item[1],
+                        Value = item[2]
+                    });
                 }
             }
             #endregion
 
             #region Remove Feature
+
             if (request.RemovedFeatures != null && request.RemovedFeatures.Length > 0)
             {
                 for (int i = 0; i < request.RemovedFeatures.Length; i++)
                 {
-                    string? feature = request.RemovedFeatures[i];
-                    if (feature == null) continue;
+                    string feature = request.RemovedFeatures[i];
+                    if (feature == null || string.IsNullOrEmpty(feature)) continue;
                     var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == int.Parse(feature));
                     if (featureRecord != null)
                     {
                         context.CatalogItemFeature.Remove(featureRecord);
-                        catalogItem.CatalogItemFeatures.Remove(featureRecord);
+                        //catalogItem.CatalogItemFeatures.Remove(featureRecord);
                     }
                 }
             }
@@ -196,7 +196,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 {
                     string? image = request.RemovedImages[i];
                     if (image == null) continue;
-                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c=>c.Id == int.Parse(image));
+                    var imageId = int.Parse(image.ToString());
+                    var imageRecord = context.CatalogItemImage.SingleOrDefault(c=>c.Id == imageId);
                     if (imageRecord != null)
                     {
                         context.CatalogItemImage.Remove(imageRecord);
