@@ -46,8 +46,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             var catalogItem = context.CatalogItems.Find(id);
             if (catalogItem != null)
             {
-                catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c=>c.CatalogItemId == id).ToList();
-                catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == id).ToList();
+                catalogItem.CatalogItemImages = context.CatalogItemImage.Where(c=>c.CatalogItemId == id && (EF.Property<bool>(c, "IsRemoved") == false)).ToList();
+                catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == id && (EF.Property<bool>(c, "IsRemoved") == false)).ToList();
             }
             var result = mapper.Map<CatalogItemsDto>(catalogItem);
             return new BaseDto<CatalogItemsDto>(true, null, result);
@@ -179,7 +179,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 {
                     string feature = request.RemovedFeatures[i];
                     if (feature == null || string.IsNullOrEmpty(feature)) continue;
-                    var featureRecord = context.CatalogItemFeature.SingleOrDefault(c=>c.Id == int.Parse(feature));
+                    var featureRecord = context.CatalogItemFeature.SingleOrDefault(c => c.Id == int.Parse(feature));
                     if (featureRecord != null)
                     {
                         context.CatalogItemFeature.Remove(featureRecord);
@@ -195,27 +195,34 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                 for (int i = 0; i < request.RemovedImages.Length; i++)
                 {
                     string? image = request.RemovedImages[i];
-                    if (image == null) continue;
+                    if (image == null || image == "" || image == "''") continue;
                     var imageId = int.Parse(image.ToString());
                     var imageRecord = context.CatalogItemImage.SingleOrDefault(c=>c.Id == imageId);
                     if (imageRecord != null)
                     {
                         context.CatalogItemImage.Remove(imageRecord);
                         //remove image file physically
-                        catalogItem.CatalogItemImages.Remove(imageRecord);
+                        //catalogItem.CatalogItemImages.Remove(imageRecord);
                     }
                 }
             }
             #endregion
 
 
-            context.SaveChanges();
-            var model = mapper.Map<CatalogItemsDto>(catalogItem);
+            if (context.SaveChanges() > 0)
+            {
+                var model = mapper.Map<CatalogItemsDto>(catalogItem);
+                return new BaseDto<CatalogItemsDto>(
+                    true,
+                    new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
+                    model
+                    );
+            }
             return new BaseDto<CatalogItemsDto>(
-                true,
-                new List<string> { "ویرایش کاتالوگ آیتم با موفقیت انجام شد" },
-                model
-                );
+                    false,
+                    new List<string> { "متاسفانه ویرایش کاتالوگ آیتم انجام نشد" },
+                    null
+                    );
         }
     }
 }

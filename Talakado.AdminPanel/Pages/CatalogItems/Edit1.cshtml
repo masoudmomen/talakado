@@ -280,8 +280,6 @@
             });
         }
 
-
-
         function Edit(e) {
             //e.preventDefault();
             var data = new FormData();
@@ -314,27 +312,11 @@
                 })
             })
             addedFeaturesList = addedFeaturesList.replace("--", "");
+            if (addedFeaturesList == "-") addedFeaturesList = null
             console.log(addedFeaturesList)
             data.append("AddedFeatures", addedFeaturesList);
 
 
-
-
-            //دریافت ویژگی های محصول از جدول
-            
-            // var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
-            //     return {
-            //         Group: $(this.cells[0]).text(),
-            //         Key: $(this.cells[1]).text(),
-            //         Value: $(this.cells[2]).text(),
-            //     };
-            // }).get();
-            // data.append("AddedFeatures", dataFeaturesViewModel);
-            // $.each(dataFeaturesViewModel, function (i, val) {
-            //     data.append('Features[' + i + '].Group', val.Group);
-            //     data.append('Features[' + i + '].Key', val.Key);
-            //     data.append('Features[' + i + '].Value', val.Value);
-            // });
 
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({
@@ -346,6 +328,19 @@
                 data: data,
                 success: function (result) {
                     console.log(result)
+                    if (result.isSuccess == true) {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            result.message[0],
+                            'success'
+                        );
+                    }else{
+                        swal.fire(
+                            'پیام هشدار!',
+                            result.message[0],
+                            'Error'
+                        );
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);

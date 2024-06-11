@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 using Talakado.AdminPanel.ViewModels.Catalogs;
 using Talakado.Application.Catalogs.CatalogItems;
 using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
@@ -58,7 +59,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             #endregion
             #region Add Image
             Files = (List<IFormFile>)Request.Form.Files;
-            
+
             //upload images:
             List<AddNewCatalogItemImage_Dto> images = new List<AddNewCatalogItemImage_Dto>();
             if (Files.Count > 0)
@@ -70,39 +71,42 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
                     images.Add(new AddNewCatalogItemImage_Dto { Src = item });
                 }
             }
-            
+
             if (images.Count > 0)
             {
                 editRequest.AddedImages = images;
             }
             #endregion
             #region Add Feature
-            string features = Request.Form["AddedFeatures"];
-            string[] array1Feature = features.Split("-");
-            string[][] array2Feature = new string[array1Feature.Length][];
-            for (int i = 0; i < array2Feature.Length; i++)
+            if (Request.Form["AddedFeatures"] != "null" && !Request.Form["AddedFeatures"].IsNullOrEmpty())
             {
-                string[] arrayTemp = array1Feature[i].Split(",");
-                array2Feature[i] = arrayTemp;
+                string features = Request.Form["AddedFeatures"];
+                string[] array1Feature = features.Split("-");
+                string[][] array2Feature = new string[array1Feature.Length][];
+                for (int i = 0; i < array2Feature.Length; i++)
+                {
+                    string[] arrayTemp = array1Feature[i].Split(",");
+                    array2Feature[i] = arrayTemp;
+                }
+                editRequest.AddedFeatures = array2Feature;
             }
-            editRequest.AddedFeatures = array2Feature;
             #endregion
             #region Remove Images and Feature
-            editRequest.RemovedImages = Request.Form["RemovedImages"];
-            editRequest.RemovedFeatures = new string[Request.Form["RemovedFeatures"].Count];
-            if (Request.Form["RemovedFeatures"].Count>0)
+            if (Request.Form["RemovedImages"] != "null" && !Request.Form["RemovedImages"].IsNullOrEmpty())
             {
-                for (int i = 0; i < Request.Form["RemovedFeatures"].Count; i++)
-                {
-                    editRequest.RemovedFeatures[i] = Request.Form["RemovedFeatures"][i];
-                }
+                string removedImages = Request.Form["RemovedImages"].ToString();
+                editRequest.RemovedImages = removedImages.Split(",");
             }
-            //editRequest.RemovedFeatures = Request.Form["RemovedFeatures"];
+            if (Request.Form["RemovedFeatures"] != "null" && !Request.Form["RemovedFeatures"].IsNullOrEmpty())
+            {
+                string removedFeatures = Request.Form["RemovedFeatures"].ToString();
+                editRequest.RemovedFeatures = removedFeatures.Split(",");
+            }
             #endregion
 
-            catalogItemService.Edit(editRequest);
+           var ServiceResult =  catalogItemService.Edit(editRequest);
 
-            return new JsonResult(editRequest);
+            return new JsonResult(ServiceResult);
         }
     }
 }
