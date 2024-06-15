@@ -13,6 +13,8 @@ using Talakado.Application.Catalogs.GetMenuItems;
 using AutoMapper;
 using Talakado.Infrastructure.MappingProfile;
 using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
+using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP;
+using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +46,8 @@ builder.Services.AddTransient<IOnlineVisitorService, OnlineVisitorService>();
 builder.Services.AddTransient(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 builder.Services.AddTransient<ISaveVisitorInfoService, SaveVisitorInfoService>();
 builder.Services.AddTransient<IGetMenuItemService, GetMenuItemService>();
+builder.Services.AddTransient<IGetCatalogItemPLPService, GetCatalogItemPLPService>();
+builder.Services.AddTransient<IUriComposerService, UriComposerService>();
 builder.Services.AddScoped<SaveVisitorFilter>();
 #endregion
 
