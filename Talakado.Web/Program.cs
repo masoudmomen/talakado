@@ -23,7 +23,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 #region Connection String
 var connection = builder.Configuration["ConnectionString:sqlServer"];
