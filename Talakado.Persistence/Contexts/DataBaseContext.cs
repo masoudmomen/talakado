@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
 using Talakado.Domain.Attributes;
+using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
@@ -80,5 +81,7 @@ namespace Talakado.Persistence.Contexts
         public DbSet<CatalogItem> CatalogItems{ get; set; }
         public DbSet<CatalogItemImage> CatalogItemImage { get; set; }
         public DbSet<CatalogItemFeature> CatalogItemFeature { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
     }
 }
