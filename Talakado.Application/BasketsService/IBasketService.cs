@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Contexts;
+using Talakado.Domain.Basket;
 
 namespace Talakado.Application.BasketsService
 {
@@ -14,19 +17,56 @@ namespace Talakado.Application.BasketsService
     public class BasketService : IBasketService
     {
         private readonly IDataBaseContext context;
+        private readonly IUriComposerService uriComposerService;
 
-        public BasketService(IDataBaseContext context)
+        public BasketService(IDataBaseContext context, IUriComposerService uriComposerService)
         {
             this.context = context;
+            this.uriComposerService = uriComposerService;
         }
-        //public BasketDto GetOrCreateBasketForUser(string BuyerId)
-        //{
-        //    var basket = context.Baskets.SingleOrDefault(p)
-        //}
+        public BasketDto GetOrCreateBasketForUser(string BuyerId)
+        {
+            var basket = context.Baskets
+                .Include(p=>p.Items)
+                .ThenInclude(p=>p.CatalogItem)
+                .ThenInclude(p=>p.CatalogItemImages)
+                .SingleOrDefault(p => p.BuyerId == BuyerId);
+            if (basket == null)
+            {
+                // create basket
+                return CreateBasketForUser(BuyerId);
+            }
+            return new BasketDto
+            {
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
+                Items = basket.Items.Select(item => new BasketItemDto
+                {
+                    CatalogItemId = item.CatalogItemId,
+                    Id = item.Id,
+                    CatalogName = item.CatalogItem.Name,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    ImageUrl = uriComposerService.ComposeImageUri(item?.CatalogItem?.CatalogItemImages?.FirstOrDefault()?.Src ?? "")
+                }).ToList()
+            };
+        }
+
+        private BasketDto CreateBasketForUser(string BuyerId)
+        {
+            Basket basket = new Basket(BuyerId);
+            context.Baskets.Add(basket);
+            context.SaveChanges();
+            return new BasketDto
+            {
+                BuyerId = basket.BuyerId,
+                Id = basket.Id
+            };
+        }
     }
     public class BasketDto
     {
-        public int BasketId { get; set; }
+        public int Id { get; set; }
         public string BuyerId { get; set; }
         public List<BasketItemDto> Items { get; set; } = new List<BasketItemDto>();
     }
