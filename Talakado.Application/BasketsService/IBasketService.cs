@@ -14,6 +14,7 @@ namespace Talakado.Application.BasketsService
     {
         BasketDto GetOrCreateBasketForUser(string BuyerId);
         void AddItemToBasket(int basketId, int catalogItemId, int quantity = 1);
+        BasketDto GetBasketForUser(string UserId);
     }
     public class BasketService : IBasketService
     {
@@ -35,6 +36,33 @@ namespace Talakado.Application.BasketsService
             var catalog = context.CatalogItems.Find(catalogItemId);
             basket.AddItem(catalogItemId, quantity, catalog.Price);
             context.SaveChanges();
+        }
+
+        public BasketDto GetBasketForUser(string UserId)
+        {
+            var basket = context.Baskets
+                .Include(p => p.Items)
+                .ThenInclude(p => p.CatalogItem)
+                .ThenInclude(p => p.CatalogItemImages)
+                .SingleOrDefault(p => p.BuyerId == UserId);
+            if (basket == null)
+            {
+                return null;
+            }
+            return new BasketDto
+            {
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
+                Items = basket.Items.Select(item => new BasketItemDto
+                {
+                    CatalogItemId = item.CatalogItemId,
+                    Id = item.Id,
+                    CatalogName = item.CatalogItem.Name,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    ImageUrl = uriComposerService.ComposeImageUri(item?.CatalogItem?.CatalogItemImages?.FirstOrDefault()?.Src ?? "")
+                }).ToList()
+            };
         }
 
         public BasketDto GetOrCreateBasketForUser(string BuyerId)
@@ -76,6 +104,8 @@ namespace Talakado.Application.BasketsService
                 Id = basket.Id
             };
         }
+
+
     }
     public class BasketDto
     {
