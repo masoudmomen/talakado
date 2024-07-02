@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Talakado.Application.BasketsService;
 using Talakado.Domain.Users;
 using Talakado.Web.Models.User;
 using Talakado.Web.Utilities.Filters;
@@ -11,11 +12,13 @@ namespace Talakado.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IBasketService basketService;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IBasketService basketService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
+            this.basketService = basketService;
         }
         public IActionResult Login(string ReturnUrl="/")
         {
@@ -40,6 +43,7 @@ namespace Talakado.Web.Controllers
             var login = _signInManager.PasswordSignInAsync(user, model.Password, model.IsPersistent, true).Result;
             if (login.Succeeded)
             {
+                TransferBasketForUser(user.Id);
                 return Redirect(model.ReturnUrl);
             }
 
@@ -72,6 +76,9 @@ namespace Talakado.Web.Controllers
             var register = _userManager.CreateAsync(newUser, model.Password);
             if(register.Result.Succeeded)
             {
+                var user = _userManager.FindByNameAsync(newUser.Email).Result;
+                TransferBasketForUser(user.Id);
+                _signInManager.SignInAsync(user,true).Wait();
                 return RedirectToAction(nameof(Profile));
             }
 
@@ -85,6 +92,17 @@ namespace Talakado.Web.Controllers
         public IActionResult Profile()
         {
             return View();
+        }
+
+        private void TransferBasketForUser(string userId)
+        {
+            string cookieName = "BasketId";
+            if (Request.Cookies.ContainsKey(cookieName))
+            {
+                var anonymousId = Request.Cookies[cookieName];
+                basketService.TransferBasket(anonymousId, userId);
+                Response.Cookies.Delete(cookieName);
+            }
         }
     }
 }

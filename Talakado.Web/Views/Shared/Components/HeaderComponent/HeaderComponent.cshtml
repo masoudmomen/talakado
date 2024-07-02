@@ -210,7 +210,14 @@
                                                 <span>0</span>
                                             }
                                         </div>
-                                        <p>1100 تومان</p>
+                                        @if (Model != null)
+                                        {
+                                            <p>@Model.Total().ToString("n0") تومان</p>
+                                        }
+                                        else
+                                        {
+                                            <p>0 تومان</p>
+                                        }
                                     </div>
                                 </div>
                                 <div class="mobile-top-bar xl-none">

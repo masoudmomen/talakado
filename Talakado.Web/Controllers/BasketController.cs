@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Talakado.Application.BasketsService;
 using Talakado.Domain.Users;
+using Talakado.Web.Utilities;
 
 namespace Talakado.Web.Controllers
 {
@@ -37,7 +38,8 @@ namespace Talakado.Web.Controllers
         {
             if (signInManager.IsSignedIn(User))
             {
-                return basketService.GetOrCreateBasketForUser(User.Identity.Name);
+                userId = ClaimUtility.GetUserId(User); 
+                return basketService.GetOrCreateBasketForUser(userId);
             }
             else
             {
