@@ -1,0 +1,277 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- My Account Section start -->
+<section class="my-account-section ptb-100">
+    <div class="container">
+        <div class="row gx-5">
+            <div class="col-xl-4 col-lg-4 order-xl-1 order-lg-1 order-md-2 order-2  text-center">
+                <div class="user-info-box">
+                    <div class="user-img">
+                        <img src="assets/img/testimonial/client-4.jpg" alt="...">
+                    </div>
+                    <h4 class="user-name mar-top-10">سلام! <span>آماندا</span></h4>
+                    <ul class="user-info list-style">
+                        <li>نام: <span>آماندا تیلور</span></li>
+                        <li>ایمیل: <span><a href="mailto: sarahmalek@email.com"> sarahmalek@email.com</a></li>
+                        <li>تلفن: <span>+000 0000 000</span></li>
+                        <li>کشور: <span>ایران</span></li>
+                        <li>کد پستی: <span>0000</span></li>
+                    </ul>
+                    <button class="btn style2 mt-20">ویرایش پروفایل</button>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 order-xl-2 order-lg-2 order-md-1 order-1">
+                <div class="row">
+                    <div class="col-md-12 tabs style2">
+                        <ul class="nav nav-tabs  my-account-tab list-style" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#dashboard" role="tab" aria-selected="true">آدرس ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#orders" role="tab" aria-selected="false">سفارش ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#account_details" role="tab" aria-selected="false">جزئیات حساب </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#" role="tab" aria-selected="false">خروج</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 mar-top-30">
+                        <div class="user-dashboard-tab__content tab-content">
+                            <div class="tab-pane fade mar-top-30 active show" id="dashboard" role="tabpanel">
+                                @RenderBody()
+                            </div>
+                            <div class="tab-pane fade" id="orders" role="tabpanel">
+                                <div class="wishlist-table mb-0">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">موارد</th>
+                                                <th scope="col">قیمت</th>
+                                                <th scope="col">تعداد</th>
+                                                <th scope="col">مجموع</th>
+                                                <th scope="col">حذف</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="wh_item">
+                                                        <div class="wh_item_img">
+                                                            <img src="assets/img/product/product-thumb-1.png" alt="Image">
+                                                        </div>
+                                                        <div class="wh_item-info text-left">
+                                                            <a href="single-product.html">حلقه الماس</a>
+                                                            <span>لورم ایپسوم ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم استاندارد صنعت بوده است؟</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price">1100 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <div class="wh_qty">
+                                                        <div class="product-quantity">
+                                                            <div class="qtySelector">
+                                                                <span class="las la-minus decreaseQty"></span>
+                                                                <input type="text" class="qtyValue" value="1" />
+                                                                <span class="las la-plus increaseQty"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price text-red">1100 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <button class="cart-action" type="button">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="wh_item">
+                                                        <div class="wh_item_img">
+                                                            <img src="assets/img/product/product-thumb-2.png" alt="Image">
+                                                        </div>
+                                                        <div class="wh_item-info text-left">
+                                                            <a href="single-product.html">حلقه طلا</a>
+                                                            <span>لورم ایپسوم ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم استاندارد صنعت بوده است؟</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price">1200 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <div class="wh_qty">
+                                                        <div class="product-quantity">
+                                                            <div class="qtySelector">
+                                                                <span class="las la-minus decreaseQty"></span>
+                                                                <input type="text" class="qtyValue" value="1" />
+                                                                <span class="las la-plus increaseQty"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price text-red">1200 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <button class="cart-action" type="button">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="wh_item">
+                                                        <div class="wh_item_img">
+                                                            <img src="assets/img/product/product-thumb-3.png" alt="Image">
+                                                        </div>
+                                                        <div class="wh_item-info text-left">
+                                                            <a href="single-product.html">دستبند طلا</a>
+                                                            <span>لورم ایپسوم ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم استاندارد صنعت بوده است؟</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price">9400 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <div class="wh_qty">
+                                                        <div class="product-quantity">
+                                                            <div class="qtySelector">
+                                                                <span class="las la-minus decreaseQty"></span>
+                                                                <input type="text" class="qtyValue" value="1" />
+                                                                <span class="las la-plus increaseQty"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price text-red">9400 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <button class="cart-action" type="button">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="wh_item">
+                                                        <div class="wh_item_img">
+                                                            <img src="assets/img/product/product-thumb-4.png" alt="Image">
+                                                        </div>
+                                                        <div class="wh_item-info text-left">
+                                                            <a href="single-product.html">حلقه ازدواج</a>
+                                                            <span>لورم ایپسوم ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم استاندارد صنعت بوده است؟</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price">1200 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <div class="wh_qty">
+                                                        <div class="product-quantity">
+                                                            <div class="qtySelector">
+                                                                <span class="las la-minus decreaseQty"></span>
+                                                                <input type="text" class="qtyValue" value="1" />
+                                                                <span class="las la-plus increaseQty"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="wh-tem-price text-red">1200 تومان</p>
+                                                </td>
+                                                <td>
+                                                    <button class="cart-action" type="button">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade mar-top-30" id="addresses" role="tabpanel">
+                                <p>آدرس های زیر به صورت پیش فرض در صفحه پرداخت استفاده می شوند.</p>
+                                <div class="row">
+                                    <div class="col-md-6 mb-sm--20">
+                                        <div class="text-block">
+                                            <h4 class="mb--20">آدرس قبض</h4>
+                                            <ul class="user-info list-style">
+                                                <li>نام: <span>جان اسمیت</span></li>
+                                                <li>ایمیل: <span><a href="mailto: hello@hancy.com"> hello@hancy.com</a></li>
+                                                <li>تلفن: <span>+000 0000 000</span></li>
+                                                <li>کشور: <span>ایران</span></li>
+                                                <li>کد پستی: <span>10000</span></li>
+                                            </ul>
+                                            <a href="#">ویرایش آدرس</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade mar-top-30 account-details" id="account_details" role="tabpanel">
+                                <div class="row gx-0">
+                                    <form action="#">
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="first-name" placeholder="نام *">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="last-name" placeholder="نام خانوادگی *">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="company-name" placeholder="ایمیل *">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 no-pad">
+                                            <p>به این ترتیب نام شما در بخش حساب و در بررسی ها نمایش داده می شود.</p>
+                                            <div class="form-group">
+                                                <input class="form-control mar-top-10" type="text" name="company-name" placeholder="نام کاربری">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 change-pwd mar-bot-30">
+                                            <p>تغییر گذرواژه</p>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="phone" placeholder="گذرواژه فعلی*">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="phone" placeholder="گذرواژه جدید*">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="phone" placeholder="تکرار گذرواژه*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn style2">تغییر گذرواژه</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- My Account Section end -->

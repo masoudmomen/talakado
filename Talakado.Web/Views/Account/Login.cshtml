@@ -5,13 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ورود به حساب</h1>
-
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Login">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            @* <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -33,6 +30,82 @@
             <div class="form-group">
                 <input type="submit" value="ورود" class="btn btn-primary" />
             </div>
+
+
+ *@
+
+
+
+
+
+
+
+            <!-- Login Section start -->
+            <section class="Login-wrap pt-20 pb-100">
+                <div class="container">
+                    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-8 offset-md-2">
+                        <div class="login-form">
+                            <div class="login-header ">
+                                <h2 class="text-center mb-0">ورود کاربران</h2>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                            <div class="login-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                            <label asp-for="Email"></label>
+                                            <input asp-for="Email" type="email" placeholder="ایمیل*" required>
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                            <label asp-for="Password">گذرواژه</label>
+                                            <input asp-for="Password" type="password" placeholder="گذرواژه">
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-6">
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="test_1">
+                                            <label asp-for="IsPersistent">
+                                                <input class="form-check-input" asp-for="IsPersistent" /> @Html.DisplayNameFor(model => model.IsPersistent)
+                                            </label>
+                                            </div>
+                                        </div>
+                                    <input type="hidden" asp-for="ReturnUrl" class="form-control" />
+                                        <div class="col-lg-6 col-md-6 col-6 text-end mb-20">
+                                            <a href="forgot-pwd.html" class="link style2">فراموشی گذرواژه؟</a>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                            <button type="submit" class="btn style8 w-100 d-block">ورود</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="or-text">
+                                                <p>یا ورود از طریق</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <ul class="social-profile style2 text-center mt-0 list-style">
+                                                    <li><a target="_blank" href="https://instagram.com"><i class="lab la-instagram"></i></a></li>
+                                                    <li><a target="_blank" href="https://twitter.com"><i class="lab la-twitter"></i></a></li>
+                                                    <li><a target="_blank" href="https://facebook.com"><i class="lab la-facebook-f"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <p class="mb-0">حساب کاربری ندارید؟ <a class="link style2" href="register.html">ثبت نام</a></p>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Login Section end -->
         </form>
     </div>
 </div>

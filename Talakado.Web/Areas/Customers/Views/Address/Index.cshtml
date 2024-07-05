@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Talakado.Application.Users.UserAddressDto>
+@{
+    ViewData["Title"] = "آدرس ها";
+    Layout = "~/Views/Shared/_Layout_CustomerPanel.cshtml";
+}
+<a class="btn style2 mb-0" asp-action="Add" asp-controller="Address" asp-area="Customers">ایجاد آدرس جدید</a>
+<section>
+    <div class="container-md">
+        @if (Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col-10">
+                        <label>آدرس پستی</label>
+                        <p>@item.PostalAddress</p>
+                    </div>
+                    <div class="col-2">
+                        <label>نام گیرنده</label>
+                        <p>@item.ReciverName</p>
+                    </div>
+                    <hr />
+                </div>
+            }
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="mt-50">تاکنون آدرسی ثبت نشده است</h3>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+

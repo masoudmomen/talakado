@@ -83,5 +83,6 @@ namespace Talakado.Persistence.Contexts
         public DbSet<CatalogItemFeature> CatalogItemFeature { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
     }
 }

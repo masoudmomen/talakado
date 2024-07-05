@@ -17,6 +17,7 @@ using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP;
 using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPDP;
 using Talakado.Application.BasketsService;
+using Talakado.Application.Users;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,9 +42,15 @@ builder.Services.ConfigureApplicationCookie(option =>
     option.SlidingExpiration = true;
 });
 
+
+#region Mapper
+builder.Services.AddAutoMapper(typeof(CatalogMappingProfile)); //Mapper
+builder.Services.AddAutoMapper(typeof(UserMappingProfile)); //Mapper
+#endregion
+
+
 #region IOC
 builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
-builder.Services.AddAutoMapper(typeof(CatalogMappingProfile)); //Mapper
 builder.Services.AddTransient<IOnlineVisitorService, OnlineVisitorService>();
 builder.Services.AddTransient(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 builder.Services.AddTransient<ISaveVisitorInfoService, SaveVisitorInfoService>();
@@ -52,6 +59,7 @@ builder.Services.AddTransient<IUriComposerService, UriComposerService>();
 builder.Services.AddTransient<IGetCatalogItemPLPService, GetCatalogItemPLPService>();
 builder.Services.AddTransient<IGetCatalogItemPDPService, GetCatalogItemPDPService>();
 builder.Services.AddTransient<IBasketService, BasketService>();
+builder.Services.AddTransient<IUserAddressService, UserAddressService>();
 
 builder.Services.AddScoped<SaveVisitorFilter>();
 #endregion
@@ -74,7 +82,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+
 app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
+
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
