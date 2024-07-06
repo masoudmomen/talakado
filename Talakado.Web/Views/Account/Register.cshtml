@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Register">
-            <div asp-validation-summary="All" class="text-danger" style="direction:rtl"></div>
+            @* <div asp-validation-summary="All" class="text-danger" style="direction:rtl"></div>
             <div class="form-control">
                 <label asp-for="FullName" class="form-label"></label>
                 <input asp-for="FullName" class="form-control" />
@@ -32,11 +32,88 @@
             <div class="form-control">
                 <label asp-for="PhoneNumber" class="form-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
-                @* <span asp-validation-for="PhoneNumber" class="text-danger"></span> *@
+                @* <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form">
                 <input type="submit" class="btn btn-success btn-lg" value="ثبت نام" />
             </div>
+
+            *@
+
+
+
+
+
+            <!-- Login Section start -->
+            <section class="Login-wrap pt-100 pb-100 ">
+                <div class="container">
+                    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-8 offset-md-2">
+                        <div class="login-form">
+                            <div class="login-header">
+                                <h2 class="text-center mb-0">ثبت نام</h2>
+                                <div asp-validation-summary="All" class="text-danger" style="direction:rtl"></div>
+                            </div>
+                            <div class="login-body">
+                                <form class="form-wrap" action="#">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="FullName" class="form-label"></label>
+                                                <input asp-for="FullName" type="text" placeholder="نام*" required="">
+                                                <span asp-validation-for="FullName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="Email" class="form-label"></label>
+                                                <input asp-for="Email" type="text" placeholder="ایمیل*" required="">
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="Password" class="form-label"></label>
+                                                <input asp-for="Password" type="text" placeholder="گذر واژه*" required="">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="RePassword" class="form-label"></label>
+                                                <input asp-for="RePassword" type="text" placeholder="تکرار گذر واژه*" required="">
+                                                <span asp-validation-for="RePassword" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input type="submit" class="btn style8 w-100 d-block">ثبت نام</input>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="or-text">
+                                                <p>یا ثبت نام از طریق</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <ul class="social-profile style3 text-center mt-0 list-style">
+                                                    <li><a target="_blank" href="https://instagram.com"><i class="lab la-instagram"></i></a></li>
+                                                    <li><a target="_blank" href="https://twitter.com"><i class="lab la-twitter"></i></a></li>
+                                                    <li><a target="_blank" href="https://facebook.com"><i class="lab la-facebook-f"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <p class="mb-0">حساب کاربری دارید؟ <a class="link style2" href="login.html">ورود کاربران</a></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Login Section end -->
         </form>
     </div>
 </div>
