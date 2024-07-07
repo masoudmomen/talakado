@@ -38,12 +38,25 @@ namespace Talakado.Application.Users
         {
             var address = context.UserAddresses.Where(p => p.UserId == UserId);
             var data = mapper.Map<List<UserAddressDto>>(address);
+            //var data = new List<UserAddressDto>();
+            //foreach (var item in address)
+            //{
+            //    data.Add(new UserAddressDto
+            //    {
+            //        City = item.City,
+            //        Id = item.Id,
+            //        PostalAddress = item.PostalAddress,
+            //        ReciverName = item.ReciverName,
+            //        State = item.State,
+            //        ZipCode = item.ZipCode,
+            //    });
+            //}
             return data;
         }
     }
     public class UserAddressDto
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }

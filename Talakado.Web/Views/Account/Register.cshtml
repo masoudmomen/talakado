@@ -3,49 +3,9 @@
     ViewData["Title"] = "ثبت نام";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>ثبت نام</h1>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            @* <div asp-validation-summary="All" class="text-danger" style="direction:rtl"></div>
-            <div class="form-control">
-                <label asp-for="FullName" class="form-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
-            </div>
-            <div class="form-control">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-control">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-control">
-                <label asp-for="RePassword" class="form-label"></label>
-                <input asp-for="RePassword" class="form-control" />
-                <span asp-validation-for="RePassword" class="text-danger"></span>
-            </div>
-            <div class="form-control">
-                <label asp-for="PhoneNumber" class="form-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                @* <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form">
-                <input type="submit" class="btn btn-success btn-lg" value="ثبت نام" />
-            </div>
-
-            *@
-
-
-
-
-
+<form asp-action="Register">
             <!-- Login Section start -->
-            <section class="Login-wrap pt-100 pb-100 ">
+            <section class="Login-wrap pt-50 pb-100 ">
                 <div class="container">
                     <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-8 offset-md-2">
                         <div class="login-form">
@@ -54,7 +14,6 @@
                                 <div asp-validation-summary="All" class="text-danger" style="direction:rtl"></div>
                             </div>
                             <div class="login-body">
-                                <form class="form-wrap" action="#">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
@@ -86,7 +45,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input type="submit" class="btn style8 w-100 d-block">ثبت نام</input>
+                                                <input type="submit" class="btn style8 w-100 d-block" value="ثبت نام" />
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -107,17 +66,15 @@
                                             <p class="mb-0">حساب کاربری دارید؟ <a class="link style2" href="login.html">ورود کاربران</a></p>
                                         </div>
                                     </div>
-                                </form>
+                                
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             <!-- Login Section end -->
-        </form>
-    </div>
-</div>
- 
+ </form>
 @section Scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
