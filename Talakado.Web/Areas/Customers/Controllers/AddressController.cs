@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Talakado.Application.Users;
+using Talakado.Web.Models.User;
 using Talakado.Web.Utilities;
 
 namespace Talakado.Web.Areas.Customers.Controllers
@@ -10,10 +12,12 @@ namespace Talakado.Web.Areas.Customers.Controllers
     public class AddressController : Controller
     {
         private readonly IUserAddressService userAddressService;
+        private readonly IMapper mapper;
 
-        public AddressController(IUserAddressService userAddressService)
+        public AddressController(IUserAddressService userAddressService, IMapper mapper)
         {
             this.userAddressService = userAddressService;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -21,9 +25,13 @@ namespace Talakado.Web.Areas.Customers.Controllers
             return View(addresses);
         }
 
-        public IActionResult Add()
+        public JsonResult Add(AddAddressModalDataViewmodel request)
         {
-            return View();
+            if(request != null) 
+            {
+                userAddressService.AddNewUserAddress(mapper.Map<AddNewUserAddressDto>(request));
+            }
+            return Json("");
         }
     }
 }
