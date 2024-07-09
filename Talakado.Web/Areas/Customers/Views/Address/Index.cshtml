@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="SendAddAddressModalData('@Url.Action("Add","Address")')">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -99,7 +99,7 @@
             $('#addAddressModal').modal("show");
         }
 
-        function SendAddAddressModalData(){
+        function SendAddAddressModalData(address){
             var data = {
                 State: $('#State').val(),
                 City: $('#City').val(),
@@ -107,6 +107,25 @@
                 PostalAddress: $('#PostalAddress').val(),
                 ReciverName: $('#ReciverName').val(),
             }
+            console.log(data)
+            $.ajax({
+                url: address,
+                type: "post",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result)
+                    // if (result) {
+                    //     location.reload();
+                    // }
+                    // swal.fire(
+                    //     'پیام هشدار!',
+                    //     "ثبت با مشکل مواجه شده است",
+                    //     'Error'
+                    // );
+                }
+            });
         }
     </script>
 }

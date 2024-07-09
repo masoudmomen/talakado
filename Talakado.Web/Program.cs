@@ -18,6 +18,7 @@ using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPDP;
 using Talakado.Application.BasketsService;
 using Talakado.Application.Users;
+using Talakado.AdminPanel.MappingProfiles;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ builder.Services.ConfigureApplicationCookie(option =>
 #region Mapper
 builder.Services.AddAutoMapper(typeof(CatalogMappingProfile)); //Mapper
 builder.Services.AddAutoMapper(typeof(UserMappingProfile)); //Mapper
+builder.Services.AddAutoMapper(typeof(UserVMMappingProfile)); //Mapper
 #endregion
 
 
