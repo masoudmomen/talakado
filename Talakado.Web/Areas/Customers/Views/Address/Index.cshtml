@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout_CustomerPanel.cshtml";
 }
 <a class="btn style2 mb-0" onclick="openAddAddressModal()">ایجاد آدرس جدید</a>
-<section>
+<section class="mt-20">
     <div class="container-md">
         @if (Model.Count() > 0)
         {
@@ -47,45 +47,47 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>استان*</label><br />
-                            <input type="text" name="State" id="State" placeholder="نام استان را وارد کنید" required>
+                
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>استان*</label><br />
+                                <input type="text" name="State" id="State" placeholder="نام استان را وارد کنید" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>شهر*</label><br />
+                                <input type="text" name="City" id="City" placeholder="نام شهر خود را وارد کنید" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>شهر*</label><br />
-                            <input type="text" name="City" id="City" placeholder="نام شهر خود را وارد کنید" required>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>کد پستی*</label><br />
+                                <input type="text" name="ZipCode" id="ZipCode" placeholder="کدپستی خود را وارد کنید" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>نام گیرنده*</label><br />
+                                <input type="text" name="ReciverName" id="ReciverName" placeholder="نام گیرنده را وارد کنید" required>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>کد پستی*</label><br />
-                            <input type="text" name="ZipCode" id="ZipCode" placeholder="کدپستی خود را وارد کنید" required>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>آدرس کامل</label><br />
+                                <textarea name="PostalAddress" id="PostalAddress" cols="55" rows="3"></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>نام گیرنده*</label><br />
-                            <input type="text" name="ReciverName" id="ReciverName" placeholder="نام گیرنده را وارد کنید" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label>آدرس کامل</label><br />
-                            <textarea name="PostalAddress" id="PostalAddress" cols="55" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="SendAddAddressModalData('@Url.Action("Add","Address")')">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="SendAddAddressModalData()">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -94,36 +96,37 @@
 
 
 @section Scripts{
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
-        function openAddAddressModal(){
+        function openAddAddressModal() {
             $('#addAddressModal').modal("show");
         }
 
-        function SendAddAddressModalData(address){
+        function SendAddAddressModalData(){
             var data = {
                 State: $('#State').val(),
                 City: $('#City').val(),
                 ZipCode: $('#ZipCode').val(),
                 PostalAddress: $('#PostalAddress').val(),
                 ReciverName: $('#ReciverName').val(),
-            }
-            console.log(data)
+            };
             $.ajax({
-                url: address,
-                type: "post",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                url: '@Url.Action("Add", "Address")',
+                type: "POST",
+                data: { request: data},
                 success: function (result) {
-                    console.log(result)
-                    // if (result) {
-                    //     location.reload();
-                    // }
-                    // swal.fire(
-                    //     'پیام هشدار!',
-                    //     "ثبت با مشکل مواجه شده است",
-                    //     'Error'
-                    // );
+                    if (result) {
+                        location.reload();
+                    }
+                    swal.fire(
+                        'پیام هشدار!',
+                        "ثبت با مشکل مواجه شده است",
+                        'Error'
+                    );
                 }
             });
         }
