@@ -29,17 +29,17 @@ namespace Talakado.Web.Areas.Customers.Controllers
         {
             if(request != null) 
             {
-                //var newAddress = new AddNewUserAddressDto
-                //{
-                //    City = request.City,
-                //    PostalAddress = request.PostalAddress,
-                //    ReciverName = request.ReciverName,
-                //    State = request.State,
-                //    ZipCode = request.ZipCode,
-                //    UserId = ClaimUtility.GetUserId(this.User),
-                //};
-                //userAddressService.AddNewUserAddress(newAddress);
-                return Json(request);
+                var newAddress = new AddNewUserAddressDto
+                {
+                    City = request.City,
+                    PostalAddress = request.PostalAddress,
+                    ReciverName = request.ReciverName,
+                    State = request.State,
+                    ZipCode = request.ZipCode,
+                    UserId = ClaimUtility.GetUserId(this.User),
+                };
+                userAddressService.AddNewUserAddress(newAddress);
+                return Json(true);
             }
             return Json(false);
         }
