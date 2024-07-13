@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Contexts;
+using Talakado.Application.UriComposer;
 using Talakado.Domain.Basket;
 
 namespace Talakado.Application.BasketsService

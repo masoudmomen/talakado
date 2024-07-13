@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Talakado.Application.Catalogs.CatalogItems.UriComposer
+namespace Talakado.Application.UriComposer
 {
     public interface IUriComposerService
     {

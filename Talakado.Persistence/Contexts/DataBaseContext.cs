@@ -8,6 +8,7 @@ using Talakado.Application.Contexts;
 using Talakado.Domain.Attributes;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Order;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
 using Talakado.Persistence.EntityConfigurations;
@@ -41,6 +42,9 @@ namespace Talakado.Persistence.Contexts
             builder.ApplyConfiguration(new CatalogTypeEntityTypeConfiguration());
 
             DataBaseContextSeed.CatalogSeed(builder); //اجرای سیید
+
+            builder.Entity<Order>().OwnsOne(p => p.Address); // باعث می شود تمامی فیلد های کلاس آدرس در همان اوردر ذخیره شوند و بابت آدرس جدول ساخته نشود
+
             base.OnModelCreating(builder);
         }
         public override int SaveChanges()
@@ -84,5 +88,7 @@ namespace Talakado.Persistence.Contexts
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

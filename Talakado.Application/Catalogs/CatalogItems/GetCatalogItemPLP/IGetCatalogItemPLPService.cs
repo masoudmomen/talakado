@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
+using Talakado.Application.UriComposer;
 
 namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
 {

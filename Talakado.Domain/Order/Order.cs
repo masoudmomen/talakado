@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talakado.Domain.Attributes;
 
 namespace Talakado.Domain.Order
 {
+    [Auditable]
     public class Order
     {
         public int Id { get; set; }
@@ -32,7 +34,7 @@ namespace Talakado.Domain.Order
             
         }
     }
-
+    [Auditable]
     public class OrderItem
     {
         public int Id { get; set; }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Order;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
 
@@ -21,6 +22,8 @@ namespace Talakado.Application.Contexts
         DbSet<Basket> Baskets { get; set; }
         DbSet<BasketItem> BasketItems { get; set; }
         DbSet<UserAddress> UserAddresses { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderItem> OrderItems { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

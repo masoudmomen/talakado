@@ -14,11 +14,12 @@ using AutoMapper;
 using Talakado.Infrastructure.MappingProfile;
 using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
 using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP;
-using Talakado.Application.Catalogs.CatalogItems.UriComposer;
 using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPDP;
 using Talakado.Application.BasketsService;
 using Talakado.Application.Users;
 using Talakado.AdminPanel.MappingProfiles;
+using Talakado.Application.UriComposer;
+using Talakado.Application.Orders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,6 +63,7 @@ builder.Services.AddTransient<IGetCatalogItemPLPService, GetCatalogItemPLPServic
 builder.Services.AddTransient<IGetCatalogItemPDPService, GetCatalogItemPDPService>();
 builder.Services.AddTransient<IBasketService, BasketService>();
 builder.Services.AddTransient<IUserAddressService, UserAddressService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 
 builder.Services.AddScoped<SaveVisitorFilter>();
 #endregion
