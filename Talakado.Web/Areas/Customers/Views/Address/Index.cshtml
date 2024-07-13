@@ -47,6 +47,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form method="post" action="@Url.Action("add", "address")">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -83,6 +84,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="SendAddAddressModalData('@Url.Action("Add","Address")')">Save changes</button>
@@ -110,10 +112,9 @@
             console.log(data)
             $.ajax({
                 url: address,
-                type: "post",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                method: "post",
+                data: { data },
+                contentType: "application/json",
                 success: function (result) {
                     console.log(result)
                     // if (result) {
