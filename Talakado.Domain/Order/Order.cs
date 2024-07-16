@@ -33,6 +33,11 @@ namespace Talakado.Domain.Order
         {
             
         }
+
+        public int TotalPrice()
+        {
+            return _orderItems.Sum(p => p.UnitPrice * p.Units);
+        }
     }
     [Auditable]
     public class OrderItem

@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talakado.Application.Contexts;
 using Talakado.Domain.Users;
 
 namespace Talakado.Persistence.Contexts
 {
-    public class IdentityDataBaseContext:IdentityDbContext<User>
+    public class IdentityDataBaseContext:IdentityDbContext<User> , IIdentityDataBaseContext
     {
         public IdentityDataBaseContext(DbContextOptions<IdentityDataBaseContext> options):base(options)
         {
@@ -34,5 +35,6 @@ namespace Talakado.Persistence.Contexts
                 .HasKey(p => new { p.UserId, p.LoginProvider, p.Name });
             //base.OnModelCreating(builder);
         }
+        public DbSet<User> Users { get; set; }
     }
 }

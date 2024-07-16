@@ -20,6 +20,7 @@ using Talakado.Application.Users;
 using Talakado.AdminPanel.MappingProfiles;
 using Talakado.Application.UriComposer;
 using Talakado.Application.Orders;
+using Talakado.Application.Payments;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,7 +54,9 @@ builder.Services.AddAutoMapper(typeof(UserVMMappingProfile)); //Mapper
 
 
 #region IOC
-builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
+
+builder.Services.AddTransient<IDataBaseContext, DataBaseContext>();
+builder.Services.AddTransient<IIdentityDataBaseContext, IdentityDataBaseContext>();
 builder.Services.AddTransient<IOnlineVisitorService, OnlineVisitorService>();
 builder.Services.AddTransient(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 builder.Services.AddTransient<ISaveVisitorInfoService, SaveVisitorInfoService>();
@@ -64,6 +67,8 @@ builder.Services.AddTransient<IGetCatalogItemPDPService, GetCatalogItemPDPServic
 builder.Services.AddTransient<IBasketService, BasketService>();
 builder.Services.AddTransient<IUserAddressService, UserAddressService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
+
 
 builder.Services.AddScoped<SaveVisitorFilter>();
 #endregion

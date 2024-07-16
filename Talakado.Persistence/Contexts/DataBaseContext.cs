@@ -9,6 +9,7 @@ using Talakado.Domain.Attributes;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
 using Talakado.Domain.Order;
+using Talakado.Domain.Payments;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
 using Talakado.Persistence.EntityConfigurations;
@@ -90,5 +91,6 @@ namespace Talakado.Persistence.Contexts
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

@@ -98,7 +98,7 @@ namespace Talakado.Application.BasketsService
         {
             var anonymousBasket = context.Baskets.SingleOrDefault(p=>p.BuyerId ==  anonymousId);
             if (anonymousBasket == null) return;
-            var userBasket = context.Baskets.SingleOrDefault(p=>p.BuyerId != UserId);
+            var userBasket = context.Baskets.SingleOrDefault(p=>p.BuyerId == UserId);
             if (userBasket == null)
             {
                 userBasket =  new Basket(UserId);
