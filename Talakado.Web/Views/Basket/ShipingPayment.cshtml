@@ -20,7 +20,7 @@
                     @foreach (var item in Model.UserAddresses)
                     {
                         <div class="p-3 border-1">
-                                <input type="radio" checked id="address-@item.Id" name="Address" />
+                                <input type="radio" checked id="address-@item.Id" value="@item.Id" name="Address" />
                                 <label for="address-@item.Id">
                                     <p>آدرس پستی : @item.PostalAddress</p>
                                     <p>نام گیرنده : @item.ReciverName</p>
