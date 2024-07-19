@@ -51,7 +51,8 @@ namespace Talakado.Web.Controllers
             }, 
             Payment.Mode.sandbox);
 
-            return Redirect($"https://zarinpal.com/pg/startpay/{resultZarinpalRequest.Authority}");
+            //return Redirect($"https://zarinpal.com/pg/startpay/{resultZarinpalRequest.Authority}");
+            return Redirect($"https://sandbox.zarinpal.com/pg/startpay/{resultZarinpalRequest.Authority}");
         }
 
         public IActionResult Verify()

@@ -15,7 +15,7 @@ namespace Talakado.Domain.Payments
         public int Amount { get; private set; }
         public bool IsPay { get; private set; } = false;
         public DateTime? DatePay { get; private set; } = null;
-        public string Authority { get; private set; }
+        public string Authority { get; private set; } = "";
         public long RefId { get; private set; } = 0;
         public Order.Order Order { get; private set; }
         public int OrderId { get; private set; }
