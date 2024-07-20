@@ -14,6 +14,7 @@ namespace Talakado.Application.Payments
     {
         PaymentOfOrderDto PayForOrder(int OrderId);
         PeymentDto GetPeyment(Guid Id);
+        bool VerifyPayment(Guid Id, string Authority, long RefId);
     }
     public class PaymentService : IPaymentService
     {
@@ -75,6 +76,22 @@ namespace Talakado.Application.Payments
                 PaymentId = payment.Id,
                 PaymentMethod = order.PaymentMethod
             };
+        }
+
+        public bool VerifyPayment(Guid Id, string Authority, long RefId)
+        {
+            var payment = context.Payments
+                .Include(p => p.Order)
+                .SingleOrDefault(p => p.Id == Id);
+            if(payment == null)
+            {
+                throw new Exception("payment not found");
+            }
+            payment.Order.PaymentDone();
+            payment.PaymentIsDone(Authority, RefId);
+
+            context.SaveChanges();
+            return true;
         }
     }
 

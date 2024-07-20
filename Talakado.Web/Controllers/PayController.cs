@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Talakado.Application.Payments;
 using Talakado.Web.Utilities;
 using ZarinPal.Class;
+using RestSharp;
+using MongoDB.Bson.IO;
 
 namespace Talakado.Web.Controllers
 {
@@ -51,13 +53,59 @@ namespace Talakado.Web.Controllers
             }, 
             Payment.Mode.sandbox);
 
-            //return Redirect($"https://zarinpal.com/pg/startpay/{resultZarinpalRequest.Authority}");
-            return Redirect($"https://sandbox.zarinpal.com/pg/startpay/{resultZarinpalRequest.Authority}");
+            //return Redirect($"https://zarinpal.com/pg/StartPay/{resultZarinpalRequest.Authority}");
+            return Redirect($"https://sandbox.zarinpal.com/pg/StartPay/{resultZarinpalRequest.Authority}");
         }
 
-        public IActionResult Verify()
+        public IActionResult Verify(Guid Id, string Authority)
         {
-            return View();
+            string Status = HttpContext.Request.Query["Status"];
+            if (Status != "" && Status.ToString().ToLower() == "ok" && Authority != "")
+            {
+                var payment = paymentService.GetPeyment(Id);
+                if (payment == null)
+                {
+                    return NotFound();
+                }
+
+                var verification = _payment.Verification(new DtoVerification
+                {
+                    Amount = payment.Amount,
+                    Authority = Authority,
+                    MerchantId = merchendId
+                }, Payment.Mode.sandbox).Result;
+
+                //var client = new RestClient("https://www.sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
+                ////client.Timeout = -1;
+                //var request = new RestRequest(Method.Post.ToString());
+                //request.AddHeader("Content-Type", "application/json");
+                //request.AddParameter("application/json", $"{{\"MerchantId\" :\"{merchendId}\",\"Authority\":\"{Authority}\",\"Amount\":\"{payment.Amount}\"}}", ParameterType.RequestBody);
+                //var response = client.Execute(request);
+                //VerificationPayResultDto verification= Newtonsoft.Json.JsonConvert.DeserializeObject<VerificationPayResultDto>(response.Content);
+                if (verification.Status == 100) 
+                {
+                   bool verifyResult =  paymentService.VerifyPayment(Id,Authority,verification.RefId);     
+                    if (verifyResult)
+                    {
+                        return Redirect("/customers/orders");
+                    }
+                    TempData["message"] = "پرداخت انجام شد اما ثبت نشد";
+                    return RedirectToAction("checkout", "basket");
+                }
+                else
+                {
+                    TempData["message"] = "پرداخت انجام نشد دوباره تلاش کنید و در صورت مشکل با مدیریت سایت تماس بگیرید";
+                    return RedirectToAction("checkout", "basket");
+                }
+            }
+            TempData["message"] = "عملیات پرداخت شما ناموفق بوده است";
+            return RedirectToAction("checkout", "basket");
         }
+    }
+
+    public class VerificationPayResultDto
+    {
+        public int Status { get; set; }
+        public long RefId { get; set; }
     }
 }

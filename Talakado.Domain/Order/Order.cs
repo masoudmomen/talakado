@@ -38,6 +38,37 @@ namespace Talakado.Domain.Order
         {
             return _orderItems.Sum(p => p.UnitPrice * p.Units);
         }
+        /// <summary>
+        /// پرداخت انجام شد
+        /// </summary>
+        public void PaymentDone()
+        {
+            PaymentStatus = PaymentStatus.Paid;
+        }
+
+        /// <summary>
+        /// کالا تحویل داده شد
+        /// </summary>
+        public void OrderDelivered()
+        {
+            OrderStatus = OrderStatus.Delivered;
+        }
+
+        /// <summary>
+        /// ثبت مرجوعی کالا
+        /// </summary>
+        public void OrderReturned()
+        {
+            OrderStatus = OrderStatus.Returned;
+        }
+
+        /// <summary>
+        /// لغو سفارش
+        /// </summary>
+        public void OrderCancelled()
+        {
+            OrderStatus = OrderStatus.Canceled;
+        }
     }
     [Auditable]
     public class OrderItem
