@@ -110,5 +110,15 @@ namespace Talakado.Web.Controllers
                 return RedirectToAction("Index", "Orders", new { area = "customers" });
             }
         }
+
+        public IActionResult Checkout()
+        {
+            var userId = ClaimUtility.GetUserId(User);
+            var data = new ShipinigPaymentViewmodel
+            {
+                Basket = basketService.GetBasketForUser(userId),
+            };
+            return View(data);
+        }
     }
 }

@@ -75,6 +75,7 @@ namespace Talakado.Web.Controllers
                     MerchantId = merchendId
                 }, Payment.Mode.sandbox).Result;
 
+                #region Rest Sharp
                 //var client = new RestClient("https://www.sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
                 ////client.Timeout = -1;
                 //var request = new RestRequest(Method.Post.ToString());
@@ -82,6 +83,8 @@ namespace Talakado.Web.Controllers
                 //request.AddParameter("application/json", $"{{\"MerchantId\" :\"{merchendId}\",\"Authority\":\"{Authority}\",\"Amount\":\"{payment.Amount}\"}}", ParameterType.RequestBody);
                 //var response = client.Execute(request);
                 //VerificationPayResultDto verification= Newtonsoft.Json.JsonConvert.DeserializeObject<VerificationPayResultDto>(response.Content);
+                #endregion
+
                 if (verification.Status == 100) 
                 {
                    bool verifyResult =  paymentService.VerifyPayment(Id,Authority,verification.RefId);     
@@ -90,16 +93,16 @@ namespace Talakado.Web.Controllers
                         return Redirect("/customers/orders");
                     }
                     TempData["message"] = "پرداخت انجام شد اما ثبت نشد";
-                    return RedirectToAction("checkout", "basket");
+                    return RedirectToAction("Checkout", "basket");
                 }
                 else
                 {
                     TempData["message"] = "پرداخت انجام نشد دوباره تلاش کنید و در صورت مشکل با مدیریت سایت تماس بگیرید";
-                    return RedirectToAction("checkout", "basket");
+                    return RedirectToAction("Checkout", "basket");
                 }
             }
             TempData["message"] = "عملیات پرداخت شما ناموفق بوده است";
-            return RedirectToAction("checkout", "basket");
+            return RedirectToAction("Checkout", "basket");
         }
     }
 

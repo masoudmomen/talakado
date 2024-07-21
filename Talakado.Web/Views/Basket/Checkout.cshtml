@@ -1,0 +1,113 @@
+﻿@using Talakado.Web.Models.Basket
+@model ShipinigPaymentViewmodel
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Checkout Section start -->
+<div class="checkout-wrap ptb-30 bg-selago">
+    <div class="container">
+            <div class="row gx-5">
+                <div class="col-xl-8 col-lg-12">
+                    <div class="checkout-details">
+                        <div class="content-box-title">
+                            <h5>وضعیت پرداخت</h5>
+                        </div>
+                        <div class="payment-method">
+                        <p>@TempData["message"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <div class="checkout-details">
+                        <div class="content-box-title">
+                            <h5>خلاصه سفارش</h5>
+                        </div>
+                        <div class="bill-details">
+                            <div class="bill-item-wrap">
+                                @if (Model.Basket != null && Model.Basket.Items.Count > 0)
+                                {
+                                    @foreach (var item in Model.Basket.Items)
+                                    {
+                                        <div class="bill-item">
+                                            <div class="bill-item-name">
+                                                <p>@item.CatalogName</p>
+                                            </div>
+                                            <div class="bill-item-price">
+                                                <span>@item.UnitPrice.ToString("n0") تومان</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="subtotal-wrap">
+                                <div class="subtotal-item pt-1">
+                                    <div class="subtotal-item-left">
+                                        <h6>مجموع</h6>
+                                    </div>
+                                    <div class="subtotal-item-right">
+                                        @if (Model.Basket != null && Model.Basket.Items.Count > 0)
+                                        {
+                                            <span>@Model.Basket.Total().ToString("n0")تومان</span>
+                                        }
+                                        else
+                                        {
+                                            <span>تومان 0 </span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="subtotal-item">
+                                    <h6>دارای یک کد تخفیف؟</h6>
+                                    <div class="form-group mb-0 w-100">
+                                        <input class="w-100" type="text" placeholder="کد تخفیف را وارد کنید">
+                                        <button type="submit">اعمال</button>
+                                    </div>
+                                </div>
+                                <div class="subtotal-item">
+                                    <div class="subtotal-item-left">
+                                        <p>کرایه حمل</p>
+                                    </div>
+                                    <div class="subtotal-item-right">
+                                        <p>1000 تومان</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="total-wrap">
+                                <h5>مبلغ پرداخت</h5>
+                                @if (Model.Basket != null && Model.Basket.Items.Count > 0)
+                                {
+                                    <span>@Model.Basket.Total().ToString("n0")تومان</span>
+                                }
+                                else
+                                {
+                                    <span>تومان 0 </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-method mt-30">
+                        <div class="content-box-title">
+                            <h5>روش پرداخت</h5>
+                        </div>
+                        <div class="select-method">
+                            <div>
+                                <input type="radio" id="test10" name="PeymentMethod">
+                                <label for="test10">انتقال مستقیم بانکی</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="test20" name="PeymentMethod">
+                                <label for="test20">پرداخت هنگام تحویل</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                            <button type="submit" class="btn style3 d-block w-100">ثبت سفارش</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<!-- Checkout Section end -->
