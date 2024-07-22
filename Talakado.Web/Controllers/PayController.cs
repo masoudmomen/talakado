@@ -59,6 +59,7 @@ namespace Talakado.Web.Controllers
 
         public IActionResult Verify(Guid Id, string Authority)
         {
+            
             string Status = HttpContext.Request.Query["Status"];
             if (Status != "" && Status.ToString().ToLower() == "ok" && Authority != "")
             {
@@ -67,7 +68,7 @@ namespace Talakado.Web.Controllers
                 {
                     return NotFound();
                 }
-
+                int orderId = paymentService.GetOrderIdFromPaymentId(Id);
                 var verification = _payment.Verification(new DtoVerification
                 {
                     Amount = payment.Amount,
@@ -90,7 +91,9 @@ namespace Talakado.Web.Controllers
                    bool verifyResult =  paymentService.VerifyPayment(Id,Authority,verification.RefId);     
                     if (verifyResult)
                     {
-                        return Redirect("/customers/orders");
+                        //return Redirect("/customers/order/"+orderId);
+                        return RedirectToAction("Index", "Order", new {orderId = orderId , Area = "customers" });
+
                     }
                     TempData["message"] = "پرداخت انجام شد اما ثبت نشد";
                     return RedirectToAction("Checkout", "basket");

@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using Talakado.Application.UriComposer;
 using Talakado.Application.Contexts;
 using Talakado.Domain.Order;
+using Talakado.Application.Dtos;
 
 namespace Talakado.Application.Orders
 {
     public interface IOrderService
     {
         int CreateOrder(int BasketId, int UserAddressId, PaymentMethod paymentMethod);
+        OrderDto GetOrderFromId(int Id);
 
     }
 
@@ -54,6 +56,22 @@ namespace Talakado.Application.Orders
             context.Baskets.Remove(basket);
             context.SaveChanges();
             return order.Id;
+        }
+
+        public OrderDto GetOrderFromId(int Id)
+        {
+            var data = context.Orders.Include(p => p.Address).Include(P=>P.OrderItems)
+                .SingleOrDefault(p => p.Id == Id);
+            return new OrderDto
+            {
+                Id = Id,
+                Address = data.Address,
+                OrderDate = data.OrderDate,
+                OrderItems = data.OrderItems,
+                OrderStatus = data.OrderStatus,
+                PaymentMethod = data.PaymentMethod,
+                PaymentStatus = data.PaymentStatus
+            };
         }
     }
 }

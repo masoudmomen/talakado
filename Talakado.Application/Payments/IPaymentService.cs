@@ -15,6 +15,7 @@ namespace Talakado.Application.Payments
         PaymentOfOrderDto PayForOrder(int OrderId);
         PeymentDto GetPeyment(Guid Id);
         bool VerifyPayment(Guid Id, string Authority, long RefId);
+        int GetOrderIdFromPaymentId(Guid Id);
     }
     public class PaymentService : IPaymentService
     {
@@ -25,6 +26,11 @@ namespace Talakado.Application.Payments
         {
             this.context = context;
             this.identityContext = identityContext;
+        }
+
+        public int GetOrderIdFromPaymentId(Guid Id)
+        {
+            return context.Payments.Find(Id).OrderId;
         }
 
         public PeymentDto GetPeyment(Guid Id)

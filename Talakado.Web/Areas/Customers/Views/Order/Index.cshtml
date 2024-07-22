@@ -1,0 +1,50 @@
+﻿@using Talakado.Application.Dtos
+@model OrderDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_CustomerPanel.cshtml";
+}
+
+
+
+<section class="mt-20">
+<!-- Cart Popup start -->
+        <h2> سبد خرید (4)</h2>
+        <button type="button" class="close-popup"><i class="las la-times"></i></button>
+    </div>
+    <div class="cart-popup-item-wrap">
+        @if(Model != null && Model.OrderItems.Count > 0)
+        {
+            @foreach (var item in Model.OrderItems)
+            {
+                <div class="cart-popup-item">
+                    <div class="cart-popup-item-img">
+                        <img src="assets/img/product/product-thumb-2.png" alt="Image">
+                    </div>
+                    <div class="cart-popup-item-name">
+                        <p>@item.ProductName</p>
+                        <div class="product-quantity">
+                            <div class="qtySelector">
+                                <span class="las la-minus decreaseQty"></span>
+                                <input type="text" class="qtyValue" value="@item.Units" />
+                                <span class="las la-plus increaseQty"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-popup-item-price">
+                        <button type="button"><i class="las la-times"></i></button>
+                        <span>@{(item.UnitPrice * item.Units).ToString("n0");} تومان</span>
+                    </div>
+                </div>
+            }
+        }
+    <div class="cart-popup-total-wrap">
+        <div class="cart-popup-total">
+            <h5>مجموع</h5>
+            <h5>4400 تومان</h5>
+        </div>
+        <a href="cart.html" class="btn style4">سبد خرید</a>
+        <a href="checkout.html" class="btn style1">بررسی محصول</a>
+    </div>
+<!-- Cart Popup end -->
+</section>
