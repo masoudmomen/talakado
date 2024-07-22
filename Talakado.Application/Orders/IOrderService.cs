@@ -14,6 +14,7 @@ namespace Talakado.Application.Orders
     public interface IOrderService
     {
         int CreateOrder(int BasketId, int UserAddressId, PaymentMethod paymentMethod);
+
     }
 
     public class OrderService : IOrderService
