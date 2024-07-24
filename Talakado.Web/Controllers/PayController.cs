@@ -92,19 +92,19 @@ namespace Talakado.Web.Controllers
                     if (verifyResult)
                     {
                         //return Redirect("/customers/order/"+orderId);
-                        return RedirectToAction("Index", "Order", new {orderId = orderId , Area = "customers" });
+                        return RedirectToAction("Index", "Order", new { Area = "customers" });
 
                     }
-                    TempData["message"] = "پرداخت انجام شد اما ثبت نشد";
+                    TempData["message"] = $"پرداخت انجام شد ولی ثبت نشد شناسه سفارش شما {orderId} می باشد لطفا این شناسه را به مسئول فروشگاه داده و پیگیری نمایید"; 
                     return RedirectToAction("Checkout", "basket");
                 }
                 else
                 {
-                    TempData["message"] = "پرداخت انجام نشد دوباره تلاش کنید و در صورت مشکل با مدیریت سایت تماس بگیرید";
+                    TempData["message"] = "پرداخت انجام نشد جهت تلاش مجدد بازگشت به صفحه سفارش و پرداخت را کلیک کنید";
                     return RedirectToAction("Checkout", "basket");
                 }
             }
-            TempData["message"] = "عملیات پرداخت شما ناموفق بوده است";
+            TempData["message"] = "اعتبار سنجی از طرف بانک با شکست مواجه شد";
             return RedirectToAction("Checkout", "basket");
         }
     }

@@ -14,9 +14,9 @@ namespace Talakado.Web.Areas.Customers.Controllers
             this.orderService = orderService;
         }
         [Authorize]
-        public IActionResult Index(int orderId = 0)
+        public IActionResult Index()
         {
-            var data = orderService.GetOrderFromId(orderId);
+            var data = orderService.GetOrders();
             return View(data);
         }
     }

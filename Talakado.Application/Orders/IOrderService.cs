@@ -16,6 +16,7 @@ namespace Talakado.Application.Orders
     {
         int CreateOrder(int BasketId, int UserAddressId, PaymentMethod paymentMethod);
         OrderDto GetOrderFromId(int Id);
+        List<OrderDto> GetOrders();
 
     }
 
@@ -72,6 +73,13 @@ namespace Talakado.Application.Orders
                 PaymentMethod = data.PaymentMethod,
                 PaymentStatus = data.PaymentStatus
             };
+        }
+
+        public List<OrderDto> GetOrders()
+        {
+            var orders = context.Orders.Include(p => p.Address).Include(P => P.OrderItems).OrderByDescending(p=>p.OrderDate).ToList();
+            var orderList = new List<OrderDto>();
+            return mapper.Map<List<OrderDto>>(orders);
         }
     }
 }

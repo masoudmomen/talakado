@@ -9,7 +9,9 @@ using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
 using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using Talakado.Application.Catalogs.CatalogTypes;
 using Talakado.Application.Catalogs.GetMenuItems;
+using Talakado.Application.Dtos;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Order;
 
 namespace Talakado.Infrastructure.MappingProfile
 {
@@ -44,6 +46,9 @@ namespace Talakado.Infrastructure.MappingProfile
             CreateMap<CatalogBrand, CatalogBrandDto>().ReverseMap();
             CreateMap<CatalogType, CatalogTypeDto>().ReverseMap();
             CreateMap<CatalogItem, CatalogItemsDto>().ReverseMap();
+            //-----------------------------------------
+            
+            CreateMap<Order,OrderDto>().ReverseMap();
         }
     }
 }
