@@ -8,6 +8,7 @@ using Talakado.Application.Contexts;
 using Talakado.Domain.Attributes;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Discounts;
 using Talakado.Domain.Order;
 using Talakado.Domain.Payments;
 using Talakado.Domain.Users;
@@ -92,5 +93,6 @@ namespace Talakado.Persistence.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Discounts;
 using Talakado.Domain.Order;
 using Talakado.Domain.Payments;
 using Talakado.Domain.Users;
@@ -26,6 +27,7 @@ namespace Talakado.Application.Contexts
         DbSet<Order> Orders { get; set; }
         DbSet<OrderItem> OrderItems { get; set; }
         DbSet<Payment> Payments { get; set; }
+        DbSet<Discount> Discounts { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

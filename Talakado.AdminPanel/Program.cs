@@ -12,6 +12,7 @@ using Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem;
 using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using FluentValidation;
 using Talakado.Infrastructure.ExternalApi.ImageServer;
+using Talakado.Application.Discounts.AddNewDiscountService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddTransient<IAddNewCatalogItemService, AddNewCatalogItemServic
 builder.Services.AddTransient<ICatalogItemService, CatalogItemService>();
 builder.Services.AddTransient<IValidator<AddNewCatalogItemDto>, AddNewCatalogItemDtoValidator>(); // FluentValidator
 builder.Services.AddTransient<IImageUploadService, ImageUploadService>();
+builder.Services.AddTransient<IAddNewDiscountService, AddNewDiscountService>();
 
 
 #endregion
