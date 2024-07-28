@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Talakado.AdminPanel.Binders;
 using Talakado.Application.Discounts.AddNewDiscountService;
 
 namespace Talakado.AdminPanel.Pages.Discounts
@@ -12,6 +13,8 @@ namespace Talakado.AdminPanel.Pages.Discounts
         {
             this.addNewDiscountService = addNewDiscountService;
         }
+        [ModelBinder(BinderType = typeof(DiscountEntityBinder))]
+        [BindProperty]
         public AddNewDiscountDto model { get; set; }
         public void OnGet()
         {

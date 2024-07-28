@@ -13,12 +13,15 @@ using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using FluentValidation;
 using Talakado.Infrastructure.ExternalApi.ImageServer;
 using Talakado.Application.Discounts.AddNewDiscountService;
+using Talakado.Application.Discounts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add services to the container.(IOC)
 builder.Services.AddRazorPages().AddNewtonsoftJson(optiion =>
 optiion.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddControllers();
+
 builder.Services.AddScoped<IGetDailyReportService, GetDailyReportService>();
 builder.Services.AddTransient(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 builder.Services.AddTransient<IOnlineVisitorService, OnlineVisitorService>();
@@ -32,6 +35,7 @@ builder.Services.AddTransient<ICatalogItemService, CatalogItemService>();
 builder.Services.AddTransient<IValidator<AddNewCatalogItemDto>, AddNewCatalogItemDtoValidator>(); // FluentValidator
 builder.Services.AddTransient<IImageUploadService, ImageUploadService>();
 builder.Services.AddTransient<IAddNewDiscountService, AddNewDiscountService>();
+builder.Services.AddTransient<IDiscountService, DiscountService>();
 
 
 #endregion
@@ -65,5 +69,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+app.MapControllers();
 app.Run();

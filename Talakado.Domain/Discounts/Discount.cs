@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -41,9 +42,13 @@ namespace Talakado.Domain.Discounts
 
     public enum DiscountType
     {
+        [Display(Name = "تخفیف برای محصولات")]
         AssignedToProduct = 1,
+        [Display(Name = "تخفیف برای دسته بندی")]
         AssignedToCategory = 2,
+        [Display(Name = "تخفیف برای مشتری")]
         AssignedToUser = 3,
+        [Display(Name = "تخفیف برای برند")]
         AssignedToBrand = 4,
     }
     /// <summary>
@@ -54,14 +59,17 @@ namespace Talakado.Domain.Discounts
         /// <summary>
         /// بدون محدودیت تعداد
         /// </summary>
+        [Display(Name = "بدون محدودیت تعداد")]
         Unlimited = 0,
         /// <summary>
         /// فقط N بار
         /// </summary>
+        [Display(Name = "فقط N بار")]
         NTimesOnly = 1,
         /// <summary>
         /// فقط N بار به ازای هر مشتری
         /// </summary>
+        [Display(Name = "فقط N بار به ازای هر مشتری")]
         NTimesPerCustomer = 2,
     }
 }

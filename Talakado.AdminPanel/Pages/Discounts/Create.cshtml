@@ -1,4 +1,156 @@
 ﻿@page
+@using Talakado.Domain.Discounts
 @model Talakado.AdminPanel.Pages.Discounts.CreateModel
 @{
+}
+@section Styles {
+    <link href="~/lib/persiandatepicker/JalaliDatePicker.css" rel="stylesheet" />
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+}
+<h3>تخفیف جدید ثبت کنید</h3>
+<section>
+    <form method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <label asp-for="model.Name"></label>
+                    <input asp-for="model.Name" class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.Name" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 text-center">
+                    <label asp-for="model.RequiredCouponCode"></label><br />
+                    <input asp-for="model.RequiredCouponCode" type="checkbox" class="form-check mx-2" style="transform: scale(2.5);">
+                    <span asp-validation-for="model.RequiredCouponCode" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="model.CouponCode"></label>
+                    <input asp-for="model.CouponCode" class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.CouponCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="model.StartDate"></label>
+                    <input asp-for="model.StartDate"  data-jdp class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="model.EndDate"></label>
+                    <input asp-for="model.EndDate" data-jdp class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.EndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label asp-for="model.UserPercentage"></label><br />
+                    <input asp-for="model.UserPercentage" type="checkbox" class="form-check mx-2" style="transform: scale(2.5);">
+                    <span asp-validation-for="model.UserPercentage" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="model.DiscountPercentage"></label>
+                    <input asp-for="model.DiscountPercentage" class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.DiscountPercentage" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="model.DiscountAmount"></label>
+                    <input asp-for="model.DiscountAmount" class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.DiscountAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label asp-for="model.DiscountTypeId"></label>
+                    <select asp-for="model.DiscountTypeId" asp-items="@Html.GetEnumSelectList<DiscountType>()" class="form-control input-lg" style="width: 100%;"></select>
+                    <span asp-validation-for="model.DiscountTypeId" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="model.DiscountLimitationId"></label>
+                    <select asp-for="model.DiscountLimitationId" asp-items="@Html.GetEnumSelectList<DiscountLimitationType>()" class="form-control input-lg" style="width: 100%;"></select>
+                    <span asp-validation-for="model.DiscountLimitationId" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="model.LimitationTimes"></label>
+                    <input asp-for="model.LimitationTimes" class="form-control input-lg" type="text">
+                    <span asp-validation-for="model.LimitationTimes" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label asp-for="model.AppliedToCatalogItem">آیتم های خود را انتخاب کنید:</label>
+                    <select class="form-control" asp-for="model.AppliedToCatalogItem"></select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    <input type="button" value="برگشت به لیست" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/lib/persiandatepicker/JalaliDatePicker.js"></script>
+    <script>
+        jalaliDatepicker.startWatch({
+            time: true,
+            showCloseBtn: "dynamic",
+            minDate: "attr",
+            maxDate: "attr",
+            minTime: "attr",
+            maxTime: "attr",
+            hideAfterChange: true,
+            autoHide: true,
+            showTodayBtn: true,
+            showEmptyBtn: true,
+            topSpace: 10,
+            bottomSpace: 30,
+            dayRendering(opt, input) {
+                return {
+                    isHollyDay: opt.day == 1
+                }
+            }
+        });
+    </script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#model_AppliedToCatalogItem').select2({
+                placeholder: 'انتخاب گزینه ها',
+                allowClear: true,
+                multiple: true,
+                tags: true,
+                dir: 'rtl',
+                tokenSeparators: [',', ' '],
+                ajax: {
+                    url: "/api/DiscountApi/SearchCatalogItem",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (obj) {
+                                return {
+                                    id: obj.id,
+                                    text: obj.name
+                                };
+                            }),
+                        };
+                    },
+                    cache: true
+                }
+            });
+        });
+        
+    </script>
 }
