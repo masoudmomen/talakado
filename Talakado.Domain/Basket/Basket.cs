@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Attributes;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Discounts;
 
 namespace Talakado.Domain.Basket
 {
@@ -15,6 +16,11 @@ namespace Talakado.Domain.Basket
         public int Id { get; set; }
         public string BuyerId { get; private set; }
         private readonly List<BasketItem> _items = new List<BasketItem>();
+
+        public int DiscountAmount { get; private set; } = 0;
+        public Discount AppliedDiscount { get; private set; }
+        public int? AppliedDiscountId { get; private set; }
+
         public ICollection<BasketItem> Items => _items.AsReadOnly();
         public Basket(string buyerId)
         {
@@ -30,6 +36,33 @@ namespace Talakado.Domain.Basket
             }
             var existingItem = Items.FirstOrDefault(c=>c.CatalogItemId == catalogItemId);
             existingItem.AddQuantity(quantity);
+        }
+
+        public int TotalPrice()
+        {
+            int totalPrice = _items.Sum(p => p.UnitPrice * p.Quantity);
+            totalPrice -= AppliedDiscount.GetDiscountAmount(totalPrice);
+            return totalPrice;
+        }
+
+        public int TotalPriceWithoutDiscount()
+        {
+            int totalPrice = _items.Sum(p => p.UnitPrice * p.Quantity);
+            return totalPrice;
+        }
+
+        public void ApplyDiscountCode(Discount discount)
+        {
+            this.AppliedDiscount = discount;
+            this.AppliedDiscountId = discount.Id;
+            this.DiscountAmount = discount.GetDiscountAmount(TotalPriceWithoutDiscount());
+        }
+
+        public void RemoveDiscount()
+        {
+            AppliedDiscount = null;
+            AppliedDiscountId = null;
+            DiscountAmount = 0;
         }
     }
 

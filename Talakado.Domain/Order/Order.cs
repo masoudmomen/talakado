@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Attributes;
+using Talakado.Domain.Discounts;
 
 namespace Talakado.Domain.Order
 {
@@ -20,12 +21,20 @@ namespace Talakado.Domain.Order
         private readonly List<OrderItem> _orderItems = new List<OrderItem>();
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
-        public Order(string userId, Address address, List<OrderItem> orderItems, PaymentMethod paymentMethod)
+        public decimal DiscountAmount { get; private set; }
+        public Discount AppliedDiscount { get; private set; }
+        public int? AppliedDiscountId { get; private set; }
+
+        public Order(string userId, Address address, List<OrderItem> orderItems, PaymentMethod paymentMethod, Discount discount)
         {
             UserId = userId;
             Address = address;
             _orderItems = orderItems;
             PaymentMethod = paymentMethod;
+            if (discount != null)
+            {
+                ApplyDiscountCode(discount);
+            }
         }
 
         //For EF
@@ -36,8 +45,24 @@ namespace Talakado.Domain.Order
 
         public int TotalPrice()
         {
-            return _orderItems.Sum(p => p.UnitPrice * p.Units);
+            int totalPrice = _orderItems.Sum(p => p.UnitPrice * p.Units);
+            totalPrice -= AppliedDiscount.GetDiscountAmount(totalPrice);
+            return totalPrice;
         }
+
+        public int TotalPriceWithoutDiscount()
+        {
+            int totalPrice = _orderItems.Sum(p => p.UnitPrice * p.Units);
+            return totalPrice;
+        }
+
+        public void ApplyDiscountCode(Discount discount)
+        {
+            this.AppliedDiscount = discount;
+            this.AppliedDiscountId = discount.Id;
+            this.DiscountAmount = discount.GetDiscountAmount(TotalPrice());
+        }
+
         /// <summary>
         /// پرداخت انجام شد
         /// </summary>
