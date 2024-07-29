@@ -21,6 +21,7 @@ using Talakado.AdminPanel.MappingProfiles;
 using Talakado.Application.UriComposer;
 using Talakado.Application.Orders;
 using Talakado.Application.Payments;
+using Talakado.Application.Discounts;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,6 +69,7 @@ builder.Services.AddTransient<IBasketService, BasketService>();
 builder.Services.AddTransient<IUserAddressService, UserAddressService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
+builder.Services.AddTransient<IDiscountService, DiscountService>();
 
 
 builder.Services.AddScoped<SaveVisitorFilter>();

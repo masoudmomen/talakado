@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Talakado.Application.Discounts
     public interface IDiscountService
     {
         List<CatalogItemDto> GetCatalogItems(string searchKey);
+        bool ApplyDiscountInBasket(string CopounCode, int BasketId);
+        bool RemoveDiscountFromBasket(int BasketId);
     }
 
     public class DiscountService : IDiscountService
@@ -20,6 +23,17 @@ namespace Talakado.Application.Discounts
         {
             this.context = context;
         }
+
+        public bool ApplyDiscountInBasket(string CouponCode, int BasketId)
+        {
+            var basket = context.Baskets.Include(p=>p.Items).Include(p=>p.AppliedDiscount)
+                .FirstOrDefault(p=>p.Id == BasketId);
+            var discount = context.Discounts.Where(p => p.CouponCode.Equals(CouponCode)).FirstOrDefault();
+            basket.ApplyDiscountCode(discount);
+            context.SaveChanges();
+            return true;
+        }
+
         public List<CatalogItemDto> GetCatalogItems(string searchKey)
         {
             if (!string.IsNullOrEmpty(searchKey))
@@ -42,6 +56,14 @@ namespace Talakado.Application.Discounts
                    }).ToList();
                 return data;
             }
+        }
+
+        public bool RemoveDiscountFromBasket(int BasketId)
+        {
+            var basket = context.Baskets.Find(BasketId);
+            basket.RemoveDiscount();
+            context.SaveChanges();
+            return true;
         }
     }
 

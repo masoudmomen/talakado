@@ -123,7 +123,7 @@
                                     <div class="subtotal-item-right">
                                     @if (Model != null && Model.Items.Count > 0)
                                     {
-                                        <span>@Model.Total().ToString("n0")تومان</span>
+                                        <span>@Model.TotalWithoutDiscount().ToString("n0")تومان</span>
                                     }
                                     else
                                     {
@@ -131,13 +131,16 @@
                                     }
                                     </div>
                                 </div>
-                                <div class="subtotal-item">
-                                    <h6>دارای یک کد تخفیف؟</h6>
-                                    <div class="form-group mb-0 w-100">
-                                        <input class="w-100" type="text" placeholder="کد تخفیف را وارد کنید">
-                                        <button type="submit">اعمال</button>
+                                <form method="post" asp-action="ApplyDiscount">
+                                    <div class="subtotal-item">
+                                        <input type="hidden" name="BasketId" value="@Model.Id" />
+                                        <h6>دارای یک کد تخفیف؟</h6>
+                                        <div class="form-group mb-0 w-100">
+                                            <input class="w-100" type="text" placeholder="کد تخفیف را وارد کنید" name="CouponCode">
+                                            <button type="submit">اعمال</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                                 <div class="subtotal-item">
                                     <div class="subtotal-item-left">
                                         <p>کرایه حمل</p>
@@ -146,6 +149,18 @@
                                         <p>1000 تومان</p>
                                     </div>
                                 </div>
+                                @if(Model.DiscountAmount >0)
+                                {
+                                    <div class="subtotal-item">
+                                        <div class="subtotal-item-left">
+                                            <p>میزان تخفیف</p>
+                                        </div>
+                                        <div class="subtotal-item-right">
+                                            <p>@Model.DiscountAmount.ToString("n0") تومان</p>
+                                        </div>
+                                    </div>
+                                    <div><a asp-action="RemoveDiscount" asp-route-id="@Model.Id">حذف تخفیف</a></div>
+                                }
                             </div>
                             <div class="total-wrap">
                                 <h5>مبلغ پرداخت</h5>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Talakado.Application.BasketsService;
+using Talakado.Application.Discounts;
 using Talakado.Application.Orders;
 using Talakado.Application.Payments;
 using Talakado.Application.Users;
@@ -19,19 +20,22 @@ namespace Talakado.Web.Controllers
         private readonly IUserAddressService userAddressService;
         private readonly IOrderService orderService;
         private readonly IPaymentService paymentService;
+        private readonly IDiscountService discountService;
         private string userId = null;
 
         public BasketController(IBasketService basketService,
             SignInManager<User> signInManager,
             IUserAddressService userAddressService
             ,IOrderService orderService
-            ,IPaymentService paymentService)
+            ,IPaymentService paymentService
+            ,IDiscountService discountService)
         {
             this.basketService = basketService;
             this.signInManager = signInManager;
             this.userAddressService = userAddressService;
             this.orderService = orderService;
             this.paymentService = paymentService;
+            this.discountService = discountService;
         }
         public IActionResult Index()
         {
@@ -109,6 +113,19 @@ namespace Talakado.Web.Controllers
                 //برو به صفحه سفارشات من
                 return RedirectToAction("Index", "Orders", new { area = "customers" });
             }
+        }
+
+        [HttpPost]
+        public IActionResult ApplyDiscount(string CouponCode, int BasketId)
+        {
+            discountService.ApplyDiscountInBasket(CouponCode, BasketId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult RemoveDiscount(int id)
+        {
+            discountService.RemoveDiscountFromBasket(id);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Checkout()
