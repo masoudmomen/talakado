@@ -72,6 +72,7 @@ namespace Talakado.Application.BasketsService
                 .Include(p=>p.Items)
                 .ThenInclude(p=>p.CatalogItem)
                 .ThenInclude(p=>p.CatalogItemImages)
+                .Include(p=>p.AppliedDiscount)
                 .SingleOrDefault(p => p.BuyerId == BuyerId);
             if (basket == null)
             {

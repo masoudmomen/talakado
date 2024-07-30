@@ -38,6 +38,8 @@ namespace Talakado.Application.Payments
             var payment = context.Payments
                 .Include(p=>p.Order)
                 .ThenInclude(p=>p.OrderItems)
+                .Include(p=>p.Order)
+                .ThenInclude(p=>p.AppliedDiscount)
                 .SingleOrDefault(p=>p.Id == Id);
             var user = identityContext.Users.SingleOrDefault(p => p.Id == payment.Order.UserId);
             var descrioption = $"پرداخت سفارش شماره {payment.OrderId}" + Environment.NewLine;
@@ -63,6 +65,7 @@ namespace Talakado.Application.Payments
         {
             var order = context.Orders
                 .Include(p=>p.OrderItems)
+                .Include(p=>p.AppliedDiscount)
                 .SingleOrDefault(p=>p.Id == OrderId);
             if (order == null)
             {
