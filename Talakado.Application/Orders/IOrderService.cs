@@ -43,7 +43,7 @@ namespace Talakado.Application.Orders
             var catalogItems = context.CatalogItems
                 .Include(c=>c.CatalogItemImages)
                 .Where(p => Ids.Contains(p.Id));
-
+            
             var orderItems = basket.Items.Select(basketItem =>
             {
                 var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);
@@ -78,9 +78,17 @@ namespace Talakado.Application.Orders
 
         public List<OrderDto> GetOrders()
         {
-            var orders = context.Orders.Include(p => p.Address).Include(P => P.OrderItems).OrderByDescending(p=>p.OrderDate).ToList();
-            var orderList = new List<OrderDto>();
-            return mapper.Map<List<OrderDto>>(orders);
+            var orders = context.Orders
+                .Include(p => p.Address)
+                .Include(P => P.OrderItems)
+                .OrderByDescending(p=>p.OrderDate).ToList();
+            var orderList =  mapper.Map<List<OrderDto>>(orders);
+            foreach (var order in orderList)
+            {
+                var orderInOrders = orders.FirstOrDefault(c => c.Id == order.Id);
+                order.Price = (orderInOrders != null)? orderInOrders.TotalPrice() : 0;
+            }
+            return orderList;
         }
     }
 }

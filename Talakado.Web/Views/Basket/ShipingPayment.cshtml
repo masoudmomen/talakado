@@ -63,7 +63,7 @@
                                 <div class="subtotal-item-right">
                                         @if (Model.Basket != null && Model.Basket.Items.Count > 0)
                                         {
-                                            <span>@Model.Basket.Total().ToString("n0")تومان</span>
+                                            <span>@Model.Basket.TotalWithoutDiscount().ToString("n0")تومان</span>
                                         }
                                         else
                                         {
@@ -71,14 +71,33 @@
                                         }
                                 </div>
                             </div>
-                            <div class="subtotal-item">
+                            @* <div class="subtotal-item">
                                 <h6>دارای یک کد تخفیف؟</h6>
                                 <div class="form-group mb-0 w-100">
                                     <input class="w-100" type="text" placeholder="کد تخفیف را وارد کنید">
                                     <button type="submit">اعمال</button>
                                 </div>
-                            </div>
-                            <div class="subtotal-item">
+                            </div> *@
+                                @if (Model.Basket.DiscountAmount > 0)
+                                {
+                                    <div class="subtotal-item">
+                                        <div class="subtotal-item-left">
+                                            <p>مبلغ تخفیف</p>
+                                        </div>
+                                        <div class="subtotal-item-right">
+                                            <p>@Model.Basket.DiscountAmount.ToString("n0") تومان</p>
+                                        </div>
+                                    </div>
+                                    <div class="subtotal-item">
+                                        <div class="subtotal-item-left">
+                                            <p>مبلغ نهایی با اختساب تخفیف</p>
+                                        </div>
+                                        <div class="subtotal-item-right">
+                                            <p>@Model.Basket.Total().ToString("n0") تومان</p>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="subtotal-item">
                                 <div class="subtotal-item-left">
                                     <p>کرایه حمل</p>
                                 </div>

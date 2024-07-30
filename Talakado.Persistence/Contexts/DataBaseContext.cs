@@ -39,6 +39,9 @@ namespace Talakado.Persistence.Contexts
 
             //فقط کاتالوگ تایپ هایی که فیلد ایزریموود فالس هستند رو نمایش بده
             builder.Entity<CatalogType>().HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+            //فقط بسکت هایی که فیلد ایزریموود فالس هستند رو نمایش بده
+            builder.Entity<Basket>().HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+
 
             builder.ApplyConfiguration(new CatalogBrandEntityTypeConfiguration());
             builder.ApplyConfiguration(new CatalogTypeEntityTypeConfiguration());

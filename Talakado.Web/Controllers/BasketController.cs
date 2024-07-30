@@ -37,6 +37,7 @@ namespace Talakado.Web.Controllers
             this.paymentService = paymentService;
             this.discountService = discountService;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var data = GetOrSetBasket();

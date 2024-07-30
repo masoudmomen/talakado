@@ -45,6 +45,7 @@ namespace Talakado.Application.BasketsService
                 .Include(p => p.Items)
                 .ThenInclude(p => p.CatalogItem)
                 .ThenInclude(p => p.CatalogItemImages)
+                .Include(p=>p.AppliedDiscount)
                 .SingleOrDefault(p => p.BuyerId == UserId);
             if (basket == null)
             {
@@ -54,6 +55,7 @@ namespace Talakado.Application.BasketsService
             {
                 Id = basket.Id,
                 BuyerId = basket.BuyerId,
+                DiscountAmount = basket.DiscountAmount,
                 Items = basket.Items.Select(item => new BasketItemDto
                 {
                     CatalogItemId = item.CatalogItemId,
