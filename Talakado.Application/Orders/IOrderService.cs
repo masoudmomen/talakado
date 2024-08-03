@@ -9,6 +9,7 @@ using Talakado.Application.UriComposer;
 using Talakado.Application.Contexts;
 using Talakado.Domain.Order;
 using Talakado.Application.Dtos;
+using Talakado.Application.Discounts;
 
 namespace Talakado.Application.Orders
 {
@@ -25,12 +26,14 @@ namespace Talakado.Application.Orders
         private readonly IDataBaseContext context;
         private readonly IMapper mapper;
         private readonly IUriComposerService uriComposer;
+        private readonly IDiscountHistoryService discountHistoryService;
 
-        public OrderService(IDataBaseContext context, IMapper mapper, IUriComposerService uriComposer)
+        public OrderService(IDataBaseContext context, IMapper mapper, IUriComposerService uriComposer, IDiscountHistoryService discountHistoryService)
         {
             this.context = context;
             this.mapper = mapper;
             this.uriComposer = uriComposer;
+            this.discountHistoryService = discountHistoryService;
         }
         public int CreateOrder(int BasketId, int UserAddressId, PaymentMethod paymentMethod)
         {
@@ -57,6 +60,11 @@ namespace Talakado.Application.Orders
             context.Orders.Add(order);  
             context.Baskets.Remove(basket);
             context.SaveChanges();
+
+            if (basket.AppliedDiscount != null)
+            {
+                discountHistoryService.InsertDiscountUsageHistory((int)basket.AppliedDiscountId, order.Id);
+            }
             return order.Id;
         }
 
@@ -81,12 +89,13 @@ namespace Talakado.Application.Orders
             var orders = context.Orders
                 .Include(p => p.Address)
                 .Include(P => P.OrderItems)
-                .OrderByDescending(p=>p.OrderDate).ToList();
-            var orderList =  mapper.Map<List<OrderDto>>(orders);
+                .Include(p=>p.AppliedDiscount)
+                .OrderByDescending(p => p.OrderDate).ToList();
+            var orderList = mapper.Map<List<OrderDto>>(orders);
             foreach (var order in orderList)
             {
                 var orderInOrders = orders.FirstOrDefault(c => c.Id == order.Id);
-                order.Price = (orderInOrders != null)? orderInOrders.TotalPrice() : 0;
+                order.Price = (orderInOrders != null) ? orderInOrders.TotalPrice() : 0;
             }
             return orderList;
         }
