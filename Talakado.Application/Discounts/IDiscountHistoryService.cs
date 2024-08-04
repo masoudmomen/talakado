@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
 using Talakado.Domain.Discounts;
+using Talakado.Domain.Users;
 
 namespace Talakado.Application.Discounts
 {
@@ -15,6 +16,7 @@ namespace Talakado.Application.Discounts
         void InsertDiscountUsageHistory(int DiscountId, int OrderId);
         DiscountUsagehistory GetDiscountUsageHistoryById(int DiscountUsageHistoryId);
         PaginatedItemDto<DiscountUsagehistory> GetAllDiscountUsageHistory(int? discountId, string? userId, int pageIndex, int pageSize);
+        
     }
 
     public class DiscountHistoryService : IDiscountHistoryService

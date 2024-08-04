@@ -135,6 +135,12 @@
                                     <div class="subtotal-item">
                                         <input type="hidden" name="BasketId" value="@Model.Id" />
                                         <h6>دارای یک کد تخفیف؟</h6>
+                                        @if (TempData["InvalidMessage"] != null)
+                                        {
+                                            <div class="form-group mb-0 w-100">
+                                                <p class="alert alert-warning" style="font-size:small">@TempData["InvalidMessage"]<br /></p>
+                                            </div>
+                                        }
                                         <div class="form-group mb-0 w-100">
                                             <input class="w-100" type="text" placeholder="کد تخفیف را وارد کنید" name="CouponCode">
                                             <button type="submit">اعمال</button>

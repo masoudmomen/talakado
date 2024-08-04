@@ -18,8 +18,8 @@ namespace Talakado.Domain.Discounts
         public bool UserPercentage { get; set; }
         public int DiscountPercentage { get; set; }
         public int DiscountAmount { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public bool RequiredCouponCode { get; set; }
         public string CouponCode { get; set; }
         [NotMapped]
