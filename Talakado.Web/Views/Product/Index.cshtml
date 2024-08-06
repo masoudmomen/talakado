@@ -251,9 +251,9 @@
                                     <img src="@item.Image" alt="Image">
                                     <div class="product-option">
                                         <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                                        <button class="add-to-wishlist" type="button">
+                                        <a asp-area="Customers" asp-controller="MyFavorite" asp-action="AddToMyFavorite" asp-route-CatalogsItemId="@item.Id" class="add-to-wishlist" type="button">
                                             <i class="lar la-heart"></i>
-                                        </button>
+                                        </a>
                                         <button class="add-to-cart" type="button">
                                             <i class="las la-shopping-cart"></i>
                                         </button>
