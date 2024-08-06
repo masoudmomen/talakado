@@ -28,6 +28,7 @@ namespace Talakado.Application.Contexts
         DbSet<OrderItem> OrderItems { get; set; }
         DbSet<Payment> Payments { get; set; }
         DbSet<Discount> Discounts { get; set; }
+        DbSet<DiscountUsagehistory> DiscountUsagehistories { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

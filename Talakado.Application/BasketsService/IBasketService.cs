@@ -45,7 +45,11 @@ namespace Talakado.Application.BasketsService
                 .Include(p => p.Items)
                 .ThenInclude(p => p.CatalogItem)
                 .ThenInclude(p => p.CatalogItemImages)
-                .Include(p=>p.AppliedDiscount)
+
+
+                .Include(p => p.Items)
+                .ThenInclude(p => p.CatalogItem)
+                .ThenInclude(p => p.Discounts)
                 .SingleOrDefault(p => p.BuyerId == UserId);
             if (basket == null)
             {
@@ -62,7 +66,7 @@ namespace Talakado.Application.BasketsService
                     Id = item.Id,
                     CatalogName = item.CatalogItem.Name,
                     Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice,
+                    UnitPrice = item.CatalogItem.Price,
                     ImageUrl = uriComposerService.ComposeImageUri(item?.CatalogItem?.CatalogItemImages?.FirstOrDefault()?.Src ?? "")
                 }).ToList()
             };
@@ -75,6 +79,10 @@ namespace Talakado.Application.BasketsService
                 .ThenInclude(p=>p.CatalogItem)
                 .ThenInclude(p=>p.CatalogItemImages)
                 .Include(p=>p.AppliedDiscount)
+
+                .Include(p => p.Items)
+                .ThenInclude(p => p.CatalogItem)
+                .ThenInclude(p => p.Discounts)
                 .SingleOrDefault(p => p.BuyerId == BuyerId);
             if (basket == null)
             {
@@ -92,7 +100,7 @@ namespace Talakado.Application.BasketsService
                     Id = item.Id,
                     CatalogName = item.CatalogItem.Name,
                     Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice,
+                    UnitPrice = item.CatalogItem.Price,
                     ImageUrl = uriComposerService.ComposeImageUri(item?.CatalogItem?.CatalogItemImages?.FirstOrDefault()?.Src ?? "")
                 }).ToList()
             };

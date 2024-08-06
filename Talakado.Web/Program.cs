@@ -70,6 +70,7 @@ builder.Services.AddTransient<IUserAddressService, UserAddressService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
+builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>();
 
 
 builder.Services.AddScoped<SaveVisitorFilter>();

@@ -68,7 +68,30 @@
                             </ul>
                             <span>(امتیاز کاربران)</span>
                         </div>
-                        <div class="price"><span>@Model.Price.ToString("n0") تومان</span> <span class="discount">@((Model.Price + 500).ToString("n0")) تومان</span></div>
+                        <div class="price">
+                            <span>
+                                @Model.Price.ToString("n0") تومان
+
+                            </span> 
+                            @if (Model.OldPrice != 0)
+                                {
+                                    <span class="discount">
+                                        @Model.OldPrice.Value.ToString("n0") تومان
+
+                                    </span>
+                                }
+                        </div>
+                        @if (Model.PercentDiscount != 0)
+                            {
+                                <div class="price">
+                                    <span>
+                                        درصد تخفیف
+                                    </span>
+                                    <span>
+                                        @Model.PercentDiscount %
+                                    </span>
+                                </div>
+                            }
                     </div>
                     <div class="single-product-desc">
                         <p>@Model.Brand</p>

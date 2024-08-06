@@ -21,6 +21,7 @@ namespace Talakado.Web.Controllers
         private readonly IOrderService orderService;
         private readonly IPaymentService paymentService;
         private readonly IDiscountService discountService;
+        private readonly UserManager<User> userManager;
         private string userId = null;
 
         public BasketController(IBasketService basketService,
@@ -28,7 +29,8 @@ namespace Talakado.Web.Controllers
             IUserAddressService userAddressService
             ,IOrderService orderService
             ,IPaymentService paymentService
-            ,IDiscountService discountService)
+            ,IDiscountService discountService
+            ,UserManager<User> userManager)
         {
             this.basketService = basketService;
             this.signInManager = signInManager;
@@ -36,6 +38,7 @@ namespace Talakado.Web.Controllers
             this.orderService = orderService;
             this.paymentService = paymentService;
             this.discountService = discountService;
+            this.userManager = userManager;
         }
         [Authorize]
         public IActionResult Index()
@@ -119,7 +122,17 @@ namespace Talakado.Web.Controllers
         [HttpPost]
         public IActionResult ApplyDiscount(string CouponCode, int BasketId)
         {
-            discountService.ApplyDiscountInBasket(CouponCode, BasketId);
+            var user = userManager.GetUserAsync(User).Result;
+            var validDiscount = discountService.IsDiscountValid(CouponCode, user);
+            if (validDiscount.IsSuccess) 
+            {
+                discountService.ApplyDiscountInBasket(CouponCode, BasketId);
+            }
+            else
+            {
+                TempData["InvalidMessage"] = String.Join(Environment.NewLine, validDiscount.Message.Select(a => String.Join(", ", a)));
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 

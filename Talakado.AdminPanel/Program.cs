@@ -36,6 +36,7 @@ builder.Services.AddTransient<IValidator<AddNewCatalogItemDto>, AddNewCatalogIte
 builder.Services.AddTransient<IImageUploadService, ImageUploadService>();
 builder.Services.AddTransient<IAddNewDiscountService, AddNewDiscountService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
+builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>();
 
 
 #endregion

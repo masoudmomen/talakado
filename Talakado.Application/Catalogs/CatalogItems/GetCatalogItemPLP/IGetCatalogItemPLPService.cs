@@ -30,6 +30,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
         {
             int rowCount = 0;
             var data = context.CatalogItems
+                .Include(p => p.Discounts)
                 .Include(p => p.CatalogItemImages)
                 .OrderByDescending(p => p.Id)
                 .PagedResult(pageNumber, pageSize, out rowCount)
