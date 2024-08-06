@@ -100,5 +100,6 @@ namespace Talakado.Persistence.Contexts
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<DiscountUsagehistory> DiscountUsagehistories { get; set; }
+        public DbSet<CatalogItemFavorite> CatalogItemFavorites { get; set; }
     }
 }

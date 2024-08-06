@@ -22,6 +22,10 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         PaginatedItemDto<CatalogItemListItemDto> GetCatalogList(int page, int pageSize);
         BaseDto<CatalogItemsDto> FindById(int id);
         BaseDto<CatalogItemsDto> Edit(CatalogItemEditRequestDto request);
+        //
+
+        void AddToMyFavorite(string UserId, int CatalogItemId);
+
     }
 
     public class CatalogItemService : ICatalogItemService
@@ -223,6 +227,11 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     new List<string> { "متاسفانه ویرایش کاتالوگ آیتم انجام نشد" },
                     null
                     );
+        }
+
+        public void AddToMyFavorite(string UserId, int CatalogItemId)
+        {
+            var catalogItem = context.CatalogItems.Find(CatalogItemId);
         }
     }
 }
