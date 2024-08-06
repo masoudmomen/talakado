@@ -60,7 +60,7 @@ namespace Talakado.Domain.Order
         {
             this.AppliedDiscount = discount;
             this.AppliedDiscountId = discount.Id;
-            this.DiscountAmount = discount.GetDiscountAmount(TotalPrice());
+            this.DiscountAmount = discount.GetDiscountAmount(TotalPriceWithoutDiscount());
         }
 
         /// <summary>

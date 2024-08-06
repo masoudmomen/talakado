@@ -86,7 +86,7 @@ namespace Talakado.Application.Orders
             foreach (var order in orderList)
             {
                 var orderInOrders = orders.FirstOrDefault(c => c.Id == order.Id);
-                order.Price = (orderInOrders != null)? orderInOrders.TotalPrice() : 0;
+                order.Price = (orderInOrders != null) ? orderInOrders.TotalPrice() : 0;
             }
             return orderList;
         }

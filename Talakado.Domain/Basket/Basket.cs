@@ -53,9 +53,12 @@ namespace Talakado.Domain.Basket
 
         public void ApplyDiscountCode(Discount discount)
         {
-            this.AppliedDiscount = discount;
-            this.AppliedDiscountId = discount.Id;
-            this.DiscountAmount = discount.GetDiscountAmount(TotalPriceWithoutDiscount());
+            if (discount != null)
+            {
+                this.AppliedDiscount = discount;
+                this.AppliedDiscountId = discount.Id;
+                this.DiscountAmount = discount.GetDiscountAmount(TotalPriceWithoutDiscount());
+            }
         }
 
         public void RemoveDiscount()
