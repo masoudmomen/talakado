@@ -249,8 +249,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             var model = context.CatalogItems
                 .Include(p => p.CatalogItemImages)
                 .Include(p => p.Discounts)
-                .Include(p => p.catalogItemFavorites)
-                .Where(p => p.catalogItemFavorites.Any(f => f.UserId == UserId))
+                .Include(p => p.CatalogItemFavorites)
+                .Where(p => p.CatalogItemFavorites.Any(f => f.UserId == UserId))
                 .OrderByDescending(p => p.Id)
                 .AsQueryable();
             int rowCount = 0;

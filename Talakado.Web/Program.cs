@@ -22,6 +22,7 @@ using Talakado.Application.UriComposer;
 using Talakado.Application.Orders;
 using Talakado.Application.Payments;
 using Talakado.Application.Discounts;
+using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +72,7 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
 builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>();
+builder.Services.AddTransient<ICatalogItemService, CatalogItemService>();
 
 
 builder.Services.AddScoped<SaveVisitorFilter>();

@@ -54,4 +54,14 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
         public string Image { get; set; }
         public byte Rate { get; set; }
     }
+
+
+    public class CatalogPLPRequestDto
+    {
+        public int page { get; set; } = 1;
+        public int pageSize { get; set; } = 20;
+
+        public int? CatalogeTypeId { get; set; }
+
+    }
 }
