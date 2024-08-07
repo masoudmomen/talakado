@@ -56,6 +56,9 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPDP
                     Name = p.Name,
                 }).ToList();
 
+            catalogItem.VisitCount++;
+            context.SaveChanges();
+
             return new CatalogItemPDPDto
             {
                 Features = feature,

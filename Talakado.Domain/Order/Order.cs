@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Attributes;
+using Talakado.Domain.Catalogs;
 using Talakado.Domain.Discounts;
 
 namespace Talakado.Domain.Order
@@ -99,6 +100,7 @@ namespace Talakado.Domain.Order
     public class OrderItem
     {
         public int Id { get; set; }
+        public CatalogItem CatalogItem { get; set; }
         public int CatalogItemId { get; private set; }
         public string ProductName { get; private set; }
         public string PictureUri { get; private set; }

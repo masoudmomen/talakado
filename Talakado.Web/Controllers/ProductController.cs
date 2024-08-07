@@ -14,9 +14,9 @@ namespace Talakado.Web.Controllers
             this.getCatalogItemPLPService = getCatalogItemPLPService;
             this.getCatalogItemPDPService = getCatalogItemPDPService;
         }
-        public IActionResult Index(int page =1, int pageSize=20)
+        public IActionResult Index(CatalogPLPRequestDto catalogPlpRequestDto)
         {
-            var data = getCatalogItemPLPService.Execute(page, pageSize);  
+            var data = getCatalogItemPLPService.Execute(catalogPlpRequestDto);  
             return View(data);
         }
 

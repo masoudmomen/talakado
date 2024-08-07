@@ -29,8 +29,10 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="sidebar">
                         <div class="sidebar-widget search-box ">
-                            <input type="search" placeholder="جستجو...">
-                            <button type="submit"> <i class="flaticon-search-interface-symbol"></i> </button>
+                            <form asp-action="index" asp-controller="product" method="get">
+                                <input type="search" name="searchkey"  placeholder="جستجو...">
+                                <button type="submit"> <i class="flaticon-search-interface-symbol"></i> </button>
+                            </form>
                         </div>
                         <div class="sidebar-widget categories">
                             <h4>دسته بندی ها</h4>
@@ -226,9 +228,13 @@
                         <div class="col-xl-3 col-lg-4 col-md-4">
                             <div class="filter-item-cat">
                                 <select>
-                                    <option value="1">مرتب سازی پیش فرض</option>
-                                    <option value="2">محصولات پرطرفدار</option>
-                                    <option value="3">محصولات جدید</option>
+                                    <option value="0">مرتب سازی پیش فرض</option>
+                                <option value="1"><a asp-action="Index" asp-rrouteout-sorttype="1">پربازدید ترین</a></option>
+                                <option value="3"><a asp-action="Index" asp-route-sorttype="2">پرفروش ترین</a></option>
+                                <option value="3"><a asp-action="Index" asp-route-sorttype="3">محبوب ترین</a></option>
+                                <option value="4"><a asp-action="Index" asp-route-sorttype="4">جدید ترین</a></option>
+                                <option value="5"><a asp-action="Index" asp-route-sorttype="5">ارزان ترین</a></option>
+                                <option value="6"><a asp-action="Index" asp-route-sorttype="6">گران ترین</a></option>
                                 </select>
                             </div>
                         </div>
@@ -242,6 +248,12 @@
                             </div>
                         </div>
                     </div>
+                    <a asp-action="Index" asp-route-sorttype="1">پربازدید ترین</a>
+                    <a asp-action="Index" asp-route-sorttype="2">پرفروش ترین</a>
+                    <a asp-action="Index" asp-route-sorttype="3">محبوب ترین</a>
+                    <a asp-action="Index" asp-route-sorttype="4">جدید ترین</a>
+                    <a asp-action="Index" asp-route-sorttype="5">ارزان ترین</a>
+                    <a asp-action="Index" asp-route-sorttype="6">گران ترین</a>
                     <div class="row justify-content-center">
                     @foreach(var item in Model.Data)
                     {

@@ -1,5 +1,6 @@
 ﻿using Talakado.Domain.Attributes;
 using Talakado.Domain.Discounts;
+using Talakado.Domain.Order;
 
 namespace Talakado.Domain.Catalogs
 {
@@ -36,7 +37,7 @@ namespace Talakado.Domain.Catalogs
             }
         }
         public int? PercentDiscount { get; set; }
-
+        public int VisitCount { get; set; }
         public int CatalogTypeId { get; set; }
         public CatalogType CatalogType { get; set; }
         public int CatalogBrandId { get; set; }
@@ -54,6 +55,7 @@ namespace Talakado.Domain.Catalogs
         /// </summary>
         public int MaxStockThreshold { get; set; }
 
+        public ICollection<OrderItem> OrderItems { get; set; }
         public ICollection<CatalogItemFeature> CatalogItemFeatures { get; set; }
         public ICollection<CatalogItemImage> CatalogItemImages { get; set; }
         public ICollection<Discount> Discounts { get; set; }
