@@ -66,7 +66,7 @@
 @{
     var prevDisabled = !Model.CatalogType.HasPerviousPage ? "disabled" : "";
     var nextDisabled = !Model.CatalogType.HasNextPage ? "disabled" : "";
-
+    var active = "";
 }
 
 <div class="row">
@@ -76,33 +76,40 @@
     <div class="col-sm-7">
         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
             <ul class="pagination">
+                <li class="paginate_button next @nextDisabled" id="example2_next">
+                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                       asp-route-pageIndex="1"
+                       class="@nextDisabled">صفحه اول</a>
+                </li>
                 <li class="paginate_button previous @prevDisabled" id="example2_previous">
                     <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
                        asp-route-pageIndex="@(Model.CatalogType.PageIndex - 1)"
                         class="@prevDisabled">قبلی</a>
                 </li>
-                <li class="paginate_button active">
-                    <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
-                </li>
-                <li class="paginate_button ">
-                    <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a>
-                </li>
-                <li class="paginate_button ">
-                    <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a>
-                </li> 
-                <li class="paginate_button ">
-                    <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a>
-                </li>
-                <li class="paginate_button ">
-                    <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a>
-                </li>
-                <li class="paginate_button ">
-                    <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a>
-                </li>
+
+                @foreach (var item in Model.CatalogType.Pager.Pages)
+                {
+                    if (item == Model.CatalogType.PageIndex)
+                    {
+                        active = "active";
+                    }
+                    <li class="paginate_button @active">
+                        <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                          asp-route-pageIndex="@item"
+                           aria-controls="example2" data-dt-idx="1" tabindex="0">@item</a>
+                    </li>
+                    active = "";
+                }
+                
                 <li class="paginate_button next @nextDisabled" id="example2_next">
                     <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
                        asp-route-pageIndex="@(Model.CatalogType.PageIndex + 1)"
-                       class="@nextDisabled">Next</a>
+                       class="@nextDisabled">بعدی</a>
+                </li>
+                <li class="paginate_button next @nextDisabled" id="example2_next">
+                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                       asp-route-pageIndex="@(Model.CatalogType.Pager.TotalPages)"
+                       class="@nextDisabled">صفحه آخر</a>
                 </li>
             </ul>
 

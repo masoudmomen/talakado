@@ -10,6 +10,7 @@ using Talakado.Application.Contexts;
 using Talakado.Domain.Order;
 using Talakado.Application.Dtos;
 using Talakado.Application.Discounts;
+using Talakado.Application.Exceptions;
 
 namespace Talakado.Application.Orders
 {
@@ -41,6 +42,11 @@ namespace Talakado.Application.Orders
                 .Include(p=>p.Items)
                 .Include(p=>p.AppliedDiscount)
                 .SingleOrDefault(p=>p.Id == BasketId);
+
+            if (basket == null)
+            {
+                throw new NotFoundException(nameof(basket), BasketId);
+            }
 
             int[] Ids = basket.Items.Select(p=>p.CatalogItemId).ToArray();
             var catalogItems = context.CatalogItems

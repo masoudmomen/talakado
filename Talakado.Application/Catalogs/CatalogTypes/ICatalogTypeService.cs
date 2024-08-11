@@ -13,6 +13,6 @@ namespace Talakado.Application.Catalogs.CatalogTypes
         BaseDto Remove(int Id);
         BaseDto<CatalogTypeDto> Edit(CatalogTypeDto catalogType);
         BaseDto<CatalogTypeDto> FindById(int Id);
-        PaginatedItemDto<CatalogTypeListDto> GetList(int? parentId, int page, int pageSize);
+        PaginatedItemDto<CatalogTypeListDto> GetList(int? parentId, int pageIndex, int pageSize);
     }
 }

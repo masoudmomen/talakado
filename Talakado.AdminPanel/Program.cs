@@ -19,7 +19,7 @@ using Talakado.Application.UriComposer;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add services to the container.(IOC)
-builder.Services.AddRazorPages().AddNewtonsoftJson(optiion =>
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddNewtonsoftJson(optiion =>
 optiion.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddControllers();
 

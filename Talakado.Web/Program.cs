@@ -24,6 +24,7 @@ using Talakado.Application.Payments;
 using Talakado.Application.Discounts;
 using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using Talakado.Application.Orders.CustomerOrderServices;
+using Talakado.Web.Middlewares;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -90,6 +91,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseCustomExceptionHandler();
 app.UseSetVisitorId();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
