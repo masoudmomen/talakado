@@ -14,6 +14,7 @@ namespace Talakado.Application.Dtos
             PageSize = pageSize;
             Count = count;
             Data = data;
+            TotalPages = (int)Math.Ceiling((decimal)count / (decimal)PageSize);
         }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

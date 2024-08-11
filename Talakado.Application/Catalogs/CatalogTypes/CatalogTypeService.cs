@@ -48,12 +48,12 @@ namespace Talakado.Application.Catalogs.CatalogTypes
             //return new BaseDto<CatalogTypeDto>(true, "عملیات با موفقیت انجام شد", result); 
         }
 
-        public PaginatedItemDto<CatalogTypeListDto> GetList(int? parentId, int page, int pageSize)
+        public PaginatedItemDto<CatalogTypeListDto> GetList(int? parentId, int pageIndex, int pageSize)
         {
             int totalCount = 0;
-            var model = _context.CatalogTypes.Where(p=>p.ParentCatalogTypeId == parentId).PagedResult(page, pageSize, out totalCount);
+            var model = _context.CatalogTypes.Where(p=>p.ParentCatalogTypeId == parentId).PagedResult(pageIndex, pageSize, out totalCount);
             var result = mapper.ProjectTo<CatalogTypeListDto>(model).ToList();
-            return new PaginatedItemDto<CatalogTypeListDto>(page,pageSize,totalCount,result);
+            return new PaginatedItemDto<CatalogTypeListDto>(pageIndex, pageSize,totalCount,result);
         }
 
         public BaseDto Remove(int Id)

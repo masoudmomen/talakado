@@ -63,17 +63,49 @@
 </div>
 
 
-@* 
-<div class="btn-group">
-    <button type="button" class="btn btn-dark btn-sm">بیشتر</button>
-    <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference25" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference25">
-        <a class="dropdown-item" asp-page="edit" asp-route-id="@item.Id">ویرایش</a>
-        <a class="dropdown-item" asp-page="delete" asp-route-id="@item.Id">حذف</a>
-        <a class="dropdown-item" asp-page="create" asp-route-parentId="@item.Id">افزودن فرزند</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" asp-page="index" asp-route-parentid="@item.Id">لیست فرزند ها</a>
+@{
+    var prevDisabled = !Model.CatalogType.HasPerviousPage ? "disabled" : "";
+    var nextDisabled = !Model.CatalogType.HasNextPage ? "disabled" : "";
+
+}
+
+<div class="row">
+    <div class="col-sm-5">
+        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">نمایش @((Model.CatalogType.PageSize * (Model.CatalogType.PageIndex-1))+1) تا @(Model.CatalogType.PageSize * Model.CatalogType.PageIndex)  از @Model.CatalogType.Count رکورد</div>
     </div>
-</div> *@
+    <div class="col-sm-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul class="pagination">
+                <li class="paginate_button previous @prevDisabled" id="example2_previous">
+                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                       asp-route-pageIndex="@(Model.CatalogType.PageIndex - 1)"
+                        class="@prevDisabled">قبلی</a>
+                </li>
+                <li class="paginate_button active">
+                    <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a>
+                </li 
+                <li class="paginate_button ">
+                    <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a>
+                </li>
+                <li class="paginate_button next @nextDisabled" id="example2_next">
+                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                       asp-route-pageIndex="@(Model.CatalogType.PageIndex + 1)"
+                       class="@nextDisabled">Next</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
