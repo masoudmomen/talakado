@@ -1,9 +1,37 @@
 ﻿@using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPDP;
 @model CatalogItemPDPDto;
 @{
-    ViewData["Title"] = "جزئیات محصول";
+    ViewData["Title"] = Model.Name;
+    ViewData["Description"] = Model.Name;
 }
-
+@section JsonLd{
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+        {
+        "@@type": "ListItem",
+        "position": 1,
+        "name": "طلاکادو",
+        "item": "https://talakado.com"
+        },
+        {
+        "@@type": "ListItem",
+        "position": 2,
+        "name": "دوره ها",
+        "item": "https://talakado.com/courses"
+        },
+        {
+        "@@type": "ListItem",
+        "position": 3,
+        "name": "دوره ها",
+        "item": "https://talakado.com/courses"
+        }
+        ]
+    }    
+    </script>
+}
 
     <!-- Breadcrumb start -->
     <div class="breadcrumb-wrap bg-linen">

@@ -81,6 +81,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
             {
                 Id = p.Id,
                 Name = p.Name,
+                Slug = p.Slug,
                 Price = p.Price,
                 Rate = 4,
                 Image = uriComposerService.ComposeImageUri(p.CatalogItemImages.FirstOrDefault().Src)
@@ -93,6 +94,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Slug { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
         public byte Rate { get; set; }

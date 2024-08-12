@@ -81,6 +81,13 @@ builder.Services.AddTransient<ICustomerOrderService, CustomerOrderService>();
 builder.Services.AddScoped<SaveVisitorFilter>();
 #endregion
 
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddDistributedSqlServerCache(option =>
+{
+    option.ConnectionString = connection;
+    option.SchemaName = "dbo";
+    option.TableName = "CacheData";
+});
 
 var app = builder.Build();
 
@@ -112,6 +119,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "productDetails",
+    pattern: "product/{Slug}",
+    defaults: new { controller = "Product", action = "Details"});
 
 
 app.MapRazorPages();

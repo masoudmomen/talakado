@@ -38,6 +38,7 @@ namespace Talakado.Domain.Catalogs
         }
         public int? PercentDiscount { get; set; }
         public int VisitCount { get; set; }
+        public string Slug { get; set; }
         public int CatalogTypeId { get; set; }
         public CatalogType CatalogType { get; set; }
         public int CatalogBrandId { get; set; }

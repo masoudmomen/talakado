@@ -20,9 +20,9 @@ namespace Talakado.Web.Controllers
             return View(data);
         }
 
-        public IActionResult Details(int Id)
+        public IActionResult Details(string Slug)
         {
-            var data = getCatalogItemPDPService.Execute(Id);
+            var data = getCatalogItemPDPService.Execute(Slug);
             return View(data);
         }
     }

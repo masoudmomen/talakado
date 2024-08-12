@@ -54,6 +54,13 @@ builder.Services.AddDbContext<DataBaseContext>(option =>
 builder.Services.AddIdentityService(builder.Configuration);
 #endregion
 
+builder.Services.AddDistributedSqlServerCache(option =>
+{
+    option.ConnectionString = connection;
+    option.SchemaName = "dbo";
+    option.TableName = "CacheData";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
