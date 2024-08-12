@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Talakado.StaticFilesEndPoint", "Talakado.StaticFilesEndPoint\Talakado.StaticFilesEndPoint.csproj", "{C5A9FFF6-27E5-45FD-93A9-9EA9DC92DB94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{8563936C-DA88-4F96-A328-938C9BCA2878}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{C5A9FFF6-27E5-45FD-93A9-9EA9DC92DB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5A9FFF6-27E5-45FD-93A9-9EA9DC92DB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5A9FFF6-27E5-45FD-93A9-9EA9DC92DB94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8563936C-DA88-4F96-A328-938C9BCA2878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8563936C-DA88-4F96-A328-938C9BCA2878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8563936C-DA88-4F96-A328-938C9BCA2878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8563936C-DA88-4F96-A328-938C9BCA2878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{48E41254-2CCD-43CE-AC50-91E4C712F60E} = {31D06070-DA18-489C-A8B8-1076A336F2E4}
 		{BAC5F1BA-CB66-457F-BABF-0F0AB1B50CE6} = {48E41254-2CCD-43CE-AC50-91E4C712F60E}
 		{C5A9FFF6-27E5-45FD-93A9-9EA9DC92DB94} = {AD5A4256-A034-4DFE-9D70-521D9520AA2D}
+		{8563936C-DA88-4F96-A328-938C9BCA2878} = {770E5DBD-95A8-4189-9F02-086498B86F4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C2F2DDC-47AE-4188-86A3-E5A532BA9E0F}
