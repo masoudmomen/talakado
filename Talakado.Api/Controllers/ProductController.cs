@@ -23,5 +23,12 @@ namespace Talakado.Api.Controllers
         {
             return Ok(getCatalogItemPLPService.Execute(request));
         }
+
+        [HttpGet]
+        [Route("PDP")]
+        public IActionResult Get([FromQuery] string Slug)
+        {
+            return Ok(getCatalogItemPDPService.Execute(Slug));
+        }
     }
 }

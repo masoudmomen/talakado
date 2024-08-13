@@ -107,8 +107,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
         public int pageSize { get; set; } = 20;
 
         public int? CatalogeTypeId { get; set; }
-        public int[] BrandId { get; set; }
-        public string SearchKey { get; set; }
+        public int[]? BrandId { get; set; }
+        public string? SearchKey { get; set; }
         public bool AvailableStock { get; set; }
         public SortType SortType { get; set; }
     }
