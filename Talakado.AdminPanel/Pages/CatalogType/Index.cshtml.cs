@@ -17,6 +17,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
         public void OnGet(int? parentId, int pageIndex = 1, int pageSize=2)
         {
             CatalogType = catalogTypeService.GetList(parentId, pageIndex, pageSize);
+            TempData["page"] = 6;
         }
     }
 }

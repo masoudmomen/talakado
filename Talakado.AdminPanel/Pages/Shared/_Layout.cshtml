@@ -75,7 +75,7 @@ desired effect
                 </a>
 
 
-                <div class="navbar-custom-menu">
+                @* <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
@@ -325,7 +325,7 @@ desired effect
                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                         </li>
                     </ul>
-                </div>
+                </div> *@
             </nav>
         </header>
         <!-- right side column. contains the logo and sidebar -->
@@ -337,10 +337,10 @@ desired effect
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-right image">
-                        <img src="~/theme/AdminLTE_Persian-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="~/theme/AdminLTE_Persian-master/dist/img/no-image.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-right info">
-                        <p>علیرضا حسینی زاده</p>
+                        <p>ادمین</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
                     </div>
@@ -362,7 +362,19 @@ desired effect
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">تیتر</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="/visitor/index"><i class="fa fa-link"></i> <span>آمار بازدید</span></a></li>
+                    <li id="1"><a href="/visitor/index"><i class="fa fa-link"></i> <span>آمار بازدید</span></a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-link"></i> <span>مدیریت محتوا</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li id="2"><a href="/catalogitems">صفحه اصلی</a></li>
+                            <li id="3"><a href="/catalogitems/create">صفحات سایت</a></li>
+                        </ul>
+                    </li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-link"></i> <span>کاتالوگ آیتم</span>
@@ -371,8 +383,8 @@ desired effect
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/catalogitems">نمایش کاتالوگ آیتم</a></li>
-                            <li><a href="/catalogitems/create">ثبت کاتالوگ آیتم</a></li>
+                            <li id="4"><a href="/catalogitems">نمایش کاتالوگ آیتم</a></li>
+                            <li id="5"><a href="/catalogitems/create">ثبت کاتالوگ آیتم</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -383,8 +395,8 @@ desired effect
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/catalogType">نمایش کاتالوگ تایپ</a></li>
-                            <li><a href="/catalogType/create">ثبت کاتالوگ تایپ</a></li>
+                            <li id="6"><a href="/catalogType">نمایش کاتالوگ تایپ</a></li>
+                            <li id="7"><a href="/catalogType/create">ثبت کاتالوگ تایپ</a></li>
                         </ul>
                     </li>
                     
@@ -420,9 +432,9 @@ desired effect
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
-        <footer class="main-footer text-left">
+        @* <footer class="main-footer text-left">
             <strong>Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a></strong>
-        </footer>
+        </footer> *@
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -516,5 +528,12 @@ desired effect
          Both of these plugins are recommended to enhance the
          user experience. -->
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        var activeLi = @TempData["page"];
+        $('#' + activeLi).addClass("active");
+        //$('#' + activeLi).parent().parent().addClass("menu-open");
+
+    </script>
 </body>
-</html>
+</htm>

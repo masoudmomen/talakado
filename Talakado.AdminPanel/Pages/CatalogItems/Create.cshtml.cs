@@ -28,7 +28,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
         public void OnGet()
         {
             Categories = new SelectList(catalogItemService.GetCatalogType(), "Id", "Type");
-            Brands = new SelectList(catalogItemService.GetBrand(), "Id", "Brand"); 
+            Brands = new SelectList(catalogItemService.GetBrand(), "Id", "Brand");
+            TempData["page"] = 5;
         }
 
         public  JsonResult OnPost()

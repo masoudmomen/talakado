@@ -22,6 +22,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
         public void OnGet(int? parentId)
         {
             CatalogType.ParentCatalogTypeId = parentId;
+            TempData["page"] = 7;
         }   
 
         public IActionResult OnPost()
