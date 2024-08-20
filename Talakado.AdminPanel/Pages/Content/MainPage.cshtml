@@ -1,0 +1,84 @@
+﻿@page
+@model Talakado.AdminPanel.Pages.Content.MainPageModel
+@{
+    ViewData["Title"] = "مدیریت محتوای صفحه اصلی";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">متن بالای هدر</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" asp-antiforgery="true">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="adverticePhrase">متن </label>
+                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.Phrase">
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="advetiseIsShow" checked="checked" /> این متن را نمایش نده
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="button" onclick="SendAdvertice()" class="btn btn-primary">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function SendAdvertice() {
+            var adverticePhrase = $('#adverticePhrase').val();
+            var advetiseIsShow = $('#advetiseIsShow').is(':checked');
+            if (adverticePhrase == "") {
+                swal.fire(
+                    'پیام هشدار!',
+                    "عبارت تبلیغاتی نباید خالی باشد",
+                    'Error'
+                );
+                return;
+            } 
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "/content/mainpage",
+                data: { 'phrase':adverticePhrase, 'isShow':advetiseIsShow },
+                success: function (result) {
+                    console.log(result)
+                    if (result) {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'عبارت تبلیغاتی با موفقیت ذخیره شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ذخیره عبارت انجام نشد",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            ajaxRequest.done(function (xhr, textStatus) {
+                // Do other operation
+            });
+        }
+    </script>
+}

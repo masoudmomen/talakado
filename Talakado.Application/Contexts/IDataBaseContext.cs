@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Domain.Basket;
 using Talakado.Domain.Catalogs;
+using Talakado.Domain.Contents;
 using Talakado.Domain.Discounts;
 using Talakado.Domain.Order;
 using Talakado.Domain.Payments;
@@ -31,6 +32,7 @@ namespace Talakado.Application.Contexts
         DbSet<Discount> Discounts { get; set; }
         DbSet<DiscountUsagehistory> DiscountUsagehistories { get; set; }
         DbSet<CatalogItemFavorite> CatalogItemFavorites { get; set; }
+        DbSet<Content> Contents { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

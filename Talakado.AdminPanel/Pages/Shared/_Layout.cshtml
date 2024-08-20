@@ -371,8 +371,8 @@ desired effect
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="2"><a href="/catalogitems">صفحه اصلی</a></li>
-                            <li id="3"><a href="/catalogitems/create">صفحات سایت</a></li>
+                            <li id="2"><a href="/content/mainpage">صفحه اصلی</a></li>
+                            <li id="3"><a href="/content/pages">صفحات سایت</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -410,14 +410,14 @@ desired effect
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>
-                    عنوان صفحه
-                    <small>توضیحات</small>
-                </h1>
-                <ol class="breadcrumb">
+                <h4>
+                    عنوان صفحه : 
+                    @ViewData["Title"]
+                </h4>
+                @* <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> خانه</a></li>
                     <li class="active">صفحه</li>
-                </ol>
+                </ol> *@
             </section>
 
             <!-- Main content -->
@@ -532,7 +532,8 @@ desired effect
     <script>
         var activeLi = @TempData["page"];
         $('#' + activeLi).addClass("active");
-        //$('#' + activeLi).parent().parent().addClass("menu-open");
+        $('#' + activeLi).parent().parent().addClass("menu-open");
+        $('#' + activeLi).parent().css("display", "block");
 
     </script>
 </body>

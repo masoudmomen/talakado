@@ -15,6 +15,7 @@ using Talakado.Infrastructure.ExternalApi.ImageServer;
 using Talakado.Application.Discounts.AddNewDiscountService;
 using Talakado.Application.Discounts;
 using Talakado.Application.UriComposer;
+using Talakado.Application.ContentManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,7 @@ builder.Services.AddTransient<IAddNewDiscountService, AddNewDiscountService>();
 builder.Services.AddTransient<IDiscountService, DiscountService>();
 builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>();
 builder.Services.AddTransient<IUriComposerService, UriComposerService>();
+builder.Services.AddTransient<IContentManagerService, ContentManagerService>();
 
 
 #endregion

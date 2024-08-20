@@ -20,6 +20,7 @@ namespace Talakado.AdminPanel.Pages.Visitor
         {
             ResultDailyReport = _getDailyReportService.Execute();
             ViewData["OnlineVisitor"] = _onlineVisitorService.GetCount();
+            TempData["page"] = 1;
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿@using Talakado.Application.BasketsService;
-@model BasketDto;
+﻿@using Talakado.Web.Models.ViewComponents
+@model HeaderDto;
 @{
     Layout = null;
 }
@@ -21,7 +21,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-4 col-lg-12">
                             <div class="header-top-left">
-                                <p class="header-promo-text">پیشنهاد زمستانی با 70% تخفیف ویژه</p>
+                                <p class="header-promo-text">@Model.AdvertisePhrase</p>
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-12 text-xl-end">
@@ -201,18 +201,18 @@
                                     <div class="shopcart">
                                         <div class="cart-icon">
                                             <i class="las la-shopping-basket"></i>
-                                            @if (Model != null)
+                                            @if (Model != null && Model.Basket != null)
                                             {
-                                                <span>@Model.Items.Count</span>
+                                                <span>@Model.Basket.Items.Count</span>
                                             }
                                             else
                                             {
                                                 <span>0</span>
                                             }
                                         </div>
-                                        @if (Model != null)
+                                        @if (Model != null && Model.Basket != null)
                                         {
-                                            <p>@Model.Total().ToString("n0") تومان</p>
+                                            <p>@Model.Basket.Total().ToString("n0") تومان</p>
                                         }
                                         else
                                         {
@@ -259,18 +259,18 @@
                                 <div class="shopcart">
                                     <div class="cart-icon">
                                         <i class="las la-shopping-basket"></i>
-                                        @if (Model != null)
+                                        @if (Model != null && Model.Basket != null)
                                         {
-                                            <span>@Model.Items.Count</span>
+                                            <span>@Model.Basket.Items.Count</span>
                                         }
                                         else
                                         {
                                             <span>0</span>
                                         }
                                     </div>
-                                    @if (Model != null)
+                                    @if (Model != null && Model.Basket != null)
                                     {
-                                        <p>@Model.Total().ToString("n0") تومان</p>
+                                        <p>@Model.Basket.Total().ToString("n0") تومان</p>
                                     }
                                     else
                                     {
@@ -290,13 +290,21 @@
 <!-- Cart Popup start -->
 <div class="cart-popup">
     <div class="cart-popup-title">
-        <h2> سبد خرید (@if (Model != null) { @Model.Items.Count}else{<span>0</span>})</h2>
+        <h2>
+            سبد خرید (@if (Model != null && Model.Basket != null)
+            {
+                @Model.Basket.Items.Count
+            }
+            else
+            {
+                <span>0</span>
+            })</h2>
         <button type="button" class="close-popup"><i class="las la-times"></i></button>
     </div>
     <div class="cart-popup-item-wrap">
-        @if (Model != null)
+        @if (Model != null && Model.Basket != null)
         {
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.Basket.Items)
             {
                 <div class="cart-popup-item">
                     <div class="cart-popup-item-img">
@@ -323,9 +331,9 @@
     <div class="cart-popup-total-wrap">
         <div class="cart-popup-total">
             <h5>مجموع</h5>
-            <h5>@if (Model != null)
+            <h5>@if (Model != null && Model.Basket != null)
                 {
-                    @Model.Total().ToString("n0")
+                    @Model.Basket.Total().ToString("n0")
                 }
                 else
                 {
