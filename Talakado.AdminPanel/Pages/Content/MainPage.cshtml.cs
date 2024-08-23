@@ -14,15 +14,30 @@ namespace Talakado.AdminPanel.Pages.Content
         }
         [BindProperty]
         public string? Phrase { get; set; }
+        [BindProperty]
+        public bool IsShow { get; set; } = false;
         public void OnGet()
         {
-            Phrase = contentManagerService.GetAdvertisementPhrase();
+            var advertise = contentManagerService.GetAdvertisementPhraseForAdmin();
+            if (advertise != null)
+            {
+                IsShow = advertise.IsShow;
+                Phrase = advertise.Value;
+            }
+            else
+            {
+                Phrase = "";
+                IsShow = false;
+            }
+            
             TempData["Page"] = 2;
         }
 
-        public void OnPost(string phrase, bool isShow) 
+        public IActionResult OnPostSetAdvertismentPhrase(string phraseTxt, bool isShow) 
         {
-            contentManagerService.AddAdvertisementPhrase(phrase, isShow);
+            if (contentManagerService.AddAdvertisementPhrase(phraseTxt, isShow))
+                return Content("true");
+            return Content("false");
             //if(phrase == contentManagerService.GetAdvertisementPhrase("advertisementPhrase")) 
             //    return true;
             //return false;

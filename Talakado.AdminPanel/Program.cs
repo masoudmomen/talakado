@@ -16,6 +16,7 @@ using Talakado.Application.Discounts.AddNewDiscountService;
 using Talakado.Application.Discounts;
 using Talakado.Application.UriComposer;
 using Talakado.Application.ContentManager;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 

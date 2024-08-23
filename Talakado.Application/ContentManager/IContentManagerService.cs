@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
+using Talakado.Domain.Contents;
 
 namespace Talakado.Application.ContentManager
 {
     public interface IContentManagerService
     {
-        void AddAdvertisementPhrase(string phrase, bool isShow = true);
+        bool AddAdvertisementPhrase(string phrase, bool isShow = true);
         string GetAdvertisementPhrase();
+        Content GetAdvertisementPhraseForAdmin();
     }
 
     public class ContentManagerService : IContentManagerService
@@ -22,7 +24,7 @@ namespace Talakado.Application.ContentManager
             this.context = context;
         }
 
-        public void AddAdvertisementPhrase(string phrase, bool isShow = true)
+        public bool AddAdvertisementPhrase(string phrase, bool isShow = true)
         {
             var advertise = context.Contents.SingleOrDefault(c => c.Key == "advertisementPhrase");
             if (advertise == null)
@@ -39,7 +41,7 @@ namespace Talakado.Application.ContentManager
                 advertise.Value = phrase;
                 advertise.IsShow = isShow;
             }
-            context.SaveChanges();
+            return context.SaveChanges() > 0;
         }
 
         public string GetAdvertisementPhrase()
@@ -48,6 +50,13 @@ namespace Talakado.Application.ContentManager
             if (advertise != null && advertise.IsShow)
                 return advertise.Value;
             return "";
+        }
+        public Content GetAdvertisementPhraseForAdmin()
+        {
+            var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
+            if (advertise != null)
+                return advertise;
+            return null;
         }
     }
 }

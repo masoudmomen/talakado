@@ -12,7 +12,7 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true">
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetAdvertismentPhrase">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="adverticePhrase">متن </label>
@@ -21,14 +21,14 @@
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="advetiseIsShow" checked="checked" /> این متن را نمایش نده
+                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.IsShow" /> نمایش متن فعال باشد
                             </label>
                         </div>
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="button" onclick="SendAdvertice()" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendAdvertise()" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
@@ -38,7 +38,7 @@
 
 @section Scripts {
     <script>
-        function SendAdvertice() {
+        function SendAdvertise() {
             var adverticePhrase = $('#adverticePhrase').val();
             var advetiseIsShow = $('#advetiseIsShow').is(':checked');
             if (adverticePhrase == "") {
@@ -53,11 +53,10 @@
             var ajaxRequest = $.ajax({
                 type: "post",
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "/content/mainpage",
-                data: { 'phrase':adverticePhrase, 'isShow':advetiseIsShow },
+                url: "./mainpage?handler=SetAdvertismentPhrase",
+                data: { 'phraseTxt': adverticePhrase, 'isShow': advetiseIsShow },
                 success: function (result) {
-                    console.log(result)
-                    if (result) {
+                    if (result === "true") {
                         swal.fire(
                             'پیام موفقیت!',
                             'عبارت تبلیغاتی با موفقیت ذخیره شد',
