@@ -11,8 +11,9 @@ namespace Talakado.Application.ContentManager
     public interface IContentManagerService
     {
         bool AddAdvertisementPhrase(string phrase, bool isShow = true);
-        string GetAdvertisementPhrase();
-        Content GetAdvertisementPhraseForAdmin();
+        Content GetAdvertisementPhrase();
+        bool AddPhoneNumber(string phoneNumber, bool isShow = true);
+        Content GetPhoneNumber();
     }
 
     public class ContentManagerService : IContentManagerService
@@ -44,18 +45,38 @@ namespace Talakado.Application.ContentManager
             return context.SaveChanges() > 0;
         }
 
-        public string GetAdvertisementPhrase()
+        public bool AddPhoneNumber(string phoneNumber, bool isShow = true)
         {
-            var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
-            if (advertise != null && advertise.IsShow)
-                return advertise.Value;
-            return "";
+            var phoneNumberResult = context.Contents.SingleOrDefault(c => c.Key == "phoneNumber");
+            if (phoneNumberResult == null)
+            {
+                context.Contents.Add(new Content
+                {
+                    Key = "phoneNumber",
+                    Value = phoneNumber,
+                    IsShow = isShow
+                });
+            }
+            else
+            {
+                phoneNumberResult.Value = phoneNumber;
+                phoneNumberResult.IsShow = isShow;
+            }
+            return context.SaveChanges() > 0;
         }
-        public Content GetAdvertisementPhraseForAdmin()
+        public Content GetAdvertisementPhrase()
         {
             var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
             if (advertise != null)
                 return advertise;
+            return null;
+        }
+
+        public Content GetPhoneNumber()
+        {
+            var phoneNumberResult = context.Contents.FirstOrDefault(c => c.Key == "phoneNumber");
+            if (phoneNumberResult != null)
+                return phoneNumberResult;
             return null;
         }
     }

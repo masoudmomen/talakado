@@ -26,10 +26,13 @@
                         </div>
                         <div class="col-xl-8 col-lg-12 text-xl-end">
                             <div class="header-top-right">
-                                <div class="contact-num">
-                                    <i class="flaticon-call"></i>
-                                    <a href="tel:15143214567">+1 (514) 321-4567</a>
-                                </div>
+                                @if(Model.PhoneNumber != null && Model.PhoneNumber.IsShow)
+                                {
+                                    <div class="contact-num">
+                                        <i class="flaticon-call"></i>
+                                        <a href="tel:@Model.PhoneNumber.Value">@Model.PhoneNumber.Value</a>
+                                    </div>
+                                }
                                 <div class="lang_selctor">
                                     <i class="las la-globe-africa"></i>
                                     <select>

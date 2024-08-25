@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Talakado.Application.BasketsService;
 using Talakado.Application.ContentManager;
+using Talakado.Domain.Contents;
 using Talakado.Web.Utilities;
 
 namespace Talakado.Web.Models.ViewComponents
@@ -20,7 +21,8 @@ namespace Talakado.Web.Models.ViewComponents
         public IViewComponentResult Invoke()
         {
             var model = new HeaderDto();
-            model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase();
+            model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase().Value;
+            model.PhoneNumber = contentManagerService.GetPhoneNumber();
             if (User.Identity.IsAuthenticated)
             {
                 model.Basket = basketService.GetBasketForUser(ClaimUtility.GetUserId(userClaimPrincipal));
@@ -42,5 +44,6 @@ namespace Talakado.Web.Models.ViewComponents
     {
         public BasketDto Basket { get; set; }
         public string? AdvertisePhrase { get; set; }
+        public Content? PhoneNumber { get; set; }
     }
 }
