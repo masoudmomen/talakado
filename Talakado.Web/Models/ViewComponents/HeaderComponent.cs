@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Talakado.Application.BasketsService;
+using Talakado.Application.Catalogs.CatalogTypes;
 using Talakado.Application.ContentManager;
+using Talakado.Application.Contexts;
 using Talakado.Domain.Contents;
 using Talakado.Web.Utilities;
 
@@ -11,11 +13,18 @@ namespace Talakado.Web.Models.ViewComponents
     {
         private readonly IBasketService basketService;
         private readonly IContentManagerService contentManagerService;
+        private readonly ICatalogTypeService catalogTypeService;
+        private readonly IIdentityDataBaseContext identityDataBaseContext;
 
-        public HeaderComponent(IBasketService basketService, IContentManagerService contentManagerService)
+        public HeaderComponent(IBasketService basketService, 
+            IContentManagerService contentManagerService,
+            ICatalogTypeService catalogTypeService,
+            IIdentityDataBaseContext identityDataBaseContext)
         {
             this.basketService = basketService;
             this.contentManagerService = contentManagerService;
+            this.catalogTypeService = catalogTypeService;
+            this.identityDataBaseContext = identityDataBaseContext;
         }
         private ClaimsPrincipal userClaimPrincipal => ViewContext?.HttpContext?.User;
         public IViewComponentResult Invoke()
@@ -23,12 +32,17 @@ namespace Talakado.Web.Models.ViewComponents
             var model = new HeaderDto();
             model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase().Value;
             model.PhoneNumber = contentManagerService.GetPhoneNumber();
+            model.catalogTypeLists = catalogTypeService.GetList(null, 1, 100).Data.ToList();
             if (User.Identity.IsAuthenticated)
             {
-                model.Basket = basketService.GetBasketForUser(ClaimUtility.GetUserId(userClaimPrincipal));
+                var userId = ClaimUtility.GetUserId(userClaimPrincipal);
+                model.Basket = basketService.GetBasketForUser(userId);
+                model.IsUserAuthenticated = true;
+                model.UserFullName = identityDataBaseContext.Users.Find(userId)?.FullName;
             }
             else
             {
+                model.IsUserAuthenticated= false;
                 string basketCookieName = "BasketId";
                 if (Request.Cookies.ContainsKey(basketCookieName))
                 {
@@ -45,5 +59,8 @@ namespace Talakado.Web.Models.ViewComponents
         public BasketDto Basket { get; set; }
         public string? AdvertisePhrase { get; set; }
         public Content? PhoneNumber { get; set; }
+        public List<CatalogTypeListDto> catalogTypeLists { get; set; }
+        public bool IsUserAuthenticated { get; set; }
+        public string? UserFullName { get; set; }
     }
 }
