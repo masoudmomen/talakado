@@ -14,6 +14,7 @@ namespace Talakado.Application.ContentManager
         Content GetAdvertisementPhrase();
         bool AddPhoneNumber(string phoneNumber, bool isShow = true);
         Content GetPhoneNumber();
+        bool AddImage(string url, string key);
     }
 
     public class ContentManagerService : IContentManagerService
@@ -42,6 +43,23 @@ namespace Talakado.Application.ContentManager
                 advertise.Value = phrase;
                 advertise.IsShow = isShow;
             }
+            return context.SaveChanges() > 0;
+        }
+
+        public bool AddImage(string url, string key)
+        {
+            var image = context.Contents.SingleOrDefault(c=>c.Key == key);
+            if (image == null)
+            {
+                context.Contents.Add(new Content 
+                { 
+                    IsShow = true,
+                    Key = key,
+                    Value = url
+                });
+                return context.SaveChanges() > 0;
+            }
+            image.Value = url;
             return context.SaveChanges() > 0;
         }
 
