@@ -26,10 +26,13 @@
                         </div>
                         <div class="col-xl-8 col-lg-12 text-xl-end">
                             <div class="header-top-right">
-                                <div class="contact-num">
-                                    <i class="flaticon-call"></i>
-                                    <a href="tel:15143214567">+1 (514) 321-4567</a>
-                                </div>
+                                @if(Model.PhoneNumber != null && Model.PhoneNumber.IsShow)
+                                {
+                                    <div class="contact-num">
+                                        <i class="flaticon-call"></i>
+                                        <a href="tel:@Model.PhoneNumber.Value">@Model.PhoneNumber.Value</a>
+                                    </div>
+                                }
                                 <div class="lang_selctor">
                                     <i class="las la-globe-africa"></i>
                                     <select>
@@ -47,24 +50,35 @@
                                         <option value="3">ریال</option>
                                     </select>
                                 </div> *@
-                                <div class="user-account xl-none">
-                                    <img src="~/theme/assets/img/user-1.png" alt="Image">
-                                    <span>اولیور اسمیت</span>
+                                @if (Model.IsUserAuthenticated)
+                                {
+                                <div class="user-account xl-none mb-5">
+                                    <img src="~/images/no-image.png" alt="Image">
+                                        <span class="link "> @Model.UserFullName</span>
                                     <ul class="list-style">
                                         <li><a href="my-account.html">حساب کاربری</a></li>
                                         <li><a href="my-account.html">تنظیمات</a></li>
                                         <li><a href="javascript:volid(0)">خروج</a></li>
                                     </ul>
                                 </div>
+                                }
+                                else
+                                {
+                                    <div class="xl-none mb-5"><a href="forgot-pwd.html" class="link style2">ورود یا ثبت نام</a></div>
+                                }
                             </div>
                         </div>
                         <div class="col-lg-12 xl-none">
                             <form action="#" class="header-search-box">
                                 <select>
                                     <option>دسته بندی</option>
-                                    <option value="1">حلقه</option>
-                                    <option value="2">گوشواره</option>
-                                    <option value="3">گردنبند</option>
+                                    @if (Model != null && Model.catalogTypeLists.Count > 0)
+                                    {
+                                        foreach (var item in Model.catalogTypeLists)
+                                        {
+                                            <option value="@item.Id">@item.Type</option>
+                                        }
+                                    }
                                 </select>
                                 <div class="search-form">
                                     <input type="search" placeholder="جستجو ..">
@@ -83,59 +97,11 @@
                                 </div>
                                 <div id="menu" class="text-left">
                                     <ul class="main-menu list-style">
-                                        <li class="has-children">
-                                            <a class="active" href="#">خانه</a>
-                                            <ul class="sub-menu list-style">
-                                                <li>
-                                                    <a class="active" href="index.html">صفحه اصلی 1</a>
-                                                </li>
-                                                <li><a href="index-2.html">صفحه اصلی 2</a></li>
-                                                <li><a href="index-3.html">صفحه اصلی 3</a></li>
-                                            </ul>
+                                        <li>
+                                            <a class="active" href="index-2.html">خانه</a>
                                         </li>
-                                        <li class="has-children">
-                                            <a href="#">مجموعه</a>
-                                            <ul class="sub-menu list-style">
-                                                <li>
-                                                    <a href="collection.html">مجموعه برتر</a>
-                                                </li>
-                                                <li><a href="trending.html">مجموعه پرطرفدار</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-children">
+                                        <li>
                                             <a href="@Url.Action("Store", "Home")">فروشگاه</a>
-                                            <ul class="sub-menu list-style megamenu">
-                                                <li class="has-children  mega-has-child">
-                                                    <a class="megamenu-title" href="javascript:void(0)">فروشگاه</a>
-                                                    <ul class="sub-menu list-style">
-                                                        <li><a href="shop-3-column.html">فروشگاه 3 ستونی</a></li>
-                                                        <li><a href="shop-4-column.html">فروشگاه 4 ستونی</a></li>
-                                                        <li><a href="shop-left-sidebar.html">فروشگاه سایدبار 1</a></li>
-                                                        <li><a href="shop-right-sidebar.html">فروشگاه سایدبار 2</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="has-children  mega-has-child">
-                                                    <a class="megamenu-title" href="javascript:void(0)">جزئیات محصول</a>
-                                                    <ul class="sub-menu list-style">
-                                                        <li><a href="single-product.html">جزئیات محصول</a></li>
-                                                        <li><a href="category-2-column.html">دسته بندی 2 ستونی</a></li>
-                                                        <li><a href="category-3-column.html">دسته بندی 3 ستونی</a></li>
-                                                        <li><a href="category-4-column.html">دسته بندی 4 ستونی</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="has-children  mega-has-child">
-                                                    <a class="megamenu-title" href="javascript:void(0)">کاربران </a>
-                                                    <ul class="sub-menu list-style">
-                                                        <li><a href="my-account.html"> حساب کاربری</a></li>
-                                                        <li><a href="cart.html"> سبد خرید</a></li>
-                                                        <li><a href="wishlist.html"> فهرست علاقه مندی</a></li>
-                                                        <li><a href="checkout.html">بررسی محصول</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="lg-none">
-                                                    <a href="collection.html"><img src="~/theme/assets/img/menu-img.jpg" alt="Image"></a>
-                                                </li>
-                                            </ul>
                                         </li>
                                         <li class="has-children">
                                             <a href="#">صفحات</a>
@@ -145,49 +111,12 @@
                                                 <li><a href="order-tracking.html">پیگیری سفارش</a></li>
                                                 <li><a href="faq.html">سوالات متداول</a></li>
                                                 <li>
-                                                    <a href="privacy-policy.html">حریم خصوصی</a>
-                                                </li>
-                                                <li>
                                                     <a href="terms-condition.html">شرایط و ضوابط</a>
                                                 </li>
-                                                <li><a href="login.html">ورود کاربران</a></li>
-                                                <li><a href="register.html">ثبت نام</a></li>
-                                                <li><a href="forgot-pwd.html">بازیابی گذرواژه</a></li>
-                                                <li><a href="404.html">خطا 404</a></li>
                                             </ul>
                                         </li>
-                                        <li class="has-children">
+                                        <li>
                                             <a href="#">وبلاگ</a>
-                                            <ul class="sub-menu list-style">
-                                                <li class="has-children">
-                                                    <a href="#">وبلاگ</a>
-                                                    <ul class="sub-menu list-style">
-                                                        <li>
-                                                            <a href="blog-left-sidebar.html">وبلاگ سایدبار 1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-right-sidebar.html">وبلاگ سایدبار 2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-no-sidebar.html">وبلاگ شبکه ای</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="has-children">
-                                                    <a href="#">جزئیات وبلاگ</a>
-                                                    <ul class="sub-menu list-style">
-                                                        <li>
-                                                            <a href="blog-details-left-sidebar.html">جزئیات وبلاگ سایدبار 1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-details-right-sidebar.html">جزئیات وبلاگ سایدبار 2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-details-no-sidebar.html">جزئیات وبلاگ</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
                                         </li>
                                         <li><a href="contact.html">تماس با ما</a></li>
                                     </ul>
@@ -235,24 +164,38 @@
                                 <form action="#" class="header-search-box lg-none">
                                     <select>
                                         <option>دسته بندی</option>
-                                        <option value="1">حلقه</option>
-                                        <option value="2">گوشواره</option>
-                                        <option value="3">گردنبند</option>
+                                        @if(Model != null && Model.catalogTypeLists.Count >0)
+                                        {
+                                            foreach (var item in Model.catalogTypeLists)
+                                            {
+                                                <option value="@item.Id">@item.Type</option>
+                                            }
+                                        }
                                     </select>
                                     <div class="search-form">
                                         <input type="search" placeholder="جستجو ..">
                                         <button type="submit">جستجو</button>
                                     </div>
                                 </form>
-                                <div class="user-account">
-                                    <img src="~/theme/assets/img/user-1.png" alt="Image">
-                                    <span>آماندا اسمیت</span>
-                                    <ul class="list-style">
-                                        <li><a href="my-account.html">حساب کاربری</a></li>
-                                        <li><a href="my-account.html">تنظیمات</a></li>
-                                        <li><a href="javascript:volid(0)">خروج</a></li>
-                                    </ul>
-                                </div>
+                                @if (Model.IsUserAuthenticated)
+                                {
+                                    <div class="user-account">
+                                        <img src="~/images/no-image.png" alt="Image">
+                                        <span class="link">
+                                            @Model.UserFullName
+                                        </span>
+                                        <ul class="list-style">
+                                            <li><a href="my-account.html">حساب کاربری</a></li>
+                                            <li><a href="my-account.html">تنظیمات</a></li>
+                                            <li><a href="javascript:volid(0)">خروج</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="ms-5"><a href="forgot-pwd.html" class="link style2">ورود یا ثبت نام</a></div>
+                                }
+
                                 <div class="wishlist">
                                     <i class="las la-heart"></i>
                                 </div>

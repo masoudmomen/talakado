@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
+using Talakado.Domain.Contents;
 
 namespace Talakado.Application.ContentManager
 {
     public interface IContentManagerService
     {
-        void AddAdvertisementPhrase(string phrase, bool isShow = true);
-        string GetAdvertisementPhrase();
+        bool AddAdvertisementPhrase(string phrase, bool isShow = true);
+        Content GetAdvertisementPhrase();
+        bool AddPhoneNumber(string phoneNumber, bool isShow = true);
+        Content GetPhoneNumber();
+        bool AddImage(string url, string key);
     }
 
     public class ContentManagerService : IContentManagerService
@@ -22,7 +26,7 @@ namespace Talakado.Application.ContentManager
             this.context = context;
         }
 
-        public void AddAdvertisementPhrase(string phrase, bool isShow = true)
+        public bool AddAdvertisementPhrase(string phrase, bool isShow = true)
         {
             var advertise = context.Contents.SingleOrDefault(c => c.Key == "advertisementPhrase");
             if (advertise == null)
@@ -39,15 +43,59 @@ namespace Talakado.Application.ContentManager
                 advertise.Value = phrase;
                 advertise.IsShow = isShow;
             }
-            context.SaveChanges();
+            return context.SaveChanges() > 0;
         }
 
-        public string GetAdvertisementPhrase()
+        public bool AddImage(string url, string key)
+        {
+            var image = context.Contents.SingleOrDefault(c=>c.Key == key);
+            if (image == null)
+            {
+                context.Contents.Add(new Content 
+                { 
+                    IsShow = true,
+                    Key = key,
+                    Value = url
+                });
+                return context.SaveChanges() > 0;
+            }
+            image.Value = url;
+            return context.SaveChanges() > 0;
+        }
+
+        public bool AddPhoneNumber(string phoneNumber, bool isShow = true)
+        {
+            var phoneNumberResult = context.Contents.SingleOrDefault(c => c.Key == "phoneNumber");
+            if (phoneNumberResult == null)
+            {
+                context.Contents.Add(new Content
+                {
+                    Key = "phoneNumber",
+                    Value = phoneNumber,
+                    IsShow = isShow
+                });
+            }
+            else
+            {
+                phoneNumberResult.Value = phoneNumber;
+                phoneNumberResult.IsShow = isShow;
+            }
+            return context.SaveChanges() > 0;
+        }
+        public Content GetAdvertisementPhrase()
         {
             var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
-            if (advertise != null && advertise.IsShow)
-                return advertise.Value;
-            return "";
+            if (advertise != null)
+                return advertise;
+            return null;
+        }
+
+        public Content GetPhoneNumber()
+        {
+            var phoneNumberResult = context.Contents.FirstOrDefault(c => c.Key == "phoneNumber");
+            if (phoneNumberResult != null)
+                return phoneNumberResult;
+            return null;
         }
     }
 }
