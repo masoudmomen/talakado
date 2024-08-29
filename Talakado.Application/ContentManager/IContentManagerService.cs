@@ -82,7 +82,7 @@ namespace Talakado.Application.ContentManager
             }
             return context.SaveChanges() > 0;
         }
-        public Content GetAdvertisementPhrase()
+        public Content? GetAdvertisementPhrase()
         {
             var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
             if (advertise != null)
