@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Talakado.Application.ContentManager;
 
@@ -57,6 +57,12 @@ namespace Talakado.AdminPanel.Pages.Content
             if (contentManagerService.AddPhoneNumber(phoneNumberTxt, isShow))
                 return Content("true");
             return Content("false");
+        }
+
+
+        public IActionResult onPostAddImage()
+        {
+
         }
     }
 

@@ -4,6 +4,7 @@
     ViewData["Title"] = "مدیریت محتوای صفحه اصلی";
 }
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
@@ -36,8 +37,6 @@
     </div>
 
 
-
-
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
@@ -68,6 +67,39 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">آپلود اسلاید اول</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddPhoneNumber">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="adverticePhrase">شماره </label>
+                            <input type="file" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="button" onclick="SendPhoneNumber()" class="btn btn-primary">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @section Scripts {
