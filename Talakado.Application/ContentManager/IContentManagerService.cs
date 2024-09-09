@@ -15,6 +15,7 @@ namespace Talakado.Application.ContentManager
         bool AddPhoneNumber(string phoneNumber, bool isShow = true);
         Content? GetPhoneNumber();
         bool AddImage(string url, string key);
+        HomePageDto GetHomePageContent();
     }
 
     public class ContentManagerService : IContentManagerService
@@ -88,6 +89,12 @@ namespace Talakado.Application.ContentManager
             if (advertise != null)
                 return advertise;
             return null;
+        }
+
+        public HomePageDto GetHomePageContent()
+        {
+            var model = new HomePageDto();
+            var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1");
         }
 
         public Content? GetPhoneNumber()

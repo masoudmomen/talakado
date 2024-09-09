@@ -77,23 +77,17 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddPhoneNumber">
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="adverticePhrase">شماره </label>
-                            <input type="file" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
-                        </div>
-
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
-                            </label>
+                            <label for="">عکس اسلاید اول </label>
+                            <input type="file" class="form-control" id="slide1" multiple class="form-control" accept="image/*" name="slide1" >
                         </div>
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="button" onclick="SendPhoneNumber()" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendImage()" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
@@ -175,6 +169,47 @@
                         swal.fire(
                             'پیام هشدار!',
                             "عملیات ذخیره عبارت انجام نشد",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            ajaxRequest.done(function (xhr, textStatus) {
+                // Do other operation
+            });
+        }
+
+
+        function SendImage() {
+            var slide1 = document.getElementById("slide1");
+            if (slide1.files.length > 0) {
+                var data = new FormData();
+                data.append("slide1", slide1.files[0]);
+                data.append("slideNumber", "slide1");
+            }
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                contentType: false,
+                processData: false,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./mainpage?handler=AddImage",
+                data: data ,
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'عکس با موفقیت ذخیره شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ذخیره عکس انجام نشد",
                             'Error'
                         );
                     }

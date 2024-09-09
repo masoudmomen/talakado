@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Talakado.Application.ContentManager;
+using Talakado.Infrastructure.ExternalApi.ImageServer;
 
 namespace Talakado.AdminPanel.Pages.Content
 {
     public class MainPageModel : PageModel
     {
         private readonly IContentManagerService contentManagerService;
+        private readonly IImageUploadService imageUploadService;
 
-        public MainPageModel(IContentManagerService contentManagerService)
+        public MainPageModel(IContentManagerService contentManagerService, IImageUploadService imageUploadService)
         {
             this.contentManagerService = contentManagerService;
+            this.imageUploadService = imageUploadService;
         }
 
         [BindProperty]
         public HomePageViewmodel HomePageViewmodel { get; set; } = new HomePageViewmodel();
-
+        public List<IFormFile> Files { get; set; }
         public void OnGet()
         {
             var advertise = contentManagerService.GetAdvertisementPhrase();
@@ -60,9 +63,18 @@ namespace Talakado.AdminPanel.Pages.Content
         }
 
 
-        public IActionResult onPostAddImage()
+        public IActionResult OnPostAddImage()
         {
-
+            var slideNumber = Request.Form["slideNumber"];
+            Files = (List<IFormFile>)Request.Form.Files;
+            if (Files != null)
+            {
+                var result = imageUploadService.Upload(Files);
+                var slideImage = contentManagerService.AddImage(result[0], slideNumber);
+                if (slideImage) return Content("true");
+                return Content("false");
+            }
+            return Content("false");
         }
     }
 

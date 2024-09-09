@@ -4,8 +4,10 @@ using Microsoft.Extensions.Caching.Distributed;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using Talakado.Application.ContentManager;
 using Talakado.Infrastructure.CacheHelpers;
 using Talakado.Web.Models;
+using Talakado.Web.Models.Home;
 using Talakado.Web.Utilities.Filters;
 
 namespace Talakado.Web.Controllers
@@ -15,11 +17,13 @@ namespace Talakado.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDistributedCache cache;
+        private readonly IContentManagerService contentManagerService;
 
-        public HomeController(ILogger<HomeController> logger, IDistributedCache cache)
+        public HomeController(ILogger<HomeController> logger, IDistributedCache cache,IContentManagerService contentManagerService)
         {
             _logger = logger;
             this.cache = cache;
+            this.contentManagerService = contentManagerService;
         }
 
         public IActionResult Index()
@@ -43,6 +47,15 @@ namespace Talakado.Web.Controllers
             //}
             //return View(homePageData);
             #endregion
+
+            var model = new HomePageViewmodel()
+            {
+                Slides = new List<string>
+                {
+
+                }
+            };
+
 
 
             return View();
