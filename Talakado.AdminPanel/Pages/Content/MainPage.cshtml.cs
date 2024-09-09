@@ -12,44 +12,34 @@ namespace Talakado.AdminPanel.Pages.Content
         {
             this.contentManagerService = contentManagerService;
         }
-        [BindProperty]
-        public string? Phrase { get; set; }
-        [BindProperty]
-        public bool IsShowPhrase { get; set; } = false;
 
         [BindProperty]
-        public string? PhoneNumber { get; set; }
-        [BindProperty]
-        public bool IsShowPhoneNumber { get; set; } = false;
-
-
-        //[BindProperty]
-        //HomePageViewmodel HomePageViewmodel { get; set; }
+        public HomePageViewmodel HomePageViewmodel { get; set; } = new HomePageViewmodel();
 
         public void OnGet()
         {
             var advertise = contentManagerService.GetAdvertisementPhrase();
             if (advertise != null)
             {
-                IsShowPhrase = advertise.IsShow;
-                Phrase = advertise.Value;
+                HomePageViewmodel.IsShowPhrase = advertise.IsShow;
+                HomePageViewmodel.Phrase = advertise.Value;
             }
             else
             {
-                Phrase = "";
-                IsShowPhrase = false;
+                HomePageViewmodel.Phrase = "";
+                HomePageViewmodel.IsShowPhrase = false;
             }
 
             var phoneNumber = contentManagerService.GetPhoneNumber();
             if (phoneNumber != null)
             {
-                IsShowPhoneNumber = phoneNumber.IsShow;
-                PhoneNumber = phoneNumber.Value;
+                HomePageViewmodel.IsShowPhoneNumber = phoneNumber.IsShow;
+                HomePageViewmodel.PhoneNumber = phoneNumber.Value;
             }
             else
             {
-                PhoneNumber = "";
-                IsShowPhoneNumber = false;
+                HomePageViewmodel.PhoneNumber = "";
+                HomePageViewmodel.IsShowPhoneNumber = false;
             }
 
             TempData["Page"] = 2;
@@ -70,11 +60,11 @@ namespace Talakado.AdminPanel.Pages.Content
         }
     }
 
-    //public class HomePageViewmodel 
-    //{
-    //    public string? Phrase { get; set; }
-    //    public bool IsShowPhrase { get; set; } = false;
-    //    public string? PhoneNumber { get; set; }
-    //    public bool IsShowPhoneNumber { get; set; } = false;
-    //}
+    public class HomePageViewmodel
+    {
+        public string? Phrase { get; set; }
+        public bool IsShowPhrase { get; set; } = false;
+        public string? PhoneNumber { get; set; }
+        public bool IsShowPhoneNumber { get; set; } = false;
+    }
 }

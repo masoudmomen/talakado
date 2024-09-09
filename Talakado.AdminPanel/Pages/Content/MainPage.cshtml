@@ -16,12 +16,12 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="adverticePhrase">متن </label>
-                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.Phrase">
+                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.HomePageViewmodel.Phrase">
                         </div>
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.IsShowPhrase" /> نمایش متن فعال باشد
+                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhrase" /> نمایش متن فعال باشد
                             </label>
                         </div>
                     </div>
@@ -50,12 +50,12 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="adverticePhrase">شماره </label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.PhoneNumber">
+                            <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
                         </div>
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.IsShowPhoneNumber" /> نمایش شماره فعال باشد
+                                <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
                             </label>
                         </div>
                     </div>

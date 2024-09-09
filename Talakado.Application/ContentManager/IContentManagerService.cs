@@ -11,9 +11,9 @@ namespace Talakado.Application.ContentManager
     public interface IContentManagerService
     {
         bool AddAdvertisementPhrase(string phrase, bool isShow = true);
-        Content GetAdvertisementPhrase();
+        Content? GetAdvertisementPhrase();
         bool AddPhoneNumber(string phoneNumber, bool isShow = true);
-        Content GetPhoneNumber();
+        Content? GetPhoneNumber();
         bool AddImage(string url, string key);
     }
 
@@ -82,7 +82,7 @@ namespace Talakado.Application.ContentManager
             }
             return context.SaveChanges() > 0;
         }
-        public Content GetAdvertisementPhrase()
+        public Content? GetAdvertisementPhrase()
         {
             var advertise = context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase");
             if (advertise != null)
@@ -90,7 +90,7 @@ namespace Talakado.Application.ContentManager
             return null;
         }
 
-        public Content GetPhoneNumber()
+        public Content? GetPhoneNumber()
         {
             var phoneNumberResult = context.Contents.FirstOrDefault(c => c.Key == "phoneNumber");
             if (phoneNumberResult != null)
