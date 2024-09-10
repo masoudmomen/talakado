@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -18,12 +19,14 @@ namespace Talakado.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IDistributedCache cache;
         private readonly IContentManagerService contentManagerService;
+        private readonly IMapper mapper;
 
-        public HomeController(ILogger<HomeController> logger, IDistributedCache cache,IContentManagerService contentManagerService)
+        public HomeController(ILogger<HomeController> logger, IDistributedCache cache,IContentManagerService contentManagerService, IMapper mapper)
         {
             _logger = logger;
             this.cache = cache;
             this.contentManagerService = contentManagerService;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -48,14 +51,8 @@ namespace Talakado.Web.Controllers
             //return View(homePageData);
             #endregion
 
-            var model = new HomePageViewmodel()
-            {
-                Slides = new List<string>
-                {
-
-                }
-            };
-
+            //var result = contentManagerService.GetHomePageContent();
+            //var model = mapper.Map<HomePageViewmodel>(result);
 
 
             return View();
