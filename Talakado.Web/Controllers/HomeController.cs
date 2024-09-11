@@ -51,11 +51,11 @@ namespace Talakado.Web.Controllers
             //return View(homePageData);
             #endregion
 
-            //var result = contentManagerService.GetHomePageContent();
-            //var model = mapper.Map<HomePageViewmodel>(result);
+            var result = contentManagerService.GetHomePageContent();
+            var model = mapper.Map<HomePageViewmodel>(result);
 
 
-            return View();
+            return View(model);
         }
         [Authorize]
         public IActionResult Privacy()

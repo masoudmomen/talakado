@@ -18,7 +18,7 @@ namespace Talakado.AdminPanel.Pages.Content
 
         [BindProperty]
         public HomePageViewmodel HomePageViewmodel { get; set; } = new HomePageViewmodel();
-        public List<IFormFile> Files { get; set; }
+        public List<IFormFile> Files { get; set; } = new List<IFormFile>();
         public void OnGet()
         {
             var advertise = contentManagerService.GetAdvertisementPhrase();
@@ -66,6 +66,7 @@ namespace Talakado.AdminPanel.Pages.Content
         public IActionResult OnPostAddImage()
         {
             var slideNumber = Request.Form["slideNumber"];
+            if (Files.Count > 0) Files.Clear();
             Files = (List<IFormFile>)Request.Form.Files;
             if (Files != null)
             {

@@ -8,6 +8,8 @@ namespace Talakado.Application.ContentManager
 {
     public class HomePageDto
     {
-        public List<string> Slides { get; set; }
+        public string? Slide1 { get; set; }
+        public string? Slide2 { get; set; }
+        public string? Slide3 { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
+using Talakado.Application.UriComposer;
 using Talakado.Domain.Contents;
 
 namespace Talakado.Application.ContentManager
@@ -21,10 +23,12 @@ namespace Talakado.Application.ContentManager
     public class ContentManagerService : IContentManagerService
     {
         private readonly IDataBaseContext context;
+        private readonly IUriComposerService uriComposerService;
 
-        public ContentManagerService(IDataBaseContext context)
+        public ContentManagerService(IDataBaseContext context, IUriComposerService uriComposerService)
         {
             this.context = context;
+            this.uriComposerService = uriComposerService;
         }
 
         public bool AddAdvertisementPhrase(string phrase, bool isShow = true)
@@ -97,9 +101,9 @@ namespace Talakado.Application.ContentManager
             var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
-            model.Slides.Add(slide1);
-            model.Slides.Add(slide2);
-            model.Slides.Add(slide3);
+            model.Slide1 = (slide1 != null) ? uriComposerService.ComposeImageUri(slide1) : "";
+            model.Slide2 = (slide2 != null) ? uriComposerService.ComposeImageUri(slide2) : "";
+            model.Slide3 = (slide3 != null) ? uriComposerService.ComposeImageUri(slide3) : "";
             return model;
         }
 

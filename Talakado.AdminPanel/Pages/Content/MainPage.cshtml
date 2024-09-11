@@ -87,12 +87,59 @@
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="button" onclick="SendImage()" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendImage('slide1')" class="btn btn-primary">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">آپلود اسلاید دوم</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="">عکس اسلاید دوم </label>
+                            <input type="file" class="form-control" id="slide2" multiple class="form-control" accept="image/*" name="slide2">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="button" onclick="SendImage('slide2')" class="btn btn-primary">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">آپلود اسلاید سوم</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="">عکس اسلاید سوم </label>
+                            <input type="file" class="form-control" id="slide3" multiple class="form-control" accept="image/*" name="slide3">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="button" onclick="SendImage('slide3')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 
 </div>
 
@@ -184,12 +231,12 @@
         }
 
 
-        function SendImage() {
-            var slide1 = document.getElementById("slide1");
-            if (slide1.files.length > 0) {
+        function SendImage(slideNum) {
+            var slide = document.getElementById(slideNum);
+            if (slide.files.length > 0) {
                 var data = new FormData();
-                data.append("slide1", slide1.files[0]);
-                data.append("slideNumber", "slide1");
+                data.append(slideNum, slide.files[0]);
+                data.append("slideNumber", slideNum);
             }
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({

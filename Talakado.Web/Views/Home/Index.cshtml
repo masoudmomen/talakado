@@ -1,4 +1,4 @@
-﻿@* @model Talakado.Web.Models.Home.HomePageViewmodel; *@
+﻿@model Talakado.Web.Models.Home.HomePageViewmodel;
 @{
     ViewData["Title"] = "صفحه اصلی";
 }
@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                     <div class="hero-img">
-                                        <img src="~/theme/assets/img/hero/hero-1.png" alt="Image">
+                                        <img src="@Model.Slide1" alt="Image">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="hero-img">
-                                        <img src="~/theme/assets/img/hero/hero-2.png" alt="Image">
+                                        <img src="@Model.Slide2" alt="Image">
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="container">
                                     <div class="hero-img">
-                                        <img src="~/theme/assets/img/hero/hero-3.png" alt="Image">
+                                <img src="@Model.Slide3" alt="Image">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
