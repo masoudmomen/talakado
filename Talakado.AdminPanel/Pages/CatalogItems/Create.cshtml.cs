@@ -49,7 +49,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             {
                 //Uploud
                 var result = imageUploadService.Upload(Files);
-                foreach (var item in result.FileNameAddress)
+                foreach (var item in result)
                 {
                     images.Add(new AddNewCatalogItemImage_Dto { Src = item });
                 }

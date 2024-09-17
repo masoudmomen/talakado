@@ -90,6 +90,11 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
             return null;
         }
 
+        List<string> IImageUploadService.Upload(List<IFormFile> files)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //public UploadDto UploadFile(IFormFile file)
         //{
