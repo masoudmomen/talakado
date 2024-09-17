@@ -13,6 +13,8 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
     public interface IImageUploadService
     {
         List<string> Upload(List<IFormFile> files);
+        List<string>? UploadSingleImage(IFormFile file);
+        //UploadDto UploadFile(IFormFile file);
     }
 
     public class ImageUploadService : IImageUploadService
@@ -41,10 +43,50 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
             UploadDto upload = Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(response.Content);
             return upload.FileNameAddress;
         }
+
+        //[Obsolete]
+        public List<string>? UploadSingleImage(IFormFile file)
+        {
+            var options = new RestClientOptions()
+            {
+                MaxTimeout = -1,
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("https://localhost:7238/api/Images?apikey=mySecretKey", Method.Post);
+            request.AlwaysMultipartFormData = true;
+            if (file != null)
+            {
+                byte[] bytes;
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyToAsync(ms);
+                    bytes = ms.ToArray();
+                }
+                request.AddFile(file.FileName, bytes, file.FileName, file.ContentType);
+            }
+            RestResponse response = client.Execute(request);
+            if (response.Content !=null)
+            {
+                var upload = new UploadDto();
+                upload = Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(response.Content);
+
+                client.Dispose();
+
+                if (upload != null) { return upload.FileNameAddress; }
+            }
+            return null;
+        }
+
+
+        //public UploadDto UploadFile(IFormFile file)
+        //{
+
+        //}
     }
     public class UploadDto
     {
         public bool Status { get; set; }
-        public List<string> FileNameAddress { get; set; }
+        public List<string>? FileNameAddress { get; set; } = new List<string>();
     }
+
 }
