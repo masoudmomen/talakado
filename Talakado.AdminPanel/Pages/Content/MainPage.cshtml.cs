@@ -62,7 +62,7 @@ namespace Talakado.AdminPanel.Pages.Content
             return Content("false");
         }
 
-
+        [RequestSizeLimit(1048576)]
         public IActionResult OnPostAddImage()
         {
             var slideNumber = Request.Form["slideNumber"];
@@ -70,10 +70,27 @@ namespace Talakado.AdminPanel.Pages.Content
             Files = (List<IFormFile>)Request.Form.Files;
             if (Files != null)
             {
-                var result = imageUploadService.Upload(Files);
-                var slideImage = contentManagerService.AddImage(result[0], slideNumber);
-                if (slideImage) return Content("true");
-                return Content("false");
+                try
+                {
+                    var result = imageUploadService.Upload(Files);
+                    if(result != null) 
+                    {
+                        if (result.Status)
+                        {
+                            var slideImage = contentManagerService.AddImage(result.FileNameAddress[0], slideNumber);
+                            if (slideImage) return Content("true");
+                            return Content("false");
+                        }
+                        return Content(result.Message);
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+
+                    return Content(e.Message.ToString()); 
+                }
+                
             }
             return Content("false");
         }
