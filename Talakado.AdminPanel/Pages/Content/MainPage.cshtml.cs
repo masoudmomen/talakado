@@ -63,7 +63,7 @@ namespace Talakado.AdminPanel.Pages.Content
             return Content("false");
         }
 
-
+        [RequestSizeLimit(1048576)]
         public IActionResult OnPostAddImage()
         {
             var slideNumber = Request.Form["slideNumber"];
