@@ -77,7 +77,7 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage1">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="">عکس اسلاید اول </label>
@@ -244,7 +244,7 @@
                 contentType: false,
                 processData: false,
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "./mainpage?handler=AddImage",
+                url: "./mainpage?handler=AddImage1",
                 data: data ,
                 success: function (result) {
                     if (result === "true") {
