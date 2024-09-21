@@ -1,64 +1,81 @@
 ﻿using Amazon.Runtime.EventStreams;
+using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson.IO;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using ZstdSharp.Unsafe;
+using static System.Net.WebRequestMethods;
 
 namespace Talakado.Infrastructure.ExternalApi.ImageServer
 {
     public interface IImageUploadService
     {
         List<string> Upload(List<IFormFile> files);
-        List<string>? UploadSingleImage(IFormFile file);
-        //UploadDto UploadFile(IFormFile file);
+        Task<UploadDto> UploadAsync(IFormFile file);
+        Task<UploadDto> UploadMultipleAsync(List<IFormFile> files);
     }
 
     public class ImageUploadService : IImageUploadService
     {
-        public UploadDto Upload(List<IFormFile> files)
+        private readonly HttpClient httpClient;
+        public ImageUploadService(HttpClient httpClient)
         {
-            try
-            {
-                var options = new RestClientOptions()
-                {
-                    MaxTimeout = -1,
-                };
-                var client = new RestClient(options);
-                var request = new RestRequest("https://localhost:7238/api/Images?apikey=mySecretKey", Method.Post);
-                request.AlwaysMultipartFormData = true;
-                foreach (var item in files)
-                {
-                    byte[] bytes;
-                    using (var ms = new MemoryStream())
-                    {
-                        item.CopyToAsync(ms);
-                        bytes = ms.ToArray();
-                    }
-                    request.AddFile(item.FileName, bytes, item.FileName, item.ContentType);
-                }
-                RestResponse response = client.Execute(request);
+            this.httpClient = httpClient;
+        }
+        
 
-                UploadDto upload = Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(response.Content);
-                return upload;
-            }
-            catch (Exception e)
+        public async Task<UploadDto> UploadAsync(IFormFile file)
+        {
+            var req = new HttpRequestMessage();
+            req.Method = HttpMethod.Post;
+            // you might need to update the uri 
+            req.RequestUri = new Uri("https://localhost:7238/api/Images?apikey=mySecretKey");
+            HttpResponseMessage resp = null;
+            using (var fs = file.OpenReadStream())
             {
+                var form = new MultipartFormDataContent();
 
-                return new UploadDto
-                {
-                    Status = false,
-                    Message = e.InnerException.ToString() + e.Message
-                };
+                var imageStream = new StreamContent(fs);
+                imageStream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+                // because your WebAPI expects a field named as `file`
+                form.Add(imageStream, "files", file.FileName);
+                req.Content = form;
+                resp = await this.httpClient.SendAsync(req);
             }
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(await resp.Content.ReadAsStringAsync());
         }
 
-        //[Obsolete]
-        public List<string>? UploadSingleImage(IFormFile file)
+
+        public async Task<UploadDto> UploadMultipleAsync(List<IFormFile> files)
+        {
+            var file = files[0];
+            var req = new HttpRequestMessage();
+            req.Method = HttpMethod.Post;
+            // you might need to update the uri 
+            req.RequestUri = new Uri("https://localhost:7238/api/Images?apikey=mySecretKey");
+            HttpResponseMessage resp = null;
+            using (var fs = file.OpenReadStream())
+            {
+                var form = new MultipartFormDataContent();
+
+                var imageStream = new StreamContent(fs);
+                imageStream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+                // because your WebAPI expects a field named as `file`
+                form.Add(imageStream, "files", file.FileName);
+                req.Content = form;
+                resp = await this.httpClient.SendAsync(req);
+            }
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(await resp.Content.ReadAsStringAsync());
+        }
+
+
+        public List<string> Upload(List<IFormFile> files)
         {
             var options = new RestClientOptions()
             {
@@ -67,39 +84,19 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
             var client = new RestClient(options);
             var request = new RestRequest("https://localhost:7238/api/Images?apikey=mySecretKey", Method.Post);
             request.AlwaysMultipartFormData = true;
-            if (file != null)
+            foreach (var item in files)
             {
                 byte[] bytes;
                 using (var ms = new MemoryStream())
                 {
-                    file.CopyToAsync(ms);
+                    item.CopyToAsync(ms);
                     bytes = ms.ToArray();
                 }
-                request.AddFile(file.FileName, bytes, file.FileName, file.ContentType);
+                request.AddFile(item.FileName, bytes, item.FileName, item.ContentType);
             }
             RestResponse response = client.Execute(request);
-            if (response.Content !=null)
-            {
-                var upload = new UploadDto();
-                upload = Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(response.Content);
-
-                client.Dispose();
-
-                if (upload != null) { return upload.FileNameAddress; }
-            }
-            return null;
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(response.Content);
         }
-
-        List<string> IImageUploadService.Upload(List<IFormFile> files)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        //public UploadDto UploadFile(IFormFile file)
-        //{
-
-        //}
     }
     public class UploadDto
     {
@@ -109,3 +106,29 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
     }
 
 }
+
+
+
+
+
+
+
+
+//var file = files[0];
+//var req = new HttpRequestMessage();
+//req.Method = HttpMethod.Post;
+//// you might need to update the uri 
+//req.RequestUri = new Uri("https://localhost:7238/api/Images?apikey=mySecretKey");
+//HttpResponseMessage resp = null;
+//using (var fs = file.OpenReadStream())
+//{
+//    var form = new MultipartFormDataContent();
+
+//    var imageStream = new StreamContent(fs);
+//    imageStream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+//    // because your WebAPI expects a field named as `file`
+//    form.Add(imageStream, "files", file.FileName);
+//    req.Content = form;
+//    resp = await this.httpClient.SendAsync(req);
+//}
+//return Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(await resp.Content.ReadAsStringAsync());

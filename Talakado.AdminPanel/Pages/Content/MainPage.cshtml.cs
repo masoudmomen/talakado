@@ -21,7 +21,7 @@ namespace Talakado.AdminPanel.Pages.Content
 
         [BindProperty]
         public HomePageViewmodel HomePageViewmodel { get; set; } = new HomePageViewmodel();
-        public IFormFile? File { get; set; } 
+        public List<IFormFile> File { get; set; } 
         public void OnGet()
         {
             var advertise = contentManagerService.GetAdvertisementPhrase();
@@ -65,53 +65,19 @@ namespace Talakado.AdminPanel.Pages.Content
             return Content("false");
         }
 
-        public IActionResult OnPostAddImage()
+        public async Task<IActionResult> OnPostAddImage()
         {
             var slideNumber = Request.Form["slideNumber"];
             if (File != null) File = null;
-            File = (IFormFile)Request.Form.Files[0];
+            File = (List<IFormFile>)Request.Form.Files;
             if (File != null)
             {
-                var result = imageUploadService.UploadSingleImage(File);
-
-                if (result != null && result.Count > 0 && !string.IsNullOrEmpty(slideNumber))
+                var result = await imageUploadService.UploadAsync(File);
+                if (result != null && result.FileNameAddress.Count > 0 && !string.IsNullOrEmpty(slideNumber))
                 {
-                    var slideImage = contentManagerService.AddImage(result[0], slideNumber);
+                    var slideImage = contentManagerService.AddImage(result.FileNameAddress[0], slideNumber);
                     if (slideImage) return Content("true");
                 }
-                
-                return Content("false");
-            }
-            return Content("false");
-        }
-
-
-
-
-
-        public async Task<IActionResult> OnPostAddImage1()
-        {
-            var slideNumber = Request.Form["slideNumber"];
-            if (File != null) File = null;
-            File = (IFormFile)Request.Form.Files[0];
-            if (File != null)
-            {
-                //var result = imageUploadService.UploadSingleImage(File);
-                using (var httpClient = new HttpClient())
-                {
-                    using (HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7238/api/Images"))
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        var result = JsonConvert.DeserializeObject<UploadDto>(apiResponse);
-                        if (result != null && result.Status && !string.IsNullOrEmpty(slideNumber))
-                        {
-                            var slideImage = contentManagerService.AddImage(result.FileNameAddress[0], slideNumber);
-                            if (slideImage) return Content("true");
-                        }
-                    }
-                }
-                
-
                 return Content("false");
             }
             return Content("false");

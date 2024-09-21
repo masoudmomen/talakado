@@ -17,6 +17,7 @@ using Talakado.Application.Discounts;
 using Talakado.Application.UriComposer;
 using Talakado.Application.ContentManager;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +43,7 @@ builder.Services.AddTransient<IDiscountService, DiscountService>();
 builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>();
 builder.Services.AddTransient<IUriComposerService, UriComposerService>();
 builder.Services.AddTransient<IContentManagerService, ContentManagerService>();
-
+builder.Services.AddHttpClient<ImageUploadService>();
 
 #endregion
 
@@ -62,6 +63,13 @@ builder.Services.AddDistributedSqlServerCache(option =>
     option.ConnectionString = connection;
     option.SchemaName = "dbo";
     option.TableName = "CacheData";
+});
+
+
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
 });
 
 var app = builder.Build();
