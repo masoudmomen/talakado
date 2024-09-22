@@ -81,7 +81,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="">عکس اسلاید اول </label>
-                            <input type="file" class="form-control" id="slide1" multiple class="form-control" accept="image/*" name="slide1" >
+                            <input type="file" class="form-control" id="slide1" class="form-control" accept="image/*" name="slide1" >
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -237,7 +237,7 @@
                 var data = new FormData();
                 data.append(slideNum, slide.files[0]);
                 data.append("slideNumber", slideNum);
-            }
+            
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({
                 type: "post",
@@ -269,6 +269,14 @@
             ajaxRequest.done(function (xhr, textStatus) {
                 // Do other operation
             });
+            }
+            else{
+                swal.fire(
+                    'پیام هشدار!',
+                    "خطا در بارگذاری فایل",
+                    'Error'
+                );
+            }
         }
     </script>
 }
