@@ -333,7 +333,9 @@
                             'پیام موفقیت!',
                             result.message[0],
                             'success'
-                        );
+                        ).then(function (isConfirm) {
+                            window.location.reload();
+                        });;
                     }else{
                         swal.fire(
                             'پیام هشدار!',

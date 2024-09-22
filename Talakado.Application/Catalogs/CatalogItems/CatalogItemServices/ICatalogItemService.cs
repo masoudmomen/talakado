@@ -131,7 +131,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
 
             #region Edit Catalog Item Fields
             catalogItem.Name = request.Name;
-            //catalogItem.Price = request.Price;
+            catalogItem.SetPrice(request.Price);
             catalogItem.CatalogBrandId = request.CatalogBrandId;
             catalogItem.CatalogTypeId = request.CatalogTypeId;
             catalogItem.AvailableStock = request.AvailableStock;

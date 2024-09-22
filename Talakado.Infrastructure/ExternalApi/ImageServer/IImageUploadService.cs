@@ -54,24 +54,28 @@ namespace Talakado.Infrastructure.ExternalApi.ImageServer
 
         public async Task<UploadDto> UploadMultipleAsync(List<IFormFile> files)
         {
-            var file = files[0];
             var req = new HttpRequestMessage();
             req.Method = HttpMethod.Post;
             // you might need to update the uri 
             req.RequestUri = new Uri("https://localhost:7238/api/Images?apikey=mySecretKey");
             HttpResponseMessage resp = null;
-            using (var fs = file.OpenReadStream())
-            {
-                var form = new MultipartFormDataContent();
+            var form = new MultipartFormDataContent();
 
+            foreach (var file in files)
+            {
+                var fs = file.OpenReadStream();
+                
                 var imageStream = new StreamContent(fs);
-                imageStream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+                imageStream.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
                 // because your WebAPI expects a field named as `file`
                 form.Add(imageStream, "files", file.FileName);
-                req.Content = form;
-                resp = await this.httpClient.SendAsync(req);
+                
             }
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(await resp.Content.ReadAsStringAsync());
+
+            req.Content = form;
+            resp = this.httpClient.SendAsync(req).Result;
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UploadDto>(
+                await resp.Content.ReadAsStringAsync());
         }
 
 

@@ -75,6 +75,10 @@ namespace Talakado.Domain.Catalogs
             }
             return _price;
         }
+        public void SetPrice(int price)
+        {
+            _price = price;
+        }
         /// <summary>
         /// دریافت بیشترین تخفیف
         /// </summary>

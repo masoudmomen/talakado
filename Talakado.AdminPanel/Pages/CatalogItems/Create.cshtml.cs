@@ -48,8 +48,8 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             if (Files.Count > 0)
             {
                 //Uploud
-                var result = imageUploadService.Upload(Files);
-                foreach (var item in result)
+                var result = imageUploadService.UploadMultipleAsync(Files).Result;
+                foreach (var item in result.FileNameAddress)
                 {
                     images.Add(new AddNewCatalogItemImage_Dto { Src = item });
                 }
