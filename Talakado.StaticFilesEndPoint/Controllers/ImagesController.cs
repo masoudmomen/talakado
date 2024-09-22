@@ -15,21 +15,22 @@ namespace Talakado.StaticFilesEndPoint.Controllers
         public ImagesController(IHostingEnvironment hostingEnvironment) {
             _environment = hostingEnvironment;
         }
-        public IActionResult Post(string apiKey)
+        
+        public IActionResult Post(IFormFileCollection files, string apiKey)
         {
             if (apiKey != "mySecretKey")
             {
                 return BadRequest();
             }
             try
-            {
-                var files = Request.Form.Files;
+                {
+                //var files = file;
                 var folderName = Path.Combine("Resource", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (files != null)
                 {
                     //Upload
-                    return Ok(UploadFile(files));
+                    return Ok(UploadImage(files));
                 }
                 else
                 {
@@ -43,15 +44,15 @@ namespace Talakado.StaticFilesEndPoint.Controllers
                 throw new Exception("upload image error", ex);
             }
         }
-
-        private UploadDto UploadFile(IFormFileCollection files)
+        
+        private UploadDto UploadImage(IFormFileCollection files)
         {
             string newName = Guid.NewGuid().ToString();
             var date = DateTime.Now;
             string folder = $@"Resources\images\{date.Year}-{date.Month}\";
             string folderWebAdrress = $@"Resources/images/{date.Year}-{date.Month}/";
             var uploadsRootFolder = Path.Combine(_environment.WebRootPath, folder);
-            if (!Directory.Exists(uploadsRootFolder)) 
+            if (!Directory.Exists(uploadsRootFolder))
             {
                 Directory.CreateDirectory(uploadsRootFolder);
             }
@@ -75,11 +76,12 @@ namespace Talakado.StaticFilesEndPoint.Controllers
                 Status = true,
             };
         }
+
     }
 
     public class UploadDto
     {
-        public bool Status { get; set; }
+        public bool Status { get; set; } = false;
         public List<string> FileNameAddress { get; set; }
     }
 }

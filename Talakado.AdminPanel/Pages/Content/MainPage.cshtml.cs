@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json;
 using Talakado.Application.ContentManager;
 using Talakado.Infrastructure.ExternalApi.ImageServer;
 
@@ -18,7 +21,7 @@ namespace Talakado.AdminPanel.Pages.Content
 
         [BindProperty]
         public HomePageViewmodel HomePageViewmodel { get; set; } = new HomePageViewmodel();
-        public List<IFormFile> Files { get; set; } = new List<IFormFile>();
+        public List<IFormFile> File { get; set; } 
         public void OnGet()
         {
             var advertise = contentManagerService.GetAdvertisementPhrase();
@@ -62,35 +65,20 @@ namespace Talakado.AdminPanel.Pages.Content
             return Content("false");
         }
 
-        [RequestSizeLimit(1048576)]
-        public IActionResult OnPostAddImage()
+        public async Task<IActionResult> OnPostAddImage()
         {
             var slideNumber = Request.Form["slideNumber"];
-            if (Files.Count > 0) Files.Clear();
-            Files = (List<IFormFile>)Request.Form.Files;
-            if (Files != null)
+            if (File != null) File = null;
+            File = (List<IFormFile>)Request.Form.Files;
+            if (File != null)
             {
-                try
+                var result = await imageUploadService.UploadAsync(File);
+                if (result != null && result.FileNameAddress.Count > 0 && !string.IsNullOrEmpty(slideNumber))
                 {
-                    var result = imageUploadService.Upload(Files);
-                    if(result != null) 
-                    {
-                        if (result.Status)
-                        {
-                            var slideImage = contentManagerService.AddImage(result.FileNameAddress[0], slideNumber);
-                            if (slideImage) return Content("true");
-                            return Content("false");
-                        }
-                        return Content(result.Message);
-                    }
-                    
+                    var slideImage = contentManagerService.AddImage(result.FileNameAddress[0], slideNumber);
+                    if (slideImage) return Content("true");
                 }
-                catch (Exception e)
-                {
-
-                    return Content(e.Message.ToString()); 
-                }
-                
+                return Content("false");
             }
             return Content("false");
         }
@@ -103,4 +91,15 @@ namespace Talakado.AdminPanel.Pages.Content
         public string? PhoneNumber { get; set; }
         public bool IsShowPhoneNumber { get; set; } = false;
     }
+
+    public class UploadDto
+    {
+        public string Message { get; set; }
+        public bool Status { get; set; } = true;
+        public List<string> FileNameAddress { get; set; }
+    }
 }
+
+
+
+
