@@ -50,6 +50,7 @@ namespace Talakado.Persistence.Contexts
             DataBaseContextSeed.CatalogSeed(builder); //اجرای سیید
 
             builder.Entity<Order>().OwnsOne(p => p.Address); // باعث می شود تمامی فیلد های کلاس آدرس در همان اوردر ذخیره شوند و بابت آدرس جدول ساخته نشود
+            builder.Entity<CatalogItem>().Property(c => c.OldPrice).IsRequired(false);
 
             base.OnModelCreating(builder);
         }

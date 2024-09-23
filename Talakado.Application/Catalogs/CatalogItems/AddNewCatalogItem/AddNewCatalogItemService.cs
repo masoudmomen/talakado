@@ -29,6 +29,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem
             catalogItem.Description = (request.Description == null)?"":request.Description;
             catalogItem.SetPrice(request.Price);
             catalogItem.Name = (request.Name == null) ? "" : request.Name;
+            catalogItem.Slug = (request.Name == null) ? "" : request.Name;
 
             context.CatalogItems.Add(catalogItem);
             if(context.SaveChanges() > 0)
