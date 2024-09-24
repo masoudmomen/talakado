@@ -74,6 +74,11 @@ desired effect
                     <span class="sr-only">Toggle navigation</span>
                 </a>
 
+                @* نام صفحه *@
+                <h4 style="color:white;display:inline-block;margin-right:20px;margin-top:15px">
+                    @ViewData["Title"]
+                </h4>
+
 
                 @* <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
@@ -409,16 +414,16 @@ desired effect
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
+            @*  <section class="content-header">
                 <h4>
                     عنوان صفحه : 
                     @ViewData["Title"]
                 </h4>
-                @* <ol class="breadcrumb">
+                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> خانه</a></li>
                     <li class="active">صفحه</li>
-                </ol> *@
-            </section>
+                </ol> 
+            </section>*@
 
             <!-- Main content -->
             <section class="content container-fluid">

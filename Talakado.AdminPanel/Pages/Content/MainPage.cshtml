@@ -5,8 +5,9 @@
 }
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row" style="border:solid 2px #3c8dbc;border-radius:5px;padding:5px">
+        <h4 class="box-header text-bold">بخش هدر(قسمت بالای سایت)</h4>
+        <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">متن بالای هدر</h3>
@@ -34,37 +35,40 @@
                 </form>
             </div>
         </div>
-    </div>
+        <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">شماره تماس فروشگاه</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddPhoneNumber">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="adverticePhrase">شماره </label>
+                                <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
+                            </div>
 
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendPhoneNumber()" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+    <hr />
 
     <div class="row">
         <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">شماره تماس فروشگاه</h3>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddPhoneNumber">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="adverticePhrase">شماره </label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
-                        </div>
-
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="button" onclick="SendPhoneNumber()" class="btn btn-primary">ثبت</button>
-                    </div>
-                </form>
-            </div>
+            
         </div>
     </div>
 
