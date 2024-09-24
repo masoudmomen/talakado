@@ -38,33 +38,38 @@ namespace Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem
                 {
                     foreach (var item in request.Images)
                     {
-                        catalogItem.CatalogItemImages.Add(new CatalogItemImage
+                        var CatalogItemImages = new CatalogItemImage
                         {
                             CatalogItemId = catalogItem.Id,
                             Src = (item.Src == null) ? "" : item.Src,
                             CatalogItem = catalogItem
-                        });
+                        };
+                        context.CatalogItemImage.Add(CatalogItemImages);
                     }
+                    
                 }
                 if (request.Features != null && request.Features.Count > 0)
                 {
                     foreach (var item in request.Features)
                     {
-                        catalogItem.CatalogItemFeatures.Add(new CatalogItemFeature
+                        var CatalogItemFeatures = new CatalogItemFeature
                         {
                             CatalogItem = catalogItem,
                             Group = item.Group,
                             Key = item.Key,
                             Value = item.Value
-                        });
+                        };
+                        context.CatalogItemFeature.Add(CatalogItemFeatures);
                     }
                 }
+                if (context.SaveChanges() > 0)
+                {
+                    return new BaseDto<int>(true, new List<string> { "محصول با موفقیت ثبت شد" }, catalogItem.Id);
+                }
+                return new BaseDto<int>(true, new List<string> { "محصول ثبت شد ولی ویژگی ها و عکس ها ثبت نشد، می توانید در ویرایش عکس ها و ویژگی ها را اضافه کنید" }, catalogItem.Id);
             }
+            return new BaseDto<int>(false, new List<string> { "ثبت محصول با خطا مواجه شد" }, catalogItem.Id);
 
-            
-            
-            
-            return new BaseDto<int>(true,new List<string> { "با موفقیت ثبت شد"}, catalogItem.Id);
         }
     }
 }
