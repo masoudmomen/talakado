@@ -3,9 +3,12 @@
 @{
     ViewData["Title"] = "مدیریت محتوای صفحه اصلی";
 }
+@section Styles {
+    <link href="~/css/mainpage.css" rel="stylesheet" />
+}
 <div class="container">
 
-    <div class="row" style="border:solid 2px #3c8dbc;border-radius:5px;padding:5px">
+    <div class="row mainpageRow">
         <h4 class="box-header text-bold">بخش هدر(قسمت بالای سایت)</h4>
         <div class="col-md-6">
             <div class="box box-primary">
@@ -64,90 +67,119 @@
                 </div>
             </div>
     </div>
-    <hr />
+    <br />
+    <div class="row mainpageRow">
+        <h4 class="box-header text-bold">بخش اسلایدر</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">آپلود اسلاید اول</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس اسلاید اول </label>
+                                <input type="file" class="form-control" id="slide1" class="form-control" accept="image/*" name="slide1">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
 
-    <div class="row">
-        <div class="col-md-12">
-            
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('slide1')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">آپلود اسلاید دوم</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس اسلاید دوم </label>
+                                <input type="file" class="form-control" id="slide2" multiple class="form-control" accept="image/*" name="slide2">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('slide2')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">آپلود اسلاید سوم</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس اسلاید سوم </label>
+                                <input type="file" class="form-control" id="slide3" multiple class="form-control" accept="image/*" name="slide3">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('slide3')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">متن اسلاید اول</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">می توانید متن مورد نظر را با استفاده از خدمات ادیتور طراحی کنید</label>
+                                <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('slide3')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">آپلود اسلاید اول</h3>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="">عکس اسلاید اول </label>
-                            <input type="file" class="form-control" id="slide1" class="form-control" accept="image/*" name="slide1" >
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="button" onclick="SendImage('slide1')" class="btn btn-primary">ثبت</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">آپلود اسلاید دوم</h3>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="">عکس اسلاید دوم </label>
-                            <input type="file" class="form-control" id="slide2" multiple class="form-control" accept="image/*" name="slide2">
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="button" onclick="SendImage('slide2')" class="btn btn-primary">ثبت</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">آپلود اسلاید سوم</h3>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="">عکس اسلاید سوم </label>
-                            <input type="file" class="form-control" id="slide3" multiple class="form-control" accept="image/*" name="slide3">
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="button" onclick="SendImage('slide3')" class="btn btn-primary">ثبت</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 
 
 </div>
 
 @section Scripts {
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('slide1txt', {
+            language: 'fa',
+            contentsLangDirection: 'rtl',
+            height: 270,
+        });
+    </script>
+
     <script>
         function SendAdvertise() {
             var adverticePhrase = $('#adverticePhrase').val();
