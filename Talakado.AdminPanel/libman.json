@@ -5,6 +5,10 @@
     {
       "library": "select2@4.0.13",
       "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "froala-editor@4.2.2",
+      "destination": "wwwroot/lib/froala-editor/"
     }
   ]
 }

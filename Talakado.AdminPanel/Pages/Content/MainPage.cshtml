@@ -5,6 +5,7 @@
 }
 @section Styles {
     <link href="~/css/mainpage.css" rel="stylesheet" />
+    <link href="~/lib/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" />
 }
 <div class="container">
 
@@ -150,7 +151,8 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="">می توانید متن مورد نظر را با استفاده از خدمات ادیتور طراحی کنید</label>
-                                <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea>
+                                @* <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea> *@
+                                <div id="slide1txt"></div>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -171,14 +173,30 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+
+    <script src="~/lib/froala-editor/js/froala_editor.pkgd.min.js"></script>
+    <script src="~/lib/froala-editor/js/languages/fa.min.js"></script>
+    <script>
+        $(function () {
+            var editor = new FroalaEditor('#slide1txt');
+
+            $('div#froala-editor').froalaEditor({
+                // Set the language code.
+                language: 'fa'
+            })
+        });
+    </script>
+
+
+    @* <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('slide1txt', {
             language: 'fa',
             contentsLangDirection: 'rtl',
             height: 270,
         });
-    </script>
+    </script> *@
 
     <script>
         function SendAdvertise() {
