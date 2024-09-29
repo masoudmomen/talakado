@@ -7,7 +7,7 @@
     <link href="~/css/mainpage.css" rel="stylesheet" />
     <link href="~/lib/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" />
 }
-<div class="container">
+<div class="container-fluid">
 
     <div class="row mainpageRow">
         <h4 class="box-header text-bold">بخش هدر(قسمت بالای سایت)</h4>
@@ -140,25 +140,69 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">متن اسلاید اول</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="">می توانید متن مورد نظر را با استفاده از خدمات ادیتور طراحی کنید</label>
-                                @* <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea> *@
-                                <div id="slide1txt"></div>
+                                <label>قابل طراحی با ادیتور</label>
+                                <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea>
+                                @* <textarea name="area1" cols="40"></textarea> *@
                             </div>
                         </div>
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendImage('slide3')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide1txt')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">متن اسلاید دوم</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>قابل طراحی با ادیتور</label>
+                                <textarea id="slide2txt" name="slide2txt" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendContent('slide2txt')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">متن اسلاید سوم</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">قابل طراحی با ادیتور</label>
+                                <textarea id="slide3txt" name="slide3txt" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendContent('slide3txt')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -166,37 +210,14 @@
         </div>
     </div>
 
-
-    
-
-
 </div>
 
 @section Scripts {
+    <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 
-
-    <script src="~/lib/froala-editor/js/froala_editor.pkgd.min.js"></script>
-    <script src="~/lib/froala-editor/js/languages/fa.min.js"></script>
     <script>
-        $(function () {
-            var editor = new FroalaEditor('#slide1txt');
-
-            $('div#froala-editor').froalaEditor({
-                // Set the language code.
-                language: 'fa'
-            })
-        });
+        bkLib.onDomLoaded(function () { nicEditors.allTextAreas() });
     </script>
-
-
-    @* <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('slide1txt', {
-            language: 'fa',
-            contentsLangDirection: 'rtl',
-            height: 270,
-        });
-    </script> *@
 
     <script>
         function SendAdvertise() {
@@ -331,6 +352,48 @@
                     'Error'
                 );
             }
+        }
+
+        function SendContent(contentId, isExistIsShow, isShow){
+            var content = $('#'+contentId).val();
+            var advetiseIsShow = $('#advetiseIsShow').is(':checked');
+            if (adverticePhrase == "") {
+                swal.fire(
+                    'پیام هشدار!',
+                    "عبارت تبلیغاتی نباید خالی باشد",
+                    'Error'
+                );
+                return;
+            }
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./mainpage?handler=SetAdvertismentPhrase",
+                data: { 'phraseTxt': adverticePhrase, 'isShow': advetiseIsShow },
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'عبارت تبلیغاتی با موفقیت ذخیره شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ذخیره عبارت انجام نشد",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            ajaxRequest.done(function (xhr, textStatus) {
+                // Do other operation
+            });
         }
     </script>
 }

@@ -58,6 +58,14 @@ namespace Talakado.AdminPanel.Pages.Content
             return Content("false");
         }
 
+        public IActionResult OnPostSetContent(string key, string txt, bool isShow)
+        {
+            if (contentManagerService.SetTextContent(key, txt, isShow))
+                return Content("true");
+            return Content("false");
+        }
+
+
         public IActionResult OnPostAddPhoneNumber(string phoneNumberTxt, bool isShow)
         {
             if (contentManagerService.AddPhoneNumber(phoneNumberTxt, isShow))
