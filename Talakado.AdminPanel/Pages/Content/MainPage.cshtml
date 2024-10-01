@@ -158,7 +158,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide1txt')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide1txt', 'null')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -354,9 +354,15 @@
             }
         }
 
-        function SendContent(contentId, isExistIsShow, isShow){
+        function SendContent(contentId, isShow){
             var content = $('#'+contentId).val();
-            var advetiseIsShow = $('#advetiseIsShow').is(':checked');
+            var IsShow = null;
+            if(isShow !== 'null'){
+                IsShow = $('#' + isShow).is(': checked');
+            }
+
+
+
             if (adverticePhrase == "") {
                 swal.fire(
                     'پیام هشدار!',
