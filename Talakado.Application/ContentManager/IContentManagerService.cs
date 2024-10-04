@@ -98,13 +98,28 @@ namespace Talakado.Application.ContentManager
 
         public HomePageDto? GetHomePageContent()
         {
-            var model = new HomePageDto();
+            
             var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
-            model.Slide1 = (slide1 != null) ? uriComposerService.ComposeImageUri(slide1) : "";
-            model.Slide2 = (slide2 != null) ? uriComposerService.ComposeImageUri(slide2) : "";
-            model.Slide3 = (slide3 != null) ? uriComposerService.ComposeImageUri(slide3) : "";
+            var model = new HomePageDto()
+            {
+                Slide1 = new SliderContent
+                {
+                    ImageAddress = (slide1 != null) ? uriComposerService.ComposeImageUri(slide1) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "slide1Text")?.Value) ?? ""
+                },
+                Slide2 = new SliderContent
+                {
+                    ImageAddress = (slide2 != null) ? uriComposerService.ComposeImageUri(slide2) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "slide2Text")?.Value) ?? ""
+                },
+                Slide3 = new SliderContent
+                {
+                    ImageAddress = (slide3 != null) ? uriComposerService.ComposeImageUri(slide3) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "slide3Text")?.Value) ?? ""
+                },
+            };
             return model;
         }
 

@@ -147,7 +147,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                    <form role="form" id="slide1txtForm" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>قابل طراحی با ادیتور</label>
@@ -158,7 +158,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide1txt', 'null')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide1Text', 'slide1txtForm', 'null')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -170,7 +170,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                    <form role="form" id="slide2txtForm" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>قابل طراحی با ادیتور</label>
@@ -180,7 +180,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide2txt')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide2Text', 'slide2txtForm', 'null')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -192,7 +192,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                    <form role="form" id="slide3txtForm" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="">قابل طراحی با ادیتور</label>
@@ -202,7 +202,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide3txt')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide3Text', 'slide3txtForm', 'null')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -354,40 +354,30 @@
             }
         }
 
-        function SendContent(contentId, isShow){
-            var content = $('#'+contentId).val();
-            var IsShow = null;
+        function SendContent(key, contentId, isShow){
+            var content = $('#' + contentId).find('.nicEdit-main').text();
+            var IsShow = true;
             if(isShow !== 'null'){
                 IsShow = $('#' + isShow).is(': checked');
             }
 
-
-
-            if (adverticePhrase == "") {
-                swal.fire(
-                    'پیام هشدار!',
-                    "عبارت تبلیغاتی نباید خالی باشد",
-                    'Error'
-                );
-                return;
-            }
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({
                 type: "post",
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "./mainpage?handler=SetAdvertismentPhrase",
-                data: { 'phraseTxt': adverticePhrase, 'isShow': advetiseIsShow },
+                url: "./mainpage?handler=SetContent",
+                data: { 'key': key, 'txt': content, 'isShow': IsShow },
                 success: function (result) {
                     if (result === "true") {
                         swal.fire(
                             'پیام موفقیت!',
-                            'عبارت تبلیغاتی با موفقیت ذخیره شد',
+                            'متن با موفقیت ثبت شد',
                             'success'
                         );
                     } else {
                         swal.fire(
                             'پیام هشدار!',
-                            "عملیات ذخیره عبارت انجام نشد",
+                            "عملیات ذخیره متن انجام نشد",
                             'Error'
                         );
                     }

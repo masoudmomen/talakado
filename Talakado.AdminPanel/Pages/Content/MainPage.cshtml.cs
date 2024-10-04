@@ -98,6 +98,9 @@ namespace Talakado.AdminPanel.Pages.Content
         public bool IsShowPhrase { get; set; } = false;
         public string? PhoneNumber { get; set; }
         public bool IsShowPhoneNumber { get; set; } = false;
+        public string Slide1Text { get; set; }
+        public string Slide2Text { get; set; }
+        public string Slide3Text { get; set; }
     }
 
     public class UploadDto

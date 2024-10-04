@@ -8,8 +8,14 @@ namespace Talakado.Application.ContentManager
 {
     public class HomePageDto
     {
-        public string? Slide1 { get; set; }
-        public string? Slide2 { get; set; }
-        public string? Slide3 { get; set; }
+        public SliderContent? Slide1 { get; set; }
+        public SliderContent? Slide2 { get; set; }
+        public SliderContent? Slide3 { get; set; }
+    }
+
+    public class SliderContent
+    {
+        public string? ImageAddress { get; set; }
+        public string? SlideText { get; set; }
     }
 }
