@@ -18,23 +18,23 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetAdvertismentPhrase">
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="adverticePhrase">متن </label>
-                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.HomePageViewmodel.Phrase">
+                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.HomePageViewmodel.AdvertisePhrase">
                         </div>
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhrase" /> نمایش متن فعال باشد
+                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.HomePageViewmodel.IsShowAdvertisePhrase" /> نمایش متن فعال باشد
                             </label>
                         </div>
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="button" onclick="SendAdvertise()" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendContent('advertisementPhrase', 'adverticePhrase', 'advetiseIsShow')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
@@ -74,6 +74,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="box box-primary">
+                    <img style="position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.Slide1?.ImageAddress" width="20%" />
                     <div class="box-header with-border">
                         <h3 class="box-title">آپلود اسلاید اول</h3>
                     </div>
@@ -96,6 +97,7 @@
             </div>
             <div class="col-md-4">
                 <div class="box box-primary">
+                    <img style="position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.Slide2?.ImageAddress" width="20%" />
                     <div class="box-header with-border">
                         <h3 class="box-title">آپلود اسلاید دوم</h3>
                     </div>
@@ -118,6 +120,7 @@
             </div>
             <div class="col-md-4">
                 <div class="box box-primary">
+                    <img style="position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.Slide3?.ImageAddress" width="20%" />
                     <div class="box-header with-border">
                         <h3 class="box-title">آپلود اسلاید سوم</h3>
                     </div>
@@ -151,7 +154,9 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label>قابل طراحی با ادیتور</label>
-                                <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5"></textarea>
+                                <textarea id="slide1txt" name="slide1txt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide1?.SlideText)
+                                </textarea>
                                 @* <textarea name="area1" cols="40"></textarea> *@
                             </div>
                         </div>
@@ -174,7 +179,9 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label>قابل طراحی با ادیتور</label>
-                                <textarea id="slide2txt" name="slide2txt" class="form-control" rows="5"></textarea>
+                                <textarea id="slide2txt" name="slide2txt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide2?.SlideText)
+                                </textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -196,7 +203,9 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="">قابل طراحی با ادیتور</label>
-                                <textarea id="slide3txt" name="slide3txt" class="form-control" rows="5"></textarea>
+                                <textarea id="slide3txt" name="slide3txt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide3?.SlideText)
+                                </textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -216,7 +225,12 @@
     <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 
     <script>
-        bkLib.onDomLoaded(function () { nicEditors.allTextAreas() });
+        bkLib.onDomLoaded(function () {
+            //nicEditors.allTextAreas()
+            new nicEditor({ fullPanel: true }).panelInstance('slide1txt');
+            new nicEditor({ fullPanel: true }).panelInstance('slide2txt');
+            new nicEditor({ fullPanel: true }).panelInstance('slide3txt');
+        });
     </script>
 
     <script>

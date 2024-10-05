@@ -119,6 +119,11 @@ namespace Talakado.Application.ContentManager
                     ImageAddress = (slide3 != null) ? uriComposerService.ComposeImageUri(slide3) : "",
                     SlideText = (context.Contents.FirstOrDefault(c => c.Key == "slide3Text")?.Value) ?? ""
                 },
+                AdvertisePhrase = (context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase")?.Value) ?? "",
+                IsShowAdvertisePhrase = (context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase")?.IsShow)??true,
+                PhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.Value) ?? "",
+                IsShowPhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.IsShow) ?? true,
+
             };
             return model;
         }
@@ -152,3 +157,5 @@ namespace Talakado.Application.ContentManager
         }
     }
 }
+
+

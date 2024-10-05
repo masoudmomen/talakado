@@ -23,7 +23,7 @@
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                            @Model.Slide1.SlideText
+                                            @Html.Raw(Model.Slide1.SlideText)
                                                 </div>
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                            @Model.Slide2.SlideText
+                                            @Html.Raw(Model.Slide2.SlideText)
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                                    @Model.Slide3.SlideText
+                                                    @Html.Raw(Model.Slide3.SlideText)
                                                 </div>
                                             </div>
                                         </div>
@@ -1292,3 +1292,5 @@
     </div>
 </section>
 <!-- Blog Section end -->
+
+

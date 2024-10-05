@@ -8,6 +8,10 @@ namespace Talakado.Application.ContentManager
 {
     public class HomePageDto
     {
+        public string AdvertisePhrase { get; set; }
+        public bool IsShowAdvertisePhrase { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool IsShowPhoneNumber { get; set; }
         public SliderContent? Slide1 { get; set; }
         public SliderContent? Slide2 { get; set; }
         public SliderContent? Slide3 { get; set; }
