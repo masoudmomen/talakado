@@ -21,12 +21,17 @@
                     <div class="row align-items-center">
                         <div class="col-xl-4 col-lg-12">
                             <div class="header-top-left">
-                                <p class="header-promo-text">@Model.AdvertisePhrase</p>
+                                <p class="header-promo-text">
+                                    @if (Model != null && Model.IsShowAdvertisePhrase)
+                                    {
+                                        @Model.AdvertisePhrase
+                                    }
+                                </p>
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-12 text-xl-end">
                             <div class="header-top-right">
-                                @if(Model.PhoneNumber != null && Model.PhoneNumber.IsShow)
+                                @if(Model != null && Model.PhoneNumber != null && Model.PhoneNumber.IsShow)
                                 {
                                     <div class="contact-num">
                                         <i class="flaticon-call"></i>

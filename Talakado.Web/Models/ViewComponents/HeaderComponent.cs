@@ -31,6 +31,7 @@ namespace Talakado.Web.Models.ViewComponents
         {
             var model = new HeaderDto();
             model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase().Value;
+            model.IsShowAdvertisePhrase = contentManagerService.GetAdvertisementPhrase().IsShow;
             model.PhoneNumber = contentManagerService.GetPhoneNumber();
             model.catalogTypeLists = catalogTypeService.GetList(null, 1, 100).Data.ToList();
             if (User.Identity.IsAuthenticated)
@@ -58,6 +59,7 @@ namespace Talakado.Web.Models.ViewComponents
     {
         public BasketDto Basket { get; set; }
         public string? AdvertisePhrase { get; set; }
+        public bool IsShowAdvertisePhrase { get; set; }
         public Content? PhoneNumber { get; set; }
         public List<CatalogTypeListDto> catalogTypeLists { get; set; }
         public bool IsUserAuthenticated { get; set; }

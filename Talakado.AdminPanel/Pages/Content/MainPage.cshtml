@@ -34,7 +34,7 @@
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="button" onclick="SendContent('advertisementPhrase', 'adverticePhrase', 'advetiseIsShow')" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendContent('advertisementPhrase', 'adverticePhrase', 'advetiseIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
@@ -163,7 +163,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide1Text', 'slide1txtForm', 'null')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide1Text', 'slide1txtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -187,7 +187,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide2Text', 'slide2txtForm', 'null')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide2Text', 'slide2txtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -211,7 +211,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendContent('slide3Text', 'slide3txtForm', 'null')" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendContent('slide3Text', 'slide3txtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -368,13 +368,20 @@
             }
         }
 
-        function SendContent(key, contentId, isShow){
-            var content = $('#' + contentId).find('.nicEdit-main').text();
+        function SendContent(key, contentId, isShow, editorStatus){
+            var content = "";
+            if (editorStatus == "noEditor") {
+                content = $('#' + contentId).val(); 
+            }
+            else{
+                content = $('#' + contentId).find('.nicEdit-main').text();
+            }
+            
             var IsShow = true;
             if(isShow !== 'null'){
-                IsShow = $('#' + isShow).is(': checked');
+                IsShow = $('#' + isShow).is(':checked');
             }
-
+            console.log(content + "  " + IsShow)
             //ارسال به سرور با ای جکس
             var ajaxRequest = $.ajax({
                 type: "post",
