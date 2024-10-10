@@ -46,7 +46,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddPhoneNumber">
+                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="adverticePhrase">شماره </label>
@@ -62,7 +62,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" onclick="SendPhoneNumber()" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendContent('phoneNumber', 'phoneNumber', 'phoneNumberIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -218,7 +218,35 @@
             </div>
         </div>
     </div>
+    <br />
+    <div class="row mainpageRow">
+        <h4 class="box-header text-bold">بنر وسط صفحه (زیر اسلایدر)</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <img style="position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.BannerImage" width="20%" />
+                    <div class="box-header with-border">
+                        <h3 class="box-title">آپلود عکس بنر</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس بنر وسط </label>
+                                <input type="file" class="form-control" id="bannerImage" class="form-control" accept="image/*" name="bannerImage">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
 
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('bannerImage')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -234,92 +262,6 @@
     </script>
 
     <script>
-        function SendAdvertise() {
-            var adverticePhrase = $('#adverticePhrase').val();
-            var advetiseIsShow = $('#advetiseIsShow').is(':checked');
-            if (adverticePhrase == "") {
-                swal.fire(
-                    'پیام هشدار!',
-                    "عبارت تبلیغاتی نباید خالی باشد",
-                    'Error'
-                );
-                return;
-            } 
-            //ارسال به سرور با ای جکس
-            var ajaxRequest = $.ajax({
-                type: "post",
-                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "./mainpage?handler=SetAdvertismentPhrase",
-                data: { 'phraseTxt': adverticePhrase, 'isShow': advetiseIsShow },
-                success: function (result) {
-                    if (result === "true") {
-                        swal.fire(
-                            'پیام موفقیت!',
-                            'عبارت تبلیغاتی با موفقیت ذخیره شد',
-                            'success'
-                        );
-                    } else {
-                        swal.fire(
-                            'پیام هشدار!',
-                            "عملیات ذخیره عبارت انجام نشد",
-                            'Error'
-                        );
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-            ajaxRequest.done(function (xhr, textStatus) {
-                // Do other operation
-            });
-        }
-
-
-        function SendPhoneNumber() {
-            var phoneNumber = $('#phoneNumber').val();
-            var phoneNumberIsShow = $('#phoneNumberIsShow').is(':checked');
-            if (phoneNumber == "") {
-                swal.fire(
-                    'پیام هشدار!',
-                    "شماره تلفن نباید خالی باشد",
-                    'Error'
-                );
-                return;
-            }
-            //ارسال به سرور با ای جکس
-            var ajaxRequest = $.ajax({
-                type: "post",
-                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "./mainpage?handler=AddPhoneNumber",
-                data: { 'phoneNumberTxt': phoneNumber, 'isShow': phoneNumberIsShow },
-                success: function (result) {
-                    if (result === "true") {
-                        swal.fire(
-                            'پیام موفقیت!',
-                            'شماره تلفن با موفقیت ذخیره شد',
-                            'success'
-                        );
-                    } else {
-                        swal.fire(
-                            'پیام هشدار!',
-                            "عملیات ذخیره عبارت انجام نشد",
-                            'Error'
-                        );
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-            ajaxRequest.done(function (xhr, textStatus) {
-                // Do other operation
-            });
-        }
-
-
         function SendImage(slideNum) {
             var slide = document.getElementById(slideNum);
             if (slide.files.length > 0) {

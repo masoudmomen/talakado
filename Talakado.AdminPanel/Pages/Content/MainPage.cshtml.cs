@@ -33,24 +33,10 @@ namespace Talakado.AdminPanel.Pages.Content
             TempData["Page"] = 2;
         }
 
-        public IActionResult OnPostSetAdvertismentPhrase(string phraseTxt, bool isShow) 
-        {
-            if (contentManagerService.AddAdvertisementPhrase(phraseTxt, isShow))
-                return Content("true");
-            return Content("false");
-        }
 
         public IActionResult OnPostSetContent(string key, string txt, bool isShow)
         {
             if (contentManagerService.SetTextContent(key, txt, isShow))
-                return Content("true");
-            return Content("false");
-        }
-
-
-        public IActionResult OnPostAddPhoneNumber(string phoneNumberTxt, bool isShow)
-        {
-            if (contentManagerService.AddPhoneNumber(phoneNumberTxt, isShow))
                 return Content("true");
             return Content("false");
         }
@@ -83,6 +69,8 @@ namespace Talakado.AdminPanel.Pages.Content
         public SliderContent? Slide1 { get; set; }
         public SliderContent? Slide2 { get; set; }
         public SliderContent? Slide3 { get; set; }
+        public string? BannerImage { get; set; }
+
     }
 
     public class UploadDto

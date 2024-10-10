@@ -15,6 +15,7 @@ namespace Talakado.Application.ContentManager
         public SliderContent? Slide1 { get; set; }
         public SliderContent? Slide2 { get; set; }
         public SliderContent? Slide3 { get; set; }
+        public string? BannerImage { get; set; }
     }
 
     public class SliderContent
