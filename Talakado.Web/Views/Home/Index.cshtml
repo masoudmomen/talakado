@@ -23,13 +23,13 @@
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                            @Html.Raw(Model.Slide1.SlideText)
+                                            @Html.Raw(Model.Slide1?.SlideText)
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="hero-img">
-                                        <img src="@Model.Slide1.ImageAddress" alt="Image">
+                                        <img src="@Model.Slide1?.ImageAddress" alt="Image">
                                     </div>
                                 </div>
                             </div>
@@ -47,13 +47,13 @@
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                            @Html.Raw(Model.Slide2.SlideText)
+                                            @Html.Raw(Model.Slide2?.SlideText)
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="hero-img">
-                                        <img src="@Model.Slide2.ImageAddress" alt="Image">
+                                        <img src="@Model.Slide2?.ImageAddress" alt="Image">
                                     </div>
                                 </div>
                             </div>
@@ -68,13 +68,13 @@
                                 </div>
                                 <div class="container">
                                     <div class="hero-img">
-                                <img src="@Model.Slide3.ImageAddress" alt="Image">
+                                <img src="@Model.Slide3?.ImageAddress" alt="Image">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="hero-content">
                                                 <div class="hero-text">
-                                                    @Html.Raw(Model.Slide3.SlideText)
+                                                    @Html.Raw(Model.Slide3?.SlideText)
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="col-xl-4">
-                <div class="hero-product-box style4  hero-bg-img bg-f">
+                <div class="hero-product-box style4 bg-f" style="background-image: url(@Model.BannerImage);">
                     <div class="hero-product-info">
                         <span class="discount-tag">%25-</span>
                         <ul class="ratings style1 list-style">
@@ -165,7 +165,7 @@
                         <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                     </div>
                     <div class="hero-bg-img bg-f">
-                        <!-- <img src="~/theme/assets/img/hero/hero-100.png" alt="Image"> -->
+                        @* <img src="~/theme/assets/img/hero/hero-100.png" alt="Image"> *@
                     </div>
                 </div>
             </div>

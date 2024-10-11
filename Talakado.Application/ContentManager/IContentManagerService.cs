@@ -102,6 +102,7 @@ namespace Talakado.Application.ContentManager
             var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
+            var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
             var model = new HomePageDto()
             {
                 Slide1 = new SliderContent
@@ -123,7 +124,7 @@ namespace Talakado.Application.ContentManager
                 IsShowAdvertisePhrase = (context.Contents.FirstOrDefault(c => c.Key == "advertisementPhrase")?.IsShow)??true,
                 PhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.Value) ?? "",
                 IsShowPhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.IsShow) ?? true,
-
+                BannerImage = (banner != null) ? uriComposerService.ComposeImageUri(banner) : "",
             };
             return model;
         }
