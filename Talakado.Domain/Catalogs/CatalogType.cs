@@ -10,5 +10,6 @@ namespace Talakado.Domain.Catalogs
         public int? ParentCatalogTypeId { get; set; }
         public CatalogType ParentCatalogType { get; set; }
         public ICollection<CatalogType> SubType { get; set; }
+        public string? ImageAddress { get; set; }
     }
 }

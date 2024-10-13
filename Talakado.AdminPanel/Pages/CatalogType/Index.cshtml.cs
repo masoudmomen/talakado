@@ -14,7 +14,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
             this.catalogTypeService = catalogTypeService;
         }
         public PaginatedItemDto<CatalogTypeListDto> CatalogType { get; set; }
-        public void OnGet(int? parentId, int pageIndex = 1, int pageSize=2)
+        public void OnGet(int? parentId, int pageIndex = 1, int pageSize=10)
         {
             CatalogType = catalogTypeService.GetList(parentId, pageIndex, pageSize);
             TempData["page"] = 6;

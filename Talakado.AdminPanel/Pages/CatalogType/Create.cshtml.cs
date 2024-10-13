@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MongoDB.Bson;
 using Talakado.AdminPanel.ViewModels.Catalogs;
 using Talakado.Application.Catalogs.CatalogTypes;
 using Talakado.Application.ContentManager;
@@ -32,11 +34,11 @@ namespace Talakado.AdminPanel.Pages.CatalogType
 
         public async Task<IActionResult> OnPost()
         {
-            var ParentCatalogTypeId = 0;
             CatalogType.Type = Request.Form["name"].ToString();
-            if(!string.IsNullOrEmpty(Request.Form["ParentCatalogTypeId"].ToString()))
+            string? parentCatalogtype = Request.Form["ParentCatalogTypeId"];
+            if (parentCatalogtype != null && parentCatalogtype != "undefined")
             {
-                CatalogType.ParentCatalogTypeId = int.TryParse(Request.Form["ParentCatalogTypeId"].ToString(),);
+                CatalogType.ParentCatalogTypeId = int.Parse(parentCatalogtype);
             }
             
             if (File != null) File = null;
@@ -46,31 +48,25 @@ namespace Talakado.AdminPanel.Pages.CatalogType
                 var uploadResult = await imageUploadService.UploadAsync(File);
                 if (uploadResult != null && uploadResult.FileNameAddress.Count > 0)
                 {
-                    var model = mapper.Map<CatalogTypeDto>(CatalogType);
-                    var result = catalogTypeService.Add(model);
-                    if (result.IsSuccess)
-                    {
-                        return RedirectToPage("index", new { parentId = CatalogType.ParentCatalogTypeId });
-                    }
-                    Message = result.Message;
+                    CatalogType.ImageAddress = uploadResult.FileNameAddress[0];
                 }
                 else 
                 { 
-                   
                     Message = new List<string> { "عملیات آپلود عکس با خطا مواجه شد"};
+                    return Content(Message[0]);
                 }
             }
-            else
+            var model = mapper.Map<CatalogTypeDto>(CatalogType);
+            var result = catalogTypeService.Add(model);
+            if (result.IsSuccess)
             {
-                var model = mapper.Map<CatalogTypeDto>(CatalogType);
-                var result = catalogTypeService.Add(model);
-                if (result.IsSuccess)
-                {
-                    return RedirectToPage("index", new { parentId = CatalogType.ParentCatalogTypeId });
-                }
-                Message = result.Message;
+                //return RedirectToPage("index", new { parentId = CatalogType.ParentCatalogTypeId });
+                var parentId = CatalogType.ParentCatalogTypeId.ToString()??"";
+                string[] res = { "true", parentId };
+                 return res.ToJson();
             }
-            return Page();
+            Message = result.Message;
+            return Content("false", Message[0]);
         }
     }
 }
