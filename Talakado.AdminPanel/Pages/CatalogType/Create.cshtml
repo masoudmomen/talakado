@@ -54,7 +54,7 @@
             
             var data = new FormData();
             data.append("name", $('#catalog-name').val());
-            data.append("ParentCatalogTypeId", $('#ParentCatalogTypeId').val());
+            data.append("ParentCatalogTypeId", $('#CatalogType_ParentCatalogTypeId').val());
             data.append("file", file.files[0]);
 
             //ارسال به سرور با ای جکس
@@ -65,17 +65,17 @@
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 url: "./create",
                 data: data,
-                success: function (result,msgOrParentId) {
-                    if (result === "true") {alert("dddd")
-                        console.log(result + " " + msgOrParentId + " " + window.origin);
-                        //window.location.replace(window.origin + "/CatalogType?parentid=" + msgOrParentId);
-                    }
-                    else {
+                success: function (result) {
+                    if (result[0] === "false") {
                         swal.fire(
                             'پیام خطا!',
-                            msgOrParentId,
+                            'عملیات با خطا مواجه شد',
                             'Error'
                         );
+                    }
+                    else {
+                        console.log(result + " " + window.origin);
+                        window.location.replace(window.origin + "/CatalogType?parentid=" + result);
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

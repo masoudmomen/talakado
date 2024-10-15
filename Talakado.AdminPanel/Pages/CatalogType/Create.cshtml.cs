@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -24,7 +25,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
         }
         [BindProperty]
         public CatalogTypeViewModel CatalogType { get; set; } = new CatalogTypeViewModel { };
-        public IFormFile File { get; set; }
+        public IFormFile? File { get; set; }
         public List<string> Message { get; set; }
         public void OnGet(int? parentId)
         {
@@ -42,7 +43,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
             }
             
             if (File != null) File = null;
-            File = (IFormFile)Request.Form.Files[0];
+            File = (Request.Form.Files.Count>0)? Request.Form.Files[0] : null;
             if (File != null)
             {
                 var uploadResult = await imageUploadService.UploadAsync(File);
@@ -52,8 +53,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
                 }
                 else 
                 { 
-                    Message = new List<string> { "عملیات آپلود عکس با خطا مواجه شد"};
-                    return Content(Message[0]);
+                    return Content("false");
                 }
             }
             var model = mapper.Map<CatalogTypeDto>(CatalogType);
@@ -62,11 +62,10 @@ namespace Talakado.AdminPanel.Pages.CatalogType
             {
                 //return RedirectToPage("index", new { parentId = CatalogType.ParentCatalogTypeId });
                 var parentId = CatalogType.ParentCatalogTypeId.ToString()??"";
-                string[] res = { "true", parentId };
-                 return res.ToJson();
+                 return Content(parentId);
             }
             Message = result.Message;
-            return Content("false", Message[0]);
+            return Content("false");
         }
     }
 }
