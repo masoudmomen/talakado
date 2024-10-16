@@ -40,7 +40,9 @@
     </div>
 </div>
 
-
+<div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
 
 
 
@@ -74,7 +76,7 @@
                         );
                     }
                     else {
-                        console.log(result + " " + window.origin);
+
                         window.location.replace(window.origin + "/CatalogType?parentid=" + result);
                     }
                 },

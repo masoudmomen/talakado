@@ -37,7 +37,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
         {
             CatalogType.Type = Request.Form["name"].ToString();
             string? parentCatalogtype = Request.Form["ParentCatalogTypeId"];
-            if (parentCatalogtype != null && parentCatalogtype != "undefined")
+            if (parentCatalogtype != null && parentCatalogtype != "undefined" && parentCatalogtype != "")
             {
                 CatalogType.ParentCatalogTypeId = int.Parse(parentCatalogtype);
             }
@@ -53,6 +53,7 @@ namespace Talakado.AdminPanel.Pages.CatalogType
                 }
                 else 
                 { 
+
                     return Content("false");
                 }
             }
