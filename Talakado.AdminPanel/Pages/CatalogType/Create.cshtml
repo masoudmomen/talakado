@@ -1,49 +1,37 @@
 ﻿@page
 @model Talakado.AdminPanel.Pages.CatalogType.CreateModel
 @{
+    ViewData["Title"] = "ثبت دسته بندی جدید";
 }
 
-<div class="col-lg-12 col-12 layout-spacing" id="rootDiv">
-    <div class="statbox widget box box-shadow">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4> ثبت دسته بندی جدید  </h4>
-                </div>
-            </div>
-        </div>
-        <div class="widget-content widget-content-area">
-            @if(Model.Message != null){
-                @foreach (var item in Model.Message)
-                {
-                    <div class="alert alert-info">
-                        <p>@item</p>
-                    </div>
-                }
-            }
+<div  style="width:75%;margin:auto" id="rootDiv">
+    <div class="row">
+        <div>
             <form asp-page="create" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group mb-4" style="display:inline;">
                     <label asp-for="CatalogType.Type"> </label>
-                    <input type="text" class="form-control" asp-for="CatalogType.Type" id="catalog-name">
+                    <input type="text" class="form-control" asp-for="CatalogType.Type" id="catalog-name" />
                     <span asp-validation-for="CatalogType.Type" class="text-danger"></span>
                 </div>
-                <div class="form-control">
-                    <input type="file" name="catalogImage" id="catalogImage" accept="image/*" />
+                <br />
+                <div class="form-group mb-4">
+                    <label>تصویر دسته بندی</label><br />
+                    <input type="file" name="catalogImage" id="catalogImage" accept="image/*"  />
                 </div>
+                <br />
                 <input type="hidden" asp-for="CatalogType.ParentCatalogTypeId" />
                 <input type="button" onclick="Save()" name="time" value="ثبت" class="btn btn-primary">
                 <a asp-page="index" class="btn btn-info">برگشت به لیست</a>
             </form>
-
         </div>
     </div>
 </div>
 
-<div class="spinner-border" role="status">
+@* <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
 </div>
-
+ *@
 
 
 @section Scripts {

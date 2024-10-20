@@ -53,7 +53,6 @@ namespace Talakado.AdminPanel.Pages.CatalogType
                 }
                 else 
                 { 
-
                     return Content("false");
                 }
             }
