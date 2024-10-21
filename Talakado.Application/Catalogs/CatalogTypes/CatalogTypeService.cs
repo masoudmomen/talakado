@@ -2,6 +2,7 @@
 using Common;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
+using Talakado.Application.UriComposer;
 using Talakado.Domain.Catalogs;
 
 namespace Talakado.Application.Catalogs.CatalogTypes
@@ -10,11 +11,13 @@ namespace Talakado.Application.Catalogs.CatalogTypes
     {
         private readonly IDataBaseContext _context;
         private readonly IMapper mapper;
+        private readonly IUriComposerService uriComposerService;
 
-        public CatalogTypeService(IDataBaseContext context, IMapper mapper)
+        public CatalogTypeService(IDataBaseContext context, IMapper mapper, IUriComposerService uriComposerService)
         {
             _context = context;
             this.mapper = mapper;
+            this.uriComposerService = uriComposerService;
         }
         public BaseDto<CatalogTypeDto> Add(CatalogTypeDto catalogType)
         {
@@ -44,6 +47,7 @@ namespace Talakado.Application.Catalogs.CatalogTypes
         {
             var data = _context.CatalogTypes.Find(Id);
             var result = mapper.Map<CatalogTypeDto>(data);
+            result.ImageAddress = uriComposerService.ComposeImageUri(result.ImageAddress);
             return new BaseDto<CatalogTypeDto>(true,null,result);
             //return new BaseDto<CatalogTypeDto>(true, "عملیات با موفقیت انجام شد", result); 
         }
@@ -53,6 +57,13 @@ namespace Talakado.Application.Catalogs.CatalogTypes
             int totalCount = 0;
             var model = _context.CatalogTypes.Where(p=>p.ParentCatalogTypeId == parentId).PagedResult(pageIndex, pageSize, out totalCount);
             var result = mapper.ProjectTo<CatalogTypeListDto>(model).ToList();
+            foreach (var item in result)
+            {
+                if (!string.IsNullOrEmpty(item.ImageAddress))
+                {
+                    item.ImageAddress = uriComposerService.ComposeImageUri(item.ImageAddress);
+                }
+            }
             return new PaginatedItemDto<CatalogTypeListDto>(pageIndex, pageSize,totalCount,result);
         }
 
