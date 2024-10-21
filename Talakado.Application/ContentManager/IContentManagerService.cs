@@ -125,6 +125,13 @@ namespace Talakado.Application.ContentManager
                 PhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.Value) ?? "",
                 IsShowPhoneNumber = (context.Contents.FirstOrDefault(c => c.Key == "phoneNumber")?.IsShow) ?? true,
                 BannerImage = (banner != null) ? uriComposerService.ComposeImageUri(banner) : "",
+                CatalogTypes = context.CatalogTypes.Where(c=>c.ParentCatalogTypeId == null).Select(c=> new CatalogTypeForHomePageDto
+                {
+                    Id = c.Id,
+                    Name = c.Type,
+                    ImageAddress = uriComposerService.ComposeImageUri(c.ImageAddress),
+                    ItemCount = context.CatalogItems.Count(d=>d.CatalogTypeId == c.Id)
+                }).ToList(),
             };
             return model;
         }

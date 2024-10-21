@@ -239,60 +239,21 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="category-item-wrap">
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-1.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">مروارید</a></h4>
-                            <span>(12 مورد)</span>
-                        </div>
-                    </div>
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-2.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">حلقه طلا</a></h4>
-                            <span>(20 مورد)</span>
-                        </div>
-                    </div>
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-3.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">گوشواره</a></h4>
-                            <span>(18 مورد)</span>
-                        </div>
-                    </div>
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-4.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">دستبند</a></h4>
-                            <span>(20 مورد)</span>
-                        </div>
-                    </div>
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-5.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">حلقه الماس</a></h4>
-                            <span>(12 مورد)</span>
-                        </div>
-                    </div>
-                    <div class="category-item style2">
-                        <div class="category-img">
-                            <img src="~/theme/assets/img/category/cat-6.png" alt="Image">
-                        </div>
-                        <div class="cat-info">
-                            <h4><a href="shop-left-sidebar.html">حلقه ازدواج</a></h4>
-                            <span>(15 مورد)</span>
-                        </div>
-                    </div>
+                    @if (Model.CatalogTypes.Count > 0)
+                    {
+                        foreach (var item in Model.CatalogTypes)
+                        {
+                            <div class="category-item style2">
+                                <div class="category-img">
+                                    <img src="@item.ImageAddress" alt="Image">
+                                </div>
+                                <div class="cat-info">
+                                    <h4><a href="shop-left-sidebar.html">@item.Name</a></h4>
+                                    <span>(@item.ItemCount مورد)</span>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>

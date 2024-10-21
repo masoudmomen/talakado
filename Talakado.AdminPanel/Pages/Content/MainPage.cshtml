@@ -247,6 +247,134 @@
             </div>
         </div>
     </div>
+    <br />
+    <div class="row mainpageRow">
+        <h4 class="box-header text-bold">بنرهای حاوی محصول</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">بنر بالا سمت راست</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                        <div class="box-body">
+                            <div class="">
+                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopRight" name="bannerItemTopRight">
+                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">متن بنر قابل طراحی با ادیتور</label>
+                                <textarea id="bannerItemTopRighttxt" name="bannerItemTopRighttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide3?.SlideText)
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">بنر بالا سمت چپ</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                        <div class="box-body">
+                            <div class="">
+                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopleft" name="bannerItemTopleft">
+                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">متن بنر قابل طراحی با ادیتور</label>
+                                <textarea id="bannerItemToplefttxt" name="bannerItemToplefttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide3?.SlideText)
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">بنر پایین سمت راست</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                        <div class="box-body">
+                            <div class="">
+                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomRight" name="bannerItembottomRight">
+                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">متن بنر قابل طراحی با ادیتور</label>
+                                <textarea id="bannerItembottomRighttxt" name="bannerItembottomRighttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide3?.SlideText)
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">بنر پایین سمت چپ</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                        <div class="box-body">
+                            <div class="">
+                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomleft" name="bannerItembottomleft">
+                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">متن بنر قابل طراحی با ادیتور</label>
+                                <textarea id="bannerItembottomlefttxt" name="bannerItembottomlefttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.Slide3?.SlideText)
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -258,6 +386,10 @@
             new nicEditor({ fullPanel: true }).panelInstance('slide1txt');
             new nicEditor({ fullPanel: true }).panelInstance('slide2txt');
             new nicEditor({ fullPanel: true }).panelInstance('slide3txt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItemTopRighttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItemToplefttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomRighttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomlefttxt');
         });
     </script>
 

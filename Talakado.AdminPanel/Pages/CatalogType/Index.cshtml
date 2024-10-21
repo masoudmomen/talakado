@@ -1,6 +1,7 @@
 ﻿@page
 @model Talakado.AdminPanel.Pages.CatalogType.IndexModel
 @{
+    ViewData["Title"] = "لیست دسته بندی ها";
 }
 
 <div class="row">
@@ -63,14 +64,14 @@
     <div class="col-sm-7">
         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
             <ul class="pagination">
-                <li class="paginate_button next @nextDisabled" id="example2_next">
+                <li class="paginate_button next @prevDisabled" id="example2_next">
                     <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
                        asp-route-pageIndex="1"
-                       class="@nextDisabled">صفحه اول</a>
+                       class="@prevDisabled">صفحه اول</a>
                 </li>
                 <li class="paginate_button previous @prevDisabled" id="example2_previous">
                     <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
-                       asp-route-pageIndex="@(Model.CatalogType.PageIndex - 1)"
+                       asp-route-pageIndex="@((Model.CatalogType.PageIndex - 1 < 1)?1:Model.CatalogType.PageIndex - 1)"
                         class="@prevDisabled">قبلی</a>
                 </li>
 
@@ -90,7 +91,7 @@
                 
                 <li class="paginate_button next @nextDisabled" id="example2_next">
                     <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
-                       asp-route-pageIndex="@(Model.CatalogType.PageIndex + 1)"
+                       asp-route-pageIndex="@((Model.CatalogType.PageIndex + 1 > Model.CatalogType.Pager.TotalPages)?Model.CatalogType.Pager.TotalPages:Model.CatalogType.PageIndex + 1)"
                        class="@nextDisabled">بعدی</a>
                 </li>
                 <li class="paginate_button next @nextDisabled" id="example2_next">
