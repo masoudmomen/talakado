@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
+using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
+using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP;
 using Talakado.Application.ContentManager;
 using Talakado.Infrastructure.ExternalApi.ImageServer;
 
@@ -14,12 +16,17 @@ namespace Talakado.AdminPanel.Pages.Content
         private readonly IContentManagerService contentManagerService;
         private readonly IImageUploadService imageUploadService;
         private readonly IMapper mapper;
+        private readonly IGetCatalogItemPLPService getCatalogItemPLPService;
 
-        public MainPageModel(IContentManagerService contentManagerService, IImageUploadService imageUploadService, IMapper mapper)
+        public MainPageModel(IContentManagerService contentManagerService,
+            IImageUploadService imageUploadService,
+            IMapper mapper,
+            IGetCatalogItemPLPService getCatalogItemPLPService)
         {
             this.contentManagerService = contentManagerService;
             this.imageUploadService = imageUploadService;
             this.mapper = mapper;
+            this.getCatalogItemPLPService = getCatalogItemPLPService;
         }
 
         [BindProperty]
@@ -57,6 +64,13 @@ namespace Talakado.AdminPanel.Pages.Content
                 return Content("false");
             }
             return Content("false");
+        }
+
+        public JsonResult OnPostGetCatalogItemList()
+        {
+            var request = new CatalogPLPRequestDto();
+            var result = getCatalogItemPLPService.Execute(request);
+            return new JsonResult(result);
         }
     }
 
