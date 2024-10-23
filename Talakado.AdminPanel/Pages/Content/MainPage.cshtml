@@ -6,6 +6,7 @@
 @section Styles {
     <link href="~/css/mainpage.css" rel="stylesheet" />
     <link href="~/lib/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" />
+    <link href="~/lib/datatable/datatables.bootstrap.min.css" rel="stylesheet" />
 }
 <div class="container-fluid">
 
@@ -377,6 +378,11 @@
     </div>
 </div>
 
+@* @{
+    var prevDisabled = !Model.CatalogType.HasPerviousPage ? "disabled" : "";
+    var nextDisabled = !Model.CatalogType.HasNextPage ? "disabled" : "";
+    var active = "";
+} *@
 
 
 <!-- modal -->
@@ -390,7 +396,66 @@
                 <h4 class="modal-title">Default مدال</h4>
             </div>
             <div class="modal-body">
-                <p>محتوا</p>
+                <!-- /.box -->
+
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="catalogItemListTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>موتور رندر</th>
+                                    <th>مرورگر</th>
+                                    <th>سیستم عامل</th>
+                                    <th>ورژن</th>
+                                    <th>امتیاز</th>
+                                </tr>
+                            </thead>
+                            <tbody id="catalogList_tbody">
+                                
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button next" id="example2_next">
+                                <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                                   asp-route-pageIndex="1"
+                                   class="">صفحه اول</a>
+                            </li>
+                            <li class="paginate_button previous " id="example2_previous">
+                                <a asp-page="Index" class="">قبلی</a>
+                            </li>
+
+                            @* @foreach (var item in Model.CatalogType.Pager.Pages)
+                            {
+                                if (item == Model.CatalogType.PageIndex)
+                                {
+                                    active = "active";
+                                } *@
+                                <li class="paginate_button ">
+                                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                                       asp-route-pageIndex="@* @item *@"
+                                       aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
+                                </li>
+                                @* active = "";
+                            } *@
+
+                            <li class="paginate_button next " id="example2_next">
+                                <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
+                                   asp-route-pageIndex=""
+                                   class="">بعدی</a>
+                            </li>
+                            <li class="paginate_button next " id="example2_next">
+                                <a asp-page="Index" class="">صفحه آخر</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- /.box -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">خروج</button>
@@ -405,7 +470,8 @@
 
 @section Scripts {
     <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script src="~/lib/datatable/datatables.bootstrap.min.js"></script>
     <script>
         bkLib.onDomLoaded(function () {
             //nicEditors.allTextAreas()
@@ -417,6 +483,17 @@
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomRighttxt');   
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomlefttxt');
         });
+
+        // $(function () {
+        //     $('#catalogItemListTable').DataTable({
+        //         'paging': true,
+        //         'lengthChange': true,
+        //         'searching': true,
+        //         'ordering': true,
+        //         'info': true,
+        //         'autoWidth': true
+        //     })
+        // })
     </script>
 
     <script>
@@ -516,6 +593,10 @@
         function OpenItemListModal() 
         {
             $('#modal-default').modal('show');
+            GetCatalogItemList();
+        }
+
+        function GetCatalogItemList() {
             $.ajax({
                 url: "./mainpage?handler=GetCatalogItemList",
                 type: "post",
@@ -524,10 +605,20 @@
                 processData: false,
                 success: function (result) {
                     console.log(result);
+                    $.each(result.data, function(key, object){
+                        $('#catalogList_tbody').append(`
+                            <tr>
+                                <td>${object.id}</td>
+                                <td>${object.name}</td>
+                                <td>
+                                    <img src="${object.image}" width="30" style="margin-right:20px" />
+                                </td>
+                            </tr>
+                        `)
+                    })
+                    
                 }
             })
         }
-
-
     </script>
 }

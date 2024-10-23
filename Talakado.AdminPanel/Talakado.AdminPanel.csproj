@@ -20,6 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\dataTable\dataTables.bootstrap.js" />
+    <Content Remove="wwwroot\lib\dataTable\dataTables.bootstrap.min.js" />
+    <Content Remove="wwwroot\lib\dataTable\jquery.dataTables.js" />
+    <Content Remove="wwwroot\lib\dataTable\jquery.dataTables.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\theme\AdminLTE_Persian-master\bower_components\bootstrap-colorpicker\.bower.json" />
     <Content Include="wwwroot\theme\AdminLTE_Persian-master\bower_components\bootstrap-colorpicker\bower.json" />
     <Content Include="wwwroot\theme\AdminLTE_Persian-master\bower_components\bootstrap-colorpicker\composer.json" />
@@ -2646,6 +2653,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\dataTable\dataTables.bootstrap.js" />
+    <None Include="wwwroot\lib\dataTable\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\lib\dataTable\jquery.dataTables.js" />
+    <None Include="wwwroot\lib\dataTable\jquery.dataTables.min.js" />
     <None Include="wwwroot\lib\Sweetalert2\sweetalert2.min.js" />
     <None Include="wwwroot\theme\AdminLTE_Persian-master\bower_components\bootstrap-colorpicker\.editorconfig" />
     <None Include="wwwroot\theme\AdminLTE_Persian-master\bower_components\bootstrap-colorpicker\.github\CODE_OF_CONDUCT.md" />
