@@ -393,7 +393,30 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Default مدال</h4>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>جستجوی محصول</label>
+                        <div class="input-group input-group">
+                            <input type="text" class="form-control" id="searchKeyInput">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-info btn-flat" id="searchBtn" onclick="GetCatalogItemList()">جستجو</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="float:left">
+                        <div class="form-group">
+                            <label>تعداد انتخاب هر بار</label>
+                            <select class="form-control" id="catalogCountInEachView" onchange="GetCatalogItemList()">
+                                <option>5</option>
+                                <option selected>10</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-body">
                 <!-- /.box -->
@@ -401,14 +424,12 @@
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="catalogItemListTable" class="table table-bordered table-striped">
+                        <table id="catalogItemListTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>موتور رندر</th>
-                                    <th>مرورگر</th>
-                                    <th>سیستم عامل</th>
-                                    <th>ورژن</th>
-                                    <th>امتیاز</th>
+                                    <th>ردیف</th>
+                                    <th>نام محصول</th>
+                                    <th>عکس محصول</th>
                                 </tr>
                             </thead>
                             <tbody id="catalogList_tbody">
@@ -418,48 +439,17 @@
                         </table>
                     </div>
                     <!-- /.box-body -->
-                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                        <ul class="pagination">
-                            <li class="paginate_button next" id="example2_next">
-                                <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
-                                   asp-route-pageIndex="1"
-                                   class="">صفحه اول</a>
-                            </li>
-                            <li class="paginate_button previous " id="example2_previous">
-                                <a asp-page="Index" class="">قبلی</a>
-                            </li>
-
-                            @* @foreach (var item in Model.CatalogType.Pager.Pages)
-                            {
-                                if (item == Model.CatalogType.PageIndex)
-                                {
-                                    active = "active";
-                                } *@
-                                <li class="paginate_button ">
-                                    <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
-                                       asp-route-pageIndex="@* @item *@"
-                                       aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
-                                </li>
-                                @* active = "";
-                            } *@
-
-                            <li class="paginate_button next " id="example2_next">
-                                <a asp-page="Index" asp-route-parentid="@Request.Query["parentid"]"
-                                   asp-route-pageIndex=""
-                                   class="">بعدی</a>
-                            </li>
-                            <li class="paginate_button next " id="example2_next">
-                                <a asp-page="Index" class="">صفحه آخر</a>
-                            </li>
-                        </ul>
-
-                    </div>
                 </div>
                 <!-- /.box -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">خروج</button>
-                <button type="button" class="btn btn-primary">ذخیره</button>
+                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate" style="width:100%;margin:auto;text-align:center;">
+                    <ul class="pagination" id="pagingModule">
+                        
+                    </ul>
+                </div>
+                @* <button type="button" class="btn btn-default pull-left" data-dismiss="modal">خروج</button>
+                <button type="button" class="btn btn-primary">ذخیره</button> *@
             </div>
         </div>
         <!-- /.modal-content -->
@@ -601,20 +591,91 @@
                 url: "./mainpage?handler=GetCatalogItemList",
                 type: "post",
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                contentType: false,
-                processData: false,
+                data: { "searchKey": "", "page":3, "pageSize": 1},
                 success: function (result) {
                     console.log(result);
-                    $.each(result.data, function(key, object){
+                    $('#catalogList_tbody').text(null);
+                    $.each(result.data, function (key, object) {
                         $('#catalogList_tbody').append(`
-                            <tr>
+                            <tr style="cursor:pointer">
                                 <td>${object.id}</td>
                                 <td>${object.name}</td>
                                 <td>
                                     <img src="${object.image}" width="30" style="margin-right:20px" />
                                 </td>
                             </tr>
-                        `)
+                        `);
+                         
+                        var btns = "";
+                        // if (result.pager.totalPages <= 7) {
+                        //     for (i = 1; i <= result.pager.totalPages; i++) {
+                        //         btns += `<li class="paginate_button " id="pageIndex_${i}" onclick="GetCatalogItemList('${result.pageIndex}')">
+                        //                     <a>${i}</a>
+                        //                 </li>`;
+                        //     }
+                        // }
+                        // else {
+                            var distanceToStartPage = 0;
+                            var distanceToEndPage = 0;
+                            var defaultDistanceStart = 3;
+                            var defaultDistanceEnd = 3;
+                            var startPage = parseInt(result.pageIndex) - 3;
+                            var endPage = parseInt(result.pageIndex) + 3;
+                            if (startPage < 1) {
+                                distanceToStartPage = 1 - parseInt(startPage);
+                                defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
+                                startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+
+                                defaultDistanceEnd = parseInt(defaultDistanceEnd) + parseInt(distanceToStartPage);
+                                endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+
+                                if (endPage > result.pager.totalPages) {
+                                    distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
+                                    defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
+                                    endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+                                }
+                            }
+                            if (endPage > result.pager.totalPages) {
+                                distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
+                                defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
+                                endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+
+                                defaultDistanceStart = parseInt(defaultDistanceStart) + parseInt(distanceToEndPage);
+                                startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+
+                                if (startPage < 1) {
+                                    distanceToStartPage = 1 - parseInt(startPage);
+                                    defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
+                                    startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+                                }
+                            }
+                            
+
+                            for (i = startPage; i <= endPage; i++) {
+                                btns += `<li class="paginate_button " id="pageIndex_${i}" onclick="GetCatalogItemList('${result.pageIndex}')">
+                                                    <a>${i}</a>
+                                                </li>`;
+                            }
+                        // }
+                        
+                        $('#pagingModule').html(`
+                            <li class="paginate_button next" id="page_start">
+                                <a class="">صفحه اول</a>
+                            </li>
+                            <li class="paginate_button previous " id="page_previous">
+                                <a class="">قبلی</a>
+                            </li>
+
+                           ${btns}
+
+                            <li class="paginate_button next " id="page_next">
+                                <a class="">بعدی</a>
+                            </li>
+                            <li class="paginate_button next " id="page_end">
+                                <a class="">صفحه آخر</a>
+                            </li>
+                        `);
+                        $('#pageIndex_' + result.pageIndex).addClass("active");
                     })
                     
                 }

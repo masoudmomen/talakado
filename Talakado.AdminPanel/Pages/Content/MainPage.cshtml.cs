@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Talakado.Application.Catalogs.CatalogItems.CatalogItemServices;
 using Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP;
 using Talakado.Application.ContentManager;
+using Talakado.Application.Dtos;
 using Talakado.Infrastructure.ExternalApi.ImageServer;
 
 namespace Talakado.AdminPanel.Pages.Content
@@ -69,6 +70,12 @@ namespace Talakado.AdminPanel.Pages.Content
         public JsonResult OnPostGetCatalogItemList()
         {
             var request = new CatalogPLPRequestDto();
+            request.SearchKey = Request.Form["searchKey"];
+            request.page = (Request.Form != null && Request.Form["page"] != "" && Request.Form["page"] != "undefined")?
+                int.Parse(Request.Form["page"].ToString()) : 0;
+            request.pageSize = (Request.Form != null && Request.Form["pageSize"] != "" && Request.Form["pageSize"] != "undefined") ?
+                int.Parse(Request.Form["pageSize"].ToString()) : 0;
+
             var result = getCatalogItemPLPService.Execute(request);
             return new JsonResult(result);
         }
