@@ -400,14 +400,14 @@
                         <div class="input-group input-group">
                             <input type="text" class="form-control" id="searchKeyInput">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-info btn-flat" id="searchBtn" onclick="GetCatalogItemList()">جستجو</button>
+                                <button type="button" class="btn btn-info btn-flat" id="searchBtn" onclick="GetCatalogItemListWithSearchKey()">جستجو</button>
                             </span>
                         </div>
                     </div>
                     <div class="col-md-4" style="float:left">
                         <div class="form-group">
                             <label>تعداد انتخاب هر بار</label>
-                            <select class="form-control" id="catalogCountInEachView" onchange="GetCatalogItemList()">
+                            <select class="form-control" id="catalogCountInEachView" onchange="GetCatalogItemListWithPageSize()">
                                 <option>5</option>
                                 <option selected>10</option>
                                 <option>50</option>
@@ -580,19 +580,35 @@
             });
         }
 
-        function OpenItemListModal() 
-        {
+        function OpenItemListModal() {
             $('#modal-default').modal('show');
-            GetCatalogItemList();
+            GetCatalogItemList('', 1, 5);
         }
 
-        function GetCatalogItemList() {
+        globalPageIndex = "";
+        globalPageSize = "";
+        globalSearchKey = "";
+
+        function GetCatalogItemListWithSearchKey() {
+            globalSearchKey = $('#searchKeyInput').val;
+            GetCatalogItemList(globalSearchKey, globalPageIndex, globalPageSize);
+        }
+        function GetCatalogItemListWithPageSize() {
+            globalPageSize = $('#catalogCountInEachView').val;
+            GetCatalogItemList(globalSearchKey, globalPageIndex, globalPageSize);
+        }
+
+        
+        function GetCatalogItemList(searchKey, pageIndex, pageSize) {
+            var searchKey1 = globalSearchKey;
             $.ajax({
                 url: "./mainpage?handler=GetCatalogItemList",
                 type: "post",
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                data: { "searchKey": "", "page":3, "pageSize": 1},
+                data: { "searchKey": searchKey1, "page": pageIndex, "pageSize": pageSize },
                 success: function (result) {
+                    globalPageIndex = result.pageIndex;
+                    globalPageSize = result.pageSize;
                     console.log(result);
                     $('#catalogList_tbody').text(null);
                     $.each(result.data, function (key, object) {
@@ -605,81 +621,95 @@
                                 </td>
                             </tr>
                         `);
-                         
+                    }
                         var btns = "";
-                        // if (result.pager.totalPages <= 7) {
-                        //     for (i = 1; i <= result.pager.totalPages; i++) {
-                        //         btns += `<li class="paginate_button " id="pageIndex_${i}" onclick="GetCatalogItemList('${result.pageIndex}')">
-                        //                     <a>${i}</a>
-                        //                 </li>`;
-                        //     }
-                        // }
-                        // else {
-                            var distanceToStartPage = 0;
-                            var distanceToEndPage = 0;
-                            var defaultDistanceStart = 3;
-                            var defaultDistanceEnd = 3;
-                            var startPage = parseInt(result.pageIndex) - 3;
-                            var endPage = parseInt(result.pageIndex) + 3;
-                            if (startPage < 1) {
-                                distanceToStartPage = 1 - parseInt(startPage);
-                                defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
-                                startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+                    // if (result.pager.totalPages <= 7) {
+                    //     for (i = 1; i <= result.pager.totalPages; i++) {
+                    //         btns += `<li class="paginate_button " id="pageIndex_${i}" onclick="GetCatalogItemList('${result.pageIndex}')">
+                    //                     <a>${i}</a>
+                    //                 </li>`;
+                    //     }
+                    // }
+                    // else {
+                    var distanceToStartPage = 0;
+                    var distanceToEndPage = 0;
+                    var defaultDistanceStart = 3;
+                    var defaultDistanceEnd = 3;
+                    var startPage = parseInt(result.pageIndex) - 3;
+                    var endPage = parseInt(result.pageIndex) + 3;
+                    if (startPage < 1) {
+                        distanceToStartPage = 1 - parseInt(startPage);
+                        defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
+                        startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
 
-                                defaultDistanceEnd = parseInt(defaultDistanceEnd) + parseInt(distanceToStartPage);
-                                endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+                        defaultDistanceEnd = parseInt(defaultDistanceEnd) + parseInt(distanceToStartPage);
+                        endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
 
-                                if (endPage > result.pager.totalPages) {
-                                    distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
-                                    defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
-                                    endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
-                                }
-                            }
-                            if (endPage > result.pager.totalPages) {
-                                distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
-                                defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
-                                endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+                        if (endPage > result.pager.totalPages) {
+                            distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
+                            defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
+                            endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
+                        }
+                    }
+                    if (endPage > result.pager.totalPages) {
+                        distanceToEndPage = parseInt(endPage) - parseInt(result.pager.totalPages);
+                        defaultDistanceEnd = parseInt(defaultDistanceEnd) - parseInt(distanceToEndPage);
+                        endPage = parseInt(result.pageIndex) + parseInt(defaultDistanceEnd);
 
-                                defaultDistanceStart = parseInt(defaultDistanceStart) + parseInt(distanceToEndPage);
-                                startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+                        defaultDistanceStart = parseInt(defaultDistanceStart) + parseInt(distanceToEndPage);
+                        startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
 
-                                if (startPage < 1) {
-                                    distanceToStartPage = 1 - parseInt(startPage);
-                                    defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
-                                    startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
-                                }
-                            }
-                            
+                        if (startPage < 1) {
+                            distanceToStartPage = 1 - parseInt(startPage);
+                            defaultDistanceStart = parseInt(defaultDistanceStart) - parseInt(distanceToStartPage);
+                            startPage = parseInt(result.pageIndex) - parseInt(defaultDistanceStart);
+                        }
+                    }
 
-                            for (i = startPage; i <= endPage; i++) {
-                                btns += `<li class="paginate_button " id="pageIndex_${i}" onclick="GetCatalogItemList('${result.pageIndex}')">
+
+                    for (i = startPage; i <= endPage; i++) {
+                        btns += `<li class="paginate_button " style="cursor:pointer" id="pageIndex_${i}" onclick="GetCatalogItemList('','${i}','${result.pageSize}')">
                                                     <a>${i}</a>
                                                 </li>`;
-                            }
-                        // }
-                        
-                        $('#pagingModule').html(`
-                            <li class="paginate_button next" id="page_start">
+                    }
+                    // }
+                    var nextPageClass = ""
+                    var perviousPageClass = ""
+                    var perviousPageNumber = parseInt(result.pageIndex) - 1;
+                    var nextPageNumber = parseInt(result.pageIndex) + 1;
+
+                    if (!result.hasNextPage) {
+                        nextPageClass = "disabled";
+                        nextPageNumber = result.pageIndex;
+                    }
+                    if (!result.hasPerviousPage) {
+                        perviousPageClass = "disabled";
+                        perviousPageNumber = result.pageIndex;
+                    }
+
+
+                    $('#pagingModule').html(`
+                            <li class="paginate_button next" style="cursor:pointer" onclick="GetCatalogItemList('','1','${result.pageSize}')" id="page_start">
                                 <a class="">صفحه اول</a>
                             </li>
-                            <li class="paginate_button previous " id="page_previous">
+                            <li class="paginate_button previous ${perviousPageClass}" style="cursor:pointer" id="page_previous" onclick="GetCatalogItemList('','${perviousPageNumber}','${result.pageSize}')">
                                 <a class="">قبلی</a>
                             </li>
 
                            ${btns}
 
-                            <li class="paginate_button next " id="page_next">
+                            <li class="paginate_button next ${nextPageClass}" style="cursor:pointer" id="page_next" onclick="GetCatalogItemList('','${nextPageNumber}','${result.pageSize}')">
                                 <a class="">بعدی</a>
                             </li>
-                            <li class="paginate_button next " id="page_end">
+                            <li class="paginate_button next " style="cursor:pointer" id="page_end" onclick="GetCatalogItemList('','${result.pager.totalPages}','${result.pageSize}')">
                                 <a class="">صفحه آخر</a>
                             </li>
                         `);
-                        $('#pageIndex_' + result.pageIndex).addClass("active");
-                    })
-                    
+                    $('#pageIndex_' + result.pageIndex).addClass("active");
                 }
-            })
+
+
+            });
         }
     </script>
 }
