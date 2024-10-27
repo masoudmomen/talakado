@@ -79,6 +79,13 @@ namespace Talakado.AdminPanel.Pages.Content
             var result = getCatalogItemPLPService.Execute(request);
             return new JsonResult(result);
         }
+
+        public IActionResult OnPostSetBannerContent(string itemId, string bannerTxt, string bannerLocation)
+        {
+            if (contentManagerService.SetBannerContent(bannerLocation, itemId, bannerTxt))
+                return Content("true");
+            return Content("false");
+        }
     }
 
     public class HomePageViewmodel

@@ -163,6 +163,27 @@ namespace Talakado.Application.ContentManager
             }
             return context.SaveChanges() > 0;
         }
+
+        public bool SetBannerContent(string key, string itemId, string bannerTxt)
+        {
+            var result = context.Contents.SingleOrDefault(c => c.Key == key);
+            if (result == null)
+            {
+                context.Contents.Add(new Content
+                {
+                    Key = key,
+                    Value = Value,
+                    IsShow = IsShow
+                });
+            }
+            else
+            {
+                result.Value = Value;
+                result.IsShow = IsShow;
+            }
+            return context.SaveChanges() > 0;
+        }
+
     }
 }
 

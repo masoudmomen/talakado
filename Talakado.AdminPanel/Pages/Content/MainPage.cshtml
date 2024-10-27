@@ -259,12 +259,13 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetBannerContent" id="bannerTxtForm-tr">
                         <div class="box-body">
                             <div class="">
-                                <input type="button" onclick="OpenItemListModal()" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopRight" name="bannerItemTopRight">
-                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
-                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                                <input type="button" onclick="OpenItemListModal('tr')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopRight" name="bannerItemTopRight">
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-tr">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                <input type="hidden" id="selectedItemId-tr" value="" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -277,7 +278,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendBannersItems('tr')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -289,12 +290,13 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetBannerContent" id="bannerTxtForm-tl">
                         <div class="box-body">
                             <div class="">
-                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopleft" name="bannerItemTopleft">
-                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
-                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                                <input type="button" onclick="OpenItemListModal('tl')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopleft" name="bannerItemTopleft">
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-tl">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" id="selectedItemImage-tl" />
+                                <input type="hidden" id="selectedItemId-tl" value="" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -307,7 +309,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendBannersItems('tl')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -321,12 +323,13 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetBannerContent" id="bannerTxtForm-br">
                         <div class="box-body">
                             <div class="">
-                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomRight" name="bannerItembottomRight">
-                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
-                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                                <input type="button" onclick="OpenItemListModal('br')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomRight" name="bannerItembottomRight">
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-br">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" id="selectedItemImage-br" />
+                                <input type="hidden" id="selectedItemId-br" value="" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -339,7 +342,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendBannersItems('br')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -351,12 +354,12 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="">
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetBannerContent" id="bannerTxtForm-bl">
                         <div class="box-body">
                             <div class="">
-                                <input type="button" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomleft" name="bannerItembottomleft">
-                                <div style="display:inline-block;margin-right:30px">sgfsdagf</div>
-                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" />
+                                <input type="button" onclick="OpenItemListModal('bl')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomleft" name="bannerItembottomleft">
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-bl">sgfsdagf</div>
+                                <img src="@Model.HomePageViewmodel.BannerImage" width="30" style="margin-right:20px" id="selectedItemImage-bl" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -369,7 +372,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="button" onclick="" class="btn btn-primary">ثبت</button>
+                            <button type="button" onclick="SendBannersItems('bl')" class="btn btn-primary">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -579,8 +582,9 @@
                 // Do other operation
             });
         }
-
-        function OpenItemListModal() {
+        generalBannerLocation = ""
+        function OpenItemListModal(bannerLocation) {
+            generalBannerLocation = bannerLocation;
             $('#modal-default').modal('show');
             GetCatalogItemList('', 1, 10);
         }
@@ -613,7 +617,8 @@
                     $('#catalogList_tbody').text(null);
                     $.each(result.data, function (key, object) {
                         $('#catalogList_tbody').append(`
-                            <tr style="cursor:pointer">
+                            <tr style="cursor:pointer" onClick="SelectCatalogItem(this)" data-id="${object.id}"
+                            data-name="${object.name}" data-image="${object.image}">
                                 <td>${object.id}</td>
                                 <td>${object.name}</td>
                                 <td>
@@ -709,6 +714,47 @@
                 }
             })
         }
-    
+
+        function SelectCatalogItem(element){
+            $('#modal-default').modal('hide');
+            $('#selectedItemName'+'-'+generalBannerLocation).text($(element).data('name'))
+            $('#selectedItemImage' + '-' + generalBannerLocation).attr('src', $(element).data('image'))
+            $('#selectedItemId' + '-' + generalBannerLocation).val($(element).data('id'))
+        }
+
+        function SendBannersItems(bannerLocation) {
+            var itemId = $('#selectedItemName' + '-' + bannerLocation).val();
+            var bannerTxt = $('#bannerTxtForm' + '-' + bannerLocation).find('.nicEdit-main').text();
+            var bannerLocationName = "banner-" + bannerLocation;
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./mainpage?handler=SetBannerContent",
+                data: { 'itemId': itemId, 'bannerTxt': bannerTxt, 'bannerLocation': bannerLocationName },
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'عملیات با موفقیت انجام شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ذخیره انجام نشد",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            ajaxRequest.done(function (xhr, textStatus) {
+                // Do other operation
+            });
+        }
     </script>
 }
