@@ -408,8 +408,8 @@
                         <div class="form-group">
                             <label>تعداد انتخاب هر بار</label>
                             <select class="form-control" id="catalogCountInEachView" onchange="GetCatalogItemListWithPageSize()">
-                                <option>5</option>
                                 <option selected>10</option>
+                                <option >20</option>
                                 <option>50</option>
                                 <option>100</option>
                             </select>
@@ -582,7 +582,7 @@
 
         function OpenItemListModal() {
             $('#modal-default').modal('show');
-            GetCatalogItemList('', 1, 5);
+            GetCatalogItemList('', 1, 10);
         }
 
         globalPageIndex = "";
@@ -590,12 +590,12 @@
         globalSearchKey = "";
 
         function GetCatalogItemListWithSearchKey() {
-            globalSearchKey = $('#searchKeyInput').val;
-            GetCatalogItemList(globalSearchKey, globalPageIndex, globalPageSize);
+            globalSearchKey = $('#searchKeyInput').val();
+            GetCatalogItemList(globalSearchKey, 1, globalPageSize);
         }
         function GetCatalogItemListWithPageSize() {
-            globalPageSize = $('#catalogCountInEachView').val;
-            GetCatalogItemList(globalSearchKey, globalPageIndex, globalPageSize);
+            globalPageSize = $('#catalogCountInEachView').val();
+            GetCatalogItemList(globalSearchKey, 1, globalPageSize);
         }
 
         
@@ -621,7 +621,7 @@
                                 </td>
                             </tr>
                         `);
-                    }
+                    })
                         var btns = "";
                     // if (result.pager.totalPages <= 7) {
                     //     for (i = 1; i <= result.pager.totalPages; i++) {
@@ -707,9 +707,8 @@
                         `);
                     $('#pageIndex_' + result.pageIndex).addClass("active");
                 }
-
-
-            });
+            })
         }
+    
     </script>
 }
