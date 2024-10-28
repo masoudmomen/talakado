@@ -19,6 +19,7 @@ namespace Talakado.Application.ContentManager
         bool AddImage(string url, string key);
         HomePageDto? GetHomePageContent();
         bool SetTextContent(string Key, string Value, bool IsShow = true);
+        bool SetBannerContent(string bannerLocation, string itemId, string bannerTxt);
     }
 
     public class ContentManagerService : IContentManagerService
@@ -98,11 +99,12 @@ namespace Talakado.Application.ContentManager
 
         public HomePageDto? GetHomePageContent()
         {
-            
             var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
+            var bannerItemtr = (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-tr") != null)?
+                context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value)) : null;
             var model = new HomePageDto()
             {
                 Slide1 = new SliderContent
@@ -132,6 +134,26 @@ namespace Talakado.Application.ContentManager
                     ImageAddress = uriComposerService.ComposeImageUri(c.ImageAddress),
                     ItemCount = context.CatalogItems.Count(d=>d.CatalogTypeId == c.Id)
                 }).ToList(),
+                BannerTR = new BannerContent{
+                     Text = context.Contents.FirstOrDefault(c=>c.Key == "bannerText-tr")?.Value,
+                     CatalogItem = (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-tr") != null) ?
+                        context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value)) : null
+                },
+                BannerTL = new BannerContent
+                {
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
+                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                },
+                BannerBR = new BannerContent
+                {
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
+                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                },
+                BannerBL = new BannerContent
+                {
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
+                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                },
             };
             return model;
         }
@@ -164,22 +186,41 @@ namespace Talakado.Application.ContentManager
             return context.SaveChanges() > 0;
         }
 
-        public bool SetBannerContent(string key, string itemId, string bannerTxt)
+        public bool SetBannerContent(string bannerLocation, string itemId, string bannerTxt)
         {
-            var result = context.Contents.SingleOrDefault(c => c.Key == key);
+            var bannerCatalogItem = "bannerItem-" + bannerLocation;
+            var bannerText = "bannerText-" + bannerLocation;
+
+            var result = context.Contents.SingleOrDefault(c => c.Key == bannerCatalogItem);
             if (result == null)
             {
                 context.Contents.Add(new Content
                 {
-                    Key = key,
-                    Value = Value,
-                    IsShow = IsShow
+                    Key = bannerCatalogItem,
+                    Value = itemId,
+                    IsShow = true
                 });
             }
             else
             {
-                result.Value = Value;
-                result.IsShow = IsShow;
+                result.Value = itemId;
+                result.IsShow = true;
+            }
+
+            var result1 = context.Contents.SingleOrDefault(c => c.Key == bannerText);
+            if (result1 == null)
+            {
+                context.Contents.Add(new Content
+                {
+                    Key = bannerText,
+                    Value = bannerTxt,
+                    IsShow = true
+                });
+            }
+            else
+            {
+                result1.Value = bannerTxt;
+                result1.IsShow = true;
             }
             return context.SaveChanges() > 0;
         }

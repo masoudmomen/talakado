@@ -98,6 +98,10 @@ namespace Talakado.AdminPanel.Pages.Content
         public SliderContent? Slide2 { get; set; }
         public SliderContent? Slide3 { get; set; }
         public string? BannerImage { get; set; }
+        public BannerContent BannerTR { get; set; }
+        public BannerContent BannerTL { get; set; }
+        public BannerContent BannerBR { get; set; }
+        public BannerContent BannerBL { get; set; }
 
     }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Catalogs.CatalogTypes;
+using Talakado.Domain.Catalogs;
 
 namespace Talakado.Application.ContentManager
 {
@@ -18,6 +19,10 @@ namespace Talakado.Application.ContentManager
         public SliderContent? Slide3 { get; set; }
         public string? BannerImage { get; set; }
         public List<CatalogTypeForHomePageDto> CatalogTypes { get; set; }
+        public BannerContent BannerTR { get; set; }
+        public BannerContent BannerTL { get; set; }
+        public BannerContent BannerBR { get; set; }
+        public BannerContent BannerBL { get; set; }
     }
 
     public class SliderContent
@@ -31,5 +36,11 @@ namespace Talakado.Application.ContentManager
         public string Name { get; set; }
         public string? ImageAddress { get; set; }
         public int ItemCount { get; set; }
+    }
+
+    public class BannerContent
+    {
+        public CatalogItem? CatalogItem { get; set; }
+        public string? Text { get; set; }
     }
 }
