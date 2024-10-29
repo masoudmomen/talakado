@@ -264,10 +264,10 @@
                             <div class="">
                                 <input type="button" onclick="OpenItemListModal('tr')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopRight" name="bannerItemTopRight">
                                 <div style="display:inline-block;margin-right:30px" id="selectedItemName-tr">
-                                    @Model.HomePageViewmodel.BannerTR.CatalogItem.Name
+                                    @Model.HomePageViewmodel.BannerTR.CatalogItem?.Name
                                 </div>
-                                <img src="@Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
-                                <input type="hidden" id="selectedItemId-tr" value="@Model.HomePageViewmodel.BannerTR.CatalogItem.Id" />
+                                <img src="@((Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.FirstOrDefault() != null)?Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.First()?.Src : "")" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                <input type="hidden" id="selectedItemId-tr" value="@Model.HomePageViewmodel.BannerTR.CatalogItem?.Id" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -297,10 +297,10 @@
                             <div class="">
                                 <input type="button" onclick="OpenItemListModal('tl')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopleft" name="bannerItemTopleft">
                                 <div style="display:inline-block;margin-right:30px" id="selectedItemName-tl">
-                                    @Model.HomePageViewmodel.BannerTL.CatalogItem.Name
+                                    @Model.HomePageViewmodel.BannerTL.CatalogItem?.Name
                                 </div>
-                                <img src="@Model.HomePageViewmodel.BannerTL.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-tl" />
-                                <input type="hidden" id="selectedItemId-tl" value="@Model.HomePageViewmodel.BannerTL.CatalogItem.Id" />
+                                <img src="@Model.HomePageViewmodel.BannerTL.CatalogItem?.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-tl" />
+                                <input type="hidden" id="selectedItemId-tl" value="@Model.HomePageViewmodel.BannerTL.CatalogItem?.Id" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -332,10 +332,10 @@
                             <div class="">
                                 <input type="button" onclick="OpenItemListModal('br')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomRight" name="bannerItembottomRight">
                                 <div style="display:inline-block;margin-right:30px" id="selectedItemName-br">
-                                    @Model.HomePageViewmodel.BannerBR.CatalogItem.Name
+                                    @Model.HomePageViewmodel.BannerBR.CatalogItem?.Name
                                 </div>
-                                <img src="@Model.HomePageViewmodel.BannerBR.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-br" />
-                                <input type="hidden" id="selectedItemId-br" value="@Model.HomePageViewmodel.BannerBR.CatalogItem.Id" />
+                                <img src="@Model.HomePageViewmodel.BannerBR.CatalogItem?.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-br" />
+                                <input type="hidden" id="selectedItemId-br" value="@Model.HomePageViewmodel.BannerBR.CatalogItem?.Id" />
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -364,9 +364,11 @@
                         <div class="box-body">
                             <div class="">
                                 <input type="button" onclick="OpenItemListModal('bl')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItembottomleft" name="bannerItembottomleft">
-                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-bl">@Model.HomePageViewmodel.BannerBL.CatalogItem.Name</div>
-                                <img src="@Model.HomePageViewmodel.BannerBL.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-bl" />
-                                <input type="hidden" id="selectedItemId-br" value="@Model.HomePageViewmodel.BannerBL.CatalogItem.Id" />
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-bl">
+                                    @Model.HomePageViewmodel.BannerBL.CatalogItem?.Name
+                                </div>
+                                <img src="@Model.HomePageViewmodel.BannerBL.CatalogItem?.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-bl" />
+                                <input type="hidden" id="selectedItemId-br" value="@Model.HomePageViewmodel.BannerBL.CatalogItem?.Id" />
                             </div>
                         </div>
                         <!-- /.box-body -->

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
 using Talakado.Application.UriComposer;
+using Talakado.Domain.Catalogs;
 using Talakado.Domain.Contents;
 
 namespace Talakado.Application.ContentManager
@@ -103,8 +104,35 @@ namespace Talakado.Application.ContentManager
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
-            var bannerItemtr = (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-tr") != null)?
-                context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value)) : null;
+
+            CatalogItem? bannerCatalogTR = null;
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tr") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogTR = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+            }
+            CatalogItem? bannerCatalogTL = null;
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tl") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tl").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogTL = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+            }
+            CatalogItem? bannerCatalogBR = null;
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-br") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-br").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogBR = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+            }
+            CatalogItem? bannerCatalogBL = null;
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-bl") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-bl").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogBL = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+            }
             var model = new HomePageDto()
             {
                 Slide1 = new SliderContent
@@ -135,24 +163,23 @@ namespace Talakado.Application.ContentManager
                     ItemCount = context.CatalogItems.Count(d=>d.CatalogTypeId == c.Id)
                 }).ToList(),
                 BannerTR = new BannerContent{
-                     Text = context.Contents.FirstOrDefault(c=>c.Key == "bannerText-tr")?.Value,
-                     CatalogItem = (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-tr") != null) ?
-                        context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value)) : null
+                     Text = context.Contents.FirstOrDefault(c=>c.Key == "bannerText-banner-tr")?.Value,
+                     CatalogItem = bannerCatalogTR
                 },
                 BannerTL = new BannerContent
                 {
-                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
-                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-tl")?.Value,
+                    CatalogItem = bannerCatalogTL
                 },
                 BannerBR = new BannerContent
                 {
-                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
-                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-br")?.Value,
+                    CatalogItem = bannerCatalogBR
                 },
                 BannerBL = new BannerContent
                 {
-                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-tr")?.Value,
-                    CatalogItem = context.CatalogItems.First(c => c.Id == int.Parse(context.Contents.First(c => c.Key == "bannerItem-tr").Value))
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-bl")?.Value,
+                    CatalogItem = bannerCatalogBL
                 },
             };
             return model;
