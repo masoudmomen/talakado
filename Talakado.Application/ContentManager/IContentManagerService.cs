@@ -111,6 +111,7 @@ namespace Talakado.Application.ContentManager
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
                 var catalogId = int.Parse(bannerCatalogId);
                 bannerCatalogTR = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTR.CatalogItemImages = context.CatalogItemImage.Where(c=>c.CatalogItemId == catalogId).ToList();
             }
             CatalogItem? bannerCatalogTL = null;
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tl") != null)

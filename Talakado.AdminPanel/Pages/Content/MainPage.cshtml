@@ -264,9 +264,21 @@
                             <div class="">
                                 <input type="button" onclick="OpenItemListModal('tr')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemTopRight" name="bannerItemTopRight">
                                 <div style="display:inline-block;margin-right:30px" id="selectedItemName-tr">
-                                    @Model.HomePageViewmodel.BannerTR.CatalogItem?.Name
+                                    @Model.HomePageViewmodel?.BannerTR?.CatalogItem?.Name
                                 </div>
-                                <img src="@((Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.FirstOrDefault() != null)?Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.First()?.Src : "")" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                @if(Model != null &&
+                                Model.HomePageViewmodel != null &&
+                                Model.HomePageViewmodel.BannerTR != null &&
+                                Model.HomePageViewmodel.BannerTR.CatalogItem != null &&
+                                Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages != null)
+                                {
+                                    <img src="@Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                }
+                                else
+                                {
+                                    <img src="" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                }
+                                @* <img src="@((Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.FirstOrDefault() != null)?Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.First()?.Src : "")" width="30" style="margin-right:20px" id="selectedItemImage-tr" /> *@
                                 <input type="hidden" id="selectedItemId-tr" value="@Model.HomePageViewmodel.BannerTR.CatalogItem?.Id" />
                             </div>
                         </div>
