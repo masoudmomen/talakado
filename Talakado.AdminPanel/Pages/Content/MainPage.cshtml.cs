@@ -80,8 +80,9 @@ namespace Talakado.AdminPanel.Pages.Content
             return new JsonResult(result);
         }
 
-        public IActionResult OnPostSetBannerContent(string itemId, string bannerTxt, string bannerLocation)
+        public IActionResult OnPostSetBannerContent(string itemId, string bannerLocation, string? bannerTxt)
         {
+            if(bannerTxt == null) bannerTxt = string.Empty;
             if (contentManagerService.SetBannerContent(bannerLocation, itemId, bannerTxt))
                 return Content("true");
             return Content("false");

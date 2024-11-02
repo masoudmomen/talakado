@@ -272,11 +272,11 @@
                                 Model.HomePageViewmodel.BannerTR.CatalogItem != null &&
                                 Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages != null)
                                 {
-                                    <img src="@Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                    <img src="@Model.HomePageViewmodel.BannerTR.CatalogItem.CatalogItemImages.First().Src" width="50" style="margin-right:20px" id="selectedItemImage-tr" />
                                 }
                                 else
                                 {
-                                    <img src="" width="30" style="margin-right:20px" id="selectedItemImage-tr" />
+                                    <img src="" width="50" style="margin-right:20px" id="selectedItemImage-tr" />
                                 }
                                 @* <img src="@((Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.FirstOrDefault() != null)?Model.HomePageViewmodel.BannerTR.CatalogItem?.CatalogItemImages.First()?.Src : "")" width="30" style="margin-right:20px" id="selectedItemImage-tr" /> *@
                                 <input type="hidden" id="selectedItemId-tr" value="@Model.HomePageViewmodel.BannerTR.CatalogItem?.Id" />

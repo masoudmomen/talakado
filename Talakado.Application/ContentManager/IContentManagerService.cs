@@ -1,4 +1,5 @@
 ﻿using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Talakado.Application.ContentManager
         bool AddImage(string url, string key);
         HomePageDto? GetHomePageContent();
         bool SetTextContent(string Key, string Value, bool IsShow = true);
-        bool SetBannerContent(string bannerLocation, string itemId, string bannerTxt);
+        bool SetBannerContent(string bannerLocation, string itemId, string? bannerTxt);
     }
 
     public class ContentManagerService : IContentManagerService
@@ -110,29 +111,33 @@ namespace Talakado.Application.ContentManager
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogTR = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
-                bannerCatalogTR.CatalogItemImages = context.CatalogItemImage.Where(c=>c.CatalogItemId == catalogId).ToList();
+                bannerCatalogTR = context.CatalogItems.Include(m=>m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTR.CatalogItemImages.First().Src);
+                //bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(context.CatalogItemImage.Where(c=>c.CatalogItemId == catalogId).First().Src);
             }
             CatalogItem? bannerCatalogTL = null;
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogTL = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTL.CatalogItemImages.First().Src);
             }
             CatalogItem? bannerCatalogBR = null;
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-br") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-br").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogBR = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBR = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBR.CatalogItemImages.First().Src);
             }
             CatalogItem? bannerCatalogBL = null;
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-bl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-bl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogBL = context.CatalogItems.FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBL.CatalogItemImages.First().Src);
             }
             var model = new HomePageDto()
             {
@@ -214,7 +219,7 @@ namespace Talakado.Application.ContentManager
             return context.SaveChanges() > 0;
         }
 
-        public bool SetBannerContent(string bannerLocation, string itemId, string bannerTxt)
+        public bool SetBannerContent(string bannerLocation, string itemId, string? bannerTxt)
         {
             var bannerCatalogItem = "bannerItem-" + bannerLocation;
             var bannerText = "bannerText-" + bannerLocation;
