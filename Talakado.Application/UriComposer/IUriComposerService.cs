@@ -15,7 +15,9 @@ namespace Talakado.Application.UriComposer
     {
         public string ComposeImageUri(string src)
         {
-            return "https://localhost:7238/" + src;
+            if (!string.IsNullOrEmpty(src) && !src.StartsWith("https://localhost:7238/"))
+                return "https://localhost:7238/" + src;
+            return src;
         }
     }
 }

@@ -106,38 +106,78 @@ namespace Talakado.Application.ContentManager
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
-            CatalogItem? bannerCatalogTR = null;
+            CatalogItem? bannerCatalogTR = new CatalogItem();
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tr") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
                 var catalogId = int.Parse(bannerCatalogId);
                 bannerCatalogTR = context.CatalogItems.Include(m=>m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
-                bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTR.CatalogItemImages.First().Src);
-                //bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(context.CatalogItemImage.Where(c=>c.CatalogItemId == catalogId).First().Src);
+                if(bannerCatalogTR.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTR.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogTR.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
+                
             }
-            CatalogItem? bannerCatalogTL = null;
+            CatalogItem? bannerCatalogTL = new CatalogItem();
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
                 bannerCatalogTL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
-                bannerCatalogTL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTL.CatalogItemImages.First().Src);
+                if (bannerCatalogTL.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogTL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTL.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogTL.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
             }
-            CatalogItem? bannerCatalogBR = null;
+            CatalogItem? bannerCatalogBR = new CatalogItem();
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-br") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-br").Value;
                 var catalogId = int.Parse(bannerCatalogId);
                 bannerCatalogBR = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
-                bannerCatalogBR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBR.CatalogItemImages.First().Src);
+                if (bannerCatalogBR.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogBR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBR.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogBR.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
             }
-            CatalogItem? bannerCatalogBL = null;
+            CatalogItem? bannerCatalogBL = new CatalogItem();
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-bl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-bl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
                 bannerCatalogBL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
-                bannerCatalogBL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBL.CatalogItemImages.First().Src);
+                if (bannerCatalogBL.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogBL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBL.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogBL.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
             }
             var model = new HomePageDto()
             {
