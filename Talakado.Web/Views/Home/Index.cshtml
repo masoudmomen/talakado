@@ -108,16 +108,16 @@
                                     <li class="rated"><i class="las la-star"></i></li>
                                     <li class="non-rated"><i class="las la-star"></i></li>
                                 </ul>
-                                <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">دستبند طلا</a></h4>
-                                <div class="product-price"><span class="text-sienna">1100 تومان</span><span class="discount">2100 تومان</span></div>
+                                <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">@Model.BannerTR.CatalogItem.Name</a></h4>
+                                <div class="product-price"><span class="text-sienna">@Model.BannerTR.CatalogItem.Price.ToString("n0") تومان</span><span class="discount">@Model.BannerTR.CatalogItem.OldPrice?.ToString("n0") تومان</span></div>
                                 <p class="product-promo-text">
-                                    پیشنهاد زمستانی با 70% تخفیف ویژه
+                                    @Html.Raw(Model.BannerTR.Text)
                                 </p>
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="~/theme/assets/img/featured/feature-item-12.jpg" alt="Image">
-                                <span class="discount-tag">%25-</span>
+                                <img src="@Model.BannerTR.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image" style="width:100%;height:auto;object-fit: scale-down !important;">
+                                <span class="discount-tag">%@Model.BannerTR.CatalogItem.PercentDiscount</span>
                             </div>
                         </div>
                     </div>

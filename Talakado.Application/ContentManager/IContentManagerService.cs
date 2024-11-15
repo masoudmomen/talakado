@@ -111,7 +111,7 @@ namespace Talakado.Application.ContentManager
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogTR = context.CatalogItems.Include(m=>m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTR = context.CatalogItems.Include(m=>m.Discounts).Include(m=>m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
                 if(bannerCatalogTR.CatalogItemImages.Count() > 0)
                 {
                     bannerCatalogTR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTR.CatalogItemImages.First().Src);
@@ -130,7 +130,7 @@ namespace Talakado.Application.ContentManager
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogTL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogTL = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
                 if (bannerCatalogTL.CatalogItemImages.Count() > 0)
                 {
                     bannerCatalogTL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogTL.CatalogItemImages.First().Src);
@@ -148,7 +148,7 @@ namespace Talakado.Application.ContentManager
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-br").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogBR = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBR = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
                 if (bannerCatalogBR.CatalogItemImages.Count() > 0)
                 {
                     bannerCatalogBR.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBR.CatalogItemImages.First().Src);
@@ -166,7 +166,7 @@ namespace Talakado.Application.ContentManager
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-bl").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogBL = context.CatalogItems.Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogBL = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
                 if (bannerCatalogBL.CatalogItemImages.Count() > 0)
                 {
                     bannerCatalogBL.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogBL.CatalogItemImages.First().Src);
