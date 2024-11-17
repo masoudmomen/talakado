@@ -106,6 +106,26 @@ namespace Talakado.Application.ContentManager
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
+            CatalogItem? bannerCatalogMid = new CatalogItem();
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-mid") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-mid").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogMid = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                if (bannerCatalogMid.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogMid.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogMid.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogMid.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
+
+            }
+
             CatalogItem? bannerCatalogTR = new CatalogItem();
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tr") != null)
             {
@@ -226,6 +246,11 @@ namespace Talakado.Application.ContentManager
                 {
                     Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-bl")?.Value,
                     CatalogItem = bannerCatalogBL
+                },
+                BannerMid = new BannerContent
+                {
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-mid")?.Value,
+                    CatalogItem = bannerCatalogMid
                 },
             };
             return model;

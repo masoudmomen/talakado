@@ -221,13 +221,13 @@
     </div>
     <br />
     <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بنر وسط صفحه (زیر اسلایدر)</h4>
+        <h4 class="box-header text-bold">بنرهای حاوی محصول</h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
-                    <img style="max-width:100%;max-height:100%;position:absolute;left:0" src="@Model.HomePageViewmodel.BannerImage" />
+                    @* <img style="max-width:100%;max-height:100%;position:absolute;left:0" src="@Model.HomePageViewmodel.BannerImage" />
                     <div class="box-header">
-                        <h3 class="box-title">آپلود عکس بنر</h3>
+                        <h3 class="box-title">بنر وسط صفحه (زیر اسلایدر)</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -243,14 +243,43 @@
                         <div class="box-footer">
                             <button type="button" onclick="SendImage('bannerImage')" class="btn btn-primary">ثبت</button>
                         </div>
+                    </form> *@
+
+
+                    <div class="box-header">
+                        <h3 class="box-title">بنر وسط صفحه (زیر اسلایدر)</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetBannerContent" id="bannerTxtForm-mid">
+                        <div class="box-body">
+                            <div class="">
+                                <input type="button" onclick="OpenItemListModal('mid')" class="btn btn-default" value="انتخاب محصول برای نمایش در بنر" id="bannerItemMiddle" name="bannerItemMiddle">
+                                <div style="display:inline-block;margin-right:30px" id="selectedItemName-mid">
+                                    @Model.HomePageViewmodel?.BannerMid?.CatalogItem?.Name
+                                </div>
+                                <img src="@Model.HomePageViewmodel.BannerMid.CatalogItem?.CatalogItemImages.First().Src" width="30" style="margin-right:20px" id="selectedItemImage-mid" />
+                                <input type="hidden" id="selectedItemId-mid" value="@Model.HomePageViewmodel.BannerMid.CatalogItem?.Id" />
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">متن بنر قابل طراحی با ادیتور</label>
+                                <textarea id="bannerItemMiddletxt" name="bannerItemMiddletxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.BannerMid.Text)
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" onclick="SendBannersItems('mid')" class="btn btn-primary">ثبت</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    <br />
-    <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بنرهای حاوی محصول</h4>
+    
+        <h4 class="box-header text-bold"></h4>
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
@@ -484,6 +513,7 @@
             new nicEditor({ fullPanel: true }).panelInstance('bannerItemToplefttxt');
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomRighttxt');   
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomlefttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItemMiddletxt');
         });
 
         // $(function () {

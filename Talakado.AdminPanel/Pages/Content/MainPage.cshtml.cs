@@ -103,6 +103,7 @@ namespace Talakado.AdminPanel.Pages.Content
         public BannerContent? BannerTL { get; set; }
         public BannerContent? BannerBR { get; set; }
         public BannerContent? BannerBL { get; set; }
+        public BannerContent? BannerMid { get; set; }
 
     }
 

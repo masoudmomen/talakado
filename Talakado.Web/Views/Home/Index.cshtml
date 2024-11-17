@@ -109,7 +109,12 @@
                                     <li class="non-rated"><i class="las la-star"></i></li>
                                 </ul>
                                 <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">@Model.BannerTR.CatalogItem.Name</a></h4>
-                                <div class="product-price"><span class="text-sienna">@Model.BannerTR.CatalogItem.Price.ToString("n0") تومان</span><span class="discount">@Model.BannerTR.CatalogItem.OldPrice?.ToString("n0") تومان</span></div>
+                                <div class="product-price"><span class="text-sienna">@Model.BannerTR.CatalogItem.Price.ToString("n0") تومان</span>
+                                    @if (Model.BannerTR.CatalogItem.PercentDiscount.HasValue && Model.BannerTR.CatalogItem.PercentDiscount > 0)
+                                    {
+                                        <span class="discount">@Model.BannerTR.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                                    }
+                                    </div>
                                 <p class="product-promo-text">
                                     @Html.Raw(Model.BannerTR.Text)
                                 </p>
@@ -117,7 +122,10 @@
                             </div>
                             <div class="hero-product-img">
                                 <img src="@Model.BannerTR.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image" style="width:100%;height:auto;object-fit: scale-down !important;">
-                                <span class="discount-tag">%@Model.BannerTR.CatalogItem.PercentDiscount</span>
+                                @if (Model.BannerTR.CatalogItem.PercentDiscount.HasValue && Model.BannerTR.CatalogItem.PercentDiscount > 0)
+                                {
+                                    <span class="discount-tag">%@Model.BannerTR.CatalogItem.PercentDiscount</span>
+                                }
                             </div>
                         </div>
                     </div>
@@ -131,25 +139,38 @@
                                     <li class="rated"><i class="las la-star"></i></li>
                                     <li class="non-rated"><i class="las la-star"></i></li>
                                 </ul>
-                                <h4 class="product-name"><a href="shop-left-sidebar.html">گوشواره الماس</a></h4>
-                                <div class="product-price">1100 تومان<span class="discount">2100 تومان</span></div>
+                                <h4 class="product-name"><a href="shop-left-sidebar.html">@Model.BannerBR.CatalogItem.Name</a></h4>
+                                <div class="product-price">@Model.BannerBR.CatalogItem.Price.ToString("n0") تومان
+                                    @if (Model.BannerBR.CatalogItem.PercentDiscount.HasValue && Model.BannerBR.CatalogItem.PercentDiscount>0)
+                                    {
+                                        <span class="discount">@Model.BannerBR.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                                    }
+                                    </div>
                                 <p class="product-promo-text">
-                                    پیشنهاد زمستانی با 70% تخفیف ویژه
+                                    @Html.Raw(Model.BannerBR.Text)
                                 </p>
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="~/theme/assets/img/featured/feature-item-15.jpg" alt="Image">
-                                <span class="discount-tag">%15-</span>
+                                <img src="@Model.BannerBR.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                @if (Model.BannerBR.CatalogItem.PercentDiscount.HasValue && Model.BannerBR.CatalogItem.PercentDiscount>0)
+                                {
+                                    <span class="discount-tag">%@Model.BannerBR.CatalogItem.PercentDiscount</span>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4">
-                <div class="hero-product-box style4 bg-f" style="background-image: url(@Model.BannerImage);">
-                    <div class="hero-product-info">
-                        <span class="discount-tag">%25-</span>
+                <div class="hero-product-box style4 bg-f" style="background-image: url(@Model.BannerMid.CatalogItem.CatalogItemImages.FirstOrDefault().Src);">
+                    <div class="hero-product-info" style="background-color:rgba(108, 117, 125, 0.3);border:solid 1px darkgray">
+                       
+                        @if (Model.BannerMid.CatalogItem.PercentDiscount.HasValue && Model.BannerMid.CatalogItem.PercentDiscount > 0)
+                        {
+                            <span class="discount-tag">%@Model.BannerMid.CatalogItem.PercentDiscount</span>
+                        }
+                        
                         <ul class="ratings style1 list-style">
                             <li class="rated"><i class="las la-star"></i></li>
                             <li class="rated"><i class="las la-star"></i></li>
@@ -157,12 +178,17 @@
                             <li class="rated"><i class="las la-star"></i></li>
                             <li class="non-rated"><i class="las la-star"></i></li>
                         </ul>
-                        <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">گردنبند الماس</a></h4>
-                        <div class="product-price"><span class="text-sienna">1100 تومان</span><span class="discount">2100 تومان</span></div>
-                        <p class="product-promo-text">
-                            پیشنهاد زمستانی با 70% تخفیف ویژه
+                        <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">@Model.BannerMid.CatalogItem.Name</a></h4>
+                        <div class="product-price"><span class="text-sienna">@Model.BannerMid.CatalogItem.Price.ToString("n0") تومان</span>
+                            @if (Model.BannerMid.CatalogItem.PercentDiscount.HasValue && Model.BannerMid.CatalogItem.PercentDiscount > 0)
+                            {
+                            <span class="discount">@Model.BannerMid.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                        }
+                        </div>
+                        <p class="product-promo-text" style="color:black">
+                            @Html.Raw(Model.BannerMid.Text)
                         </p>
-                        <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
+                        <a href="shop-left-sidebar.html" style="color:black" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                     </div>
                     <div class="hero-bg-img bg-f">
                         @* <img src="~/theme/assets/img/hero/hero-100.png" alt="Image"> *@
@@ -181,16 +207,25 @@
                                     <li class="rated"><i class="las la-star"></i></li>
                                     <li class="non-rated"><i class="las la-star"></i></li>
                                 </ul>
-                                <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">حلقه الماس</a></h4>
-                                <div class="product-price"><span class="text-sienna">1100 تومان</span><span class="discount">2100 تومان</span></div>
+                                <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">@Model.BannerTL.CatalogItem.Name</a></h4>
+                                <div class="product-price">
+                                    <span class="text-sienna">@Model.BannerTL.CatalogItem.Price.ToString("n0") تومان</span>
+                                    @if (Model.BannerTL.CatalogItem.PercentDiscount.HasValue && Model.BannerTL.CatalogItem.PercentDiscount > 0)
+                                    {
+                                        <span class="discount">@Model.BannerTL.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                                    }
+                                </div>
                                 <p class="product-promo-text">
-                                    پیشنهاد زمستانی با 70% تخفیف ویژه
+                                    @Html.Raw(Model.BannerTL.Text)
                                 </p>
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="~/theme/assets/img/featured/feature-item-16.jpg" alt="Image">
-                                <span class="discount-tag">%15-</span>
+                                <img src="@Model.BannerTL.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                @if (Model.BannerTL.CatalogItem.PercentDiscount.HasValue && Model.BannerTL.CatalogItem.PercentDiscount > 0)
+                                {
+                                    <span class="discount-tag">%@Model.BannerTL.CatalogItem.PercentDiscount</span>
+                                }
                             </div>
                         </div>
                     </div>
@@ -204,16 +239,25 @@
                                     <li class="rated"><i class="las la-star"></i></li>
                                     <li class="non-rated"><i class="las la-star"></i></li>
                                 </ul>
-                                <h4 class="product-name"><a href="shop-left-sidebar.html">گردنبند زمرد</a></h4>
-                                <div class="product-price">1100 تومان</div>
+                                <h4 class="product-name"><a href="shop-left-sidebar.html">@Model.BannerBL.CatalogItem.Name</a></h4>
+                                <div class="product-price">
+                                    <span class="text-sienna">@Model.BannerBL.CatalogItem.Price.ToString("n0") تومان</span>
+                                    @if (Model.BannerBL.CatalogItem.PercentDiscount.HasValue && Model.BannerBL.CatalogItem.PercentDiscount > 0)
+                                    {
+                                        <span class="discount">@Model.BannerBL.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                                    }
+                                </div>
                                 <p class="product-promo-text">
-                                    پیشنهاد زمستانی با 70% تخفیف ویژه
+                                    @Html.Raw(Model.BannerBL.Text)
                                 </p>
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="~/theme/assets/img/featured/feature-item-13.jpg" alt="Image">
-                                <span class="discount-tag">%0-</span>
+                                <img src="@Model.BannerBL.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                @if (Model.BannerBL.CatalogItem.PercentDiscount.HasValue && Model.BannerBL.CatalogItem.PercentDiscount > 0)
+                                {
+                                    <span class="discount-tag">%@Model.BannerBL.CatalogItem.PercentDiscount</span>
+                                }
                             </div>
                         </div>
                     </div>
