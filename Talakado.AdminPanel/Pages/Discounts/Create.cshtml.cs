@@ -18,6 +18,7 @@ namespace Talakado.AdminPanel.Pages.Discounts
         public AddNewDiscountDto model { get; set; }
         public void OnGet()
         {
+            TempData["page"] = 8;
         }
 
         public void OnPost()
