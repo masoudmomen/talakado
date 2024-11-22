@@ -178,6 +178,14 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
             <fieldset class="form-group">
+                <input type="checkbox" asp-for="CatalogItem.IsSpecialProduct" name="SpecialProduct" id="SpecialProduct" class="checkbox" style="display:inline" />
+                <label style="display:inline"> به عنوان محصول ویژه در صفحه اصلی نمایش داده شود</label>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+            <fieldset class="form-group">
                 <label for="basicInput"> توضیحات</label>
                 <textarea id="Description" asp-for="CatalogItem.Description" class="form-control " rows="5"></textarea>
                 <span asp-validation-for="CatalogItem.Description" class="text-danger"></span>
@@ -293,6 +301,7 @@
             data.append("CatalogTypeId", $('#Category').find('option:selected').val());
             data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
             data.append("RemovedImages", imageForRemoveList);
+            data.append("IsSpecialProduct", $('#SpecialProduct').prop('checked'));
             data.append("RemovedFeatures", featureForRemoveList);
 
             //دریافت عکس های انتخاب شده توسط کاربر

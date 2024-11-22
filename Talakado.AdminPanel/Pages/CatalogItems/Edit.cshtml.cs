@@ -56,6 +56,7 @@ namespace Talakado.AdminPanel.Pages.CatalogItems
             editRequest.MaxStockThreshold = int.Parse(Request.Form["MaxStockThreshold"]);
             editRequest.Price = int.Parse(Request.Form["Price"]);
             editRequest.Description = Request.Form["Description"];
+            editRequest.IsSpecialProduct = (Request.Form["IsSpecialProduct"] == "true")? true : false;
             #endregion
             #region Add Image
             Files = (List<IFormFile>)Request.Form.Files;

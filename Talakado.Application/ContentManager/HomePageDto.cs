@@ -24,6 +24,7 @@ namespace Talakado.Application.ContentManager
         public BannerContent? BannerBR { get; set; }
         public BannerContent? BannerBL { get; set; }
         public BannerContent? BannerMid { get; set; }
+        public List<CatalogItem> SpecialCatalogs { get; set; }
     }
 
     public class SliderContent

@@ -1,4 +1,5 @@
 ﻿using Talakado.Application.ContentManager;
+using Talakado.Domain.Catalogs;
 
 namespace Talakado.Web.Models.Home
 {
@@ -14,5 +15,6 @@ namespace Talakado.Web.Models.Home
         public BannerContent? BannerBR { get; set; }
         public BannerContent? BannerBL { get; set; }
         public BannerContent? BannerMid { get; set; }
+        public List<CatalogItem> SpecialCatalogs { get; set; }
     }
 }

@@ -31,5 +31,6 @@ namespace Talakado.AdminPanel.ViewModels.Catalogs
 
         public string[]? RemovedImages { get; set; }
         public string[]? RemovedFeatures { get; set; }
+        public bool IsSpecialProduct { get; set; }
     }
 }

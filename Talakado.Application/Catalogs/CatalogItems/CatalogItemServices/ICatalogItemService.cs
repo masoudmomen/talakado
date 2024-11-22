@@ -121,7 +121,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
                     CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList(),
                     CatalogItemImages = context.CatalogItemImage.Where(c => c.CatalogItemId == request.Id).ToList(),
                     RemovedFeatures = request.RemovedFeatures,
-                    RemovedImages = request.RemovedImages
+                    RemovedImages = request.RemovedImages,
+                    IsSpecialProduct = request.IsSpecialProduct
                 });
 
             //catalogItem.CatalogItemFeatures = context.CatalogItemFeature.Where(c => c.CatalogItemId == request.Id).ToList();
@@ -138,6 +139,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
             catalogItem.MaxStockThreshold = request.MaxStockThreshold;
             catalogItem.ReStockThreshold = request.MaxStockThreshold;
             catalogItem.Description = request.Description;
+            catalogItem.IsSpecialProduct = request.IsSpecialProduct;
             #endregion
 
             #region Add Image

@@ -25,5 +25,6 @@ namespace Talakado.Application.Catalogs.CatalogItems.CatalogItemServices
         public string[]? RemovedFeatures { get; set; }
         public ICollection<CatalogItemFeature> CatalogItemFeatures { get; set; }
         public ICollection<CatalogItemImage> CatalogItemImages { get; set; }
+        public bool? IsSpecialProduct { get; set; }
     }
 }

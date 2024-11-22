@@ -23,5 +23,6 @@ namespace Talakado.Application.Catalogs.CatalogItems
         public string[][]? AddedFeatures { get; set; }
         //public List<AddNewCatalogItemFeature_Dto>? AddedFeature { get; set; }
         public List<AddNewCatalogItemImage_Dto>? AddedImages { get; set; }
+        public bool? IsSpecialProduct { get; set; }
     }
 }

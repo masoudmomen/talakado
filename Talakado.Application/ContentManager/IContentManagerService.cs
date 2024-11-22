@@ -252,6 +252,10 @@ namespace Talakado.Application.ContentManager
                     Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-mid")?.Value,
                     CatalogItem = bannerCatalogMid
                 },
+                SpecialCatalogs = context.CatalogItems
+                    .Include(c=>c.CatalogItemImages)
+                    .Include(c=>c.CatalogItemFeatures)
+                    .Where(c=>c.IsSpecialProduct == true).OrderByDescending(c=>c.CatalogTypeId).ToList(),
             };
             return model;
         }
