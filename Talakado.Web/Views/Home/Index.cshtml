@@ -121,7 +121,8 @@
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="@Model.BannerTR.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image" style="width:100%;height:auto;object-fit: scale-down !important;">
+                                <img src="@((Model?.BannerTR?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)?
+                                    Model.BannerTR.CatalogItem.CatalogItemImages.First().Src : "")" alt="Image" style="width:100%;height:auto;object-fit: scale-down !important;">
                                 @if (Model.BannerTR.CatalogItem.PercentDiscount.HasValue && Model.BannerTR.CatalogItem.PercentDiscount > 0)
                                 {
                                     <span class="discount-tag">%@Model.BannerTR.CatalogItem.PercentDiscount</span>
@@ -152,7 +153,8 @@
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="@Model.BannerBR.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                <img src="@((Model?.BannerBR?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)?
+                                    Model.BannerBR.CatalogItem.CatalogItemImages.First().Src:"")" alt="Image">
                                 @if (Model.BannerBR.CatalogItem.PercentDiscount.HasValue && Model.BannerBR.CatalogItem.PercentDiscount>0)
                                 {
                                     <span class="discount-tag">%@Model.BannerBR.CatalogItem.PercentDiscount</span>
@@ -163,7 +165,8 @@
                 </div>
             </div>
             <div class="col-xl-4">
-                <div class="hero-product-box style4 bg-f" style="background-image: url(@Model.BannerMid.CatalogItem.CatalogItemImages.FirstOrDefault().Src);">
+                <div class="hero-product-box style4 bg-f" style="background-image: url(@((Model?.BannerMid?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)? 
+                        Model.BannerMid.CatalogItem.CatalogItemImages.First().Src : ""));">
                     <div class="hero-product-info" style="background-color:rgba(108, 117, 125, 0.3);border:solid 1px darkgray">
                        
                         @if (Model.BannerMid.CatalogItem.PercentDiscount.HasValue && Model.BannerMid.CatalogItem.PercentDiscount > 0)
@@ -221,7 +224,8 @@
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="@Model.BannerTL.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                <img src="@((Model?.BannerTL?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)? 
+                                    Model.BannerTL.CatalogItem.CatalogItemImages.First().Src : "")" alt="Image">
                                 @if (Model.BannerTL.CatalogItem.PercentDiscount.HasValue && Model.BannerTL.CatalogItem.PercentDiscount > 0)
                                 {
                                     <span class="discount-tag">%@Model.BannerTL.CatalogItem.PercentDiscount</span>
@@ -253,7 +257,8 @@
                                 <a href="shop-left-sidebar.html" class="link style1">اکنون بخرید<i class="las la-angle-double-left"></i></a>
                             </div>
                             <div class="hero-product-img">
-                                <img src="@Model.BannerBL.CatalogItem.CatalogItemImages.FirstOrDefault()?.Src" alt="Image">
+                                <img src="@((Model?.BannerBL?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)?
+                                    Model.BannerBL.CatalogItem.CatalogItemImages.First().Src: "")" alt="Image">
                                 @if (Model.BannerBL.CatalogItem.PercentDiscount.HasValue && Model.BannerBL.CatalogItem.PercentDiscount > 0)
                                 {
                                     <span class="discount-tag">%@Model.BannerBL.CatalogItem.PercentDiscount</span>

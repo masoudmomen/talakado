@@ -30,8 +30,9 @@ namespace Talakado.Web.Models.ViewComponents
         public IViewComponentResult Invoke()
         {
             var model = new HeaderDto();
-            model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase().Value;
-            model.IsShowAdvertisePhrase = contentManagerService.GetAdvertisementPhrase().IsShow;
+            model.AdvertisePhrase = contentManagerService.GetAdvertisementPhrase()?.Value;
+            model.IsShowAdvertisePhrase = (contentManagerService.GetAdvertisementPhrase() != null &&
+                contentManagerService.GetAdvertisementPhrase()?.IsShow != true) ? false : false;
             model.PhoneNumber = contentManagerService.GetPhoneNumber();
             model.catalogTypeLists = catalogTypeService.GetList(null, 1, 100).Data.ToList();
             if (User.Identity.IsAuthenticated)
