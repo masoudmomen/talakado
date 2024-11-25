@@ -104,6 +104,7 @@ namespace Talakado.Application.ContentManager
             var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
             var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
             var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
+            var AfterSpecil = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLeft")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
             CatalogItem? bannerCatalogMid = new CatalogItem();
@@ -199,6 +200,24 @@ namespace Talakado.Application.ContentManager
                     });
                 }
             }
+            CatalogItem? bannerCatalogAfterSpecil = new CatalogItem();
+            if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-afterSpecil") != null)
+            {
+                var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-afterSpecil").Value;
+                var catalogId = int.Parse(bannerCatalogId);
+                bannerCatalogAfterSpecil = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                if (bannerCatalogAfterSpecil.CatalogItemImages.Count() > 0)
+                {
+                    bannerCatalogAfterSpecil.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogAfterSpecil.CatalogItemImages.First().Src);
+                }
+                else
+                {
+                    bannerCatalogAfterSpecil.CatalogItemImages.Add(new CatalogItemImage
+                    {
+                        Src = "noSrc"
+                    });
+                }
+            }
             var model = new HomePageDto()
             {
                 Slide1 = new SliderContent
@@ -252,10 +271,20 @@ namespace Talakado.Application.ContentManager
                     Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-mid")?.Value,
                     CatalogItem = bannerCatalogMid
                 },
+                BannerAfterSpecil = new BannerContent
+                {
+                    Text = context.Contents.FirstOrDefault(c => c.Key == "bannerText-banner-afterSpecil")?.Value,
+                    CatalogItem = bannerCatalogAfterSpecil
+                },
                 SpecialCatalogs = context.CatalogItems
                     .Include(c=>c.CatalogItemImages)
                     .Include(c=>c.CatalogItemFeatures)
                     .Where(c=>c.IsSpecialProduct == true).OrderByDescending(c=>c.CatalogTypeId).ToList(),
+                SlideAfterSpecil = new SliderContent
+                {
+                    ImageAddress = (AfterSpecil != null) ? uriComposerService.ComposeImageUri(AfterSpecil) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLefttxt")?.Value) ?? ""
+                },
             };
             return model;
         }
