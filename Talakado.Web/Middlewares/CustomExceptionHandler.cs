@@ -17,15 +17,15 @@ namespace Talakado.Web.Middlewares
         public async Task Invoke(HttpContext httpContext)
         {
             // کد های این قسمت در رکوئست تاثیر می گذارند
-            try
-            {
+            //try
+            //{
                 await _next(httpContext);
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
                 // log
-                throw ex;
-            }
+            //    throw ex;
+            //}
             // کد های این قسمت در ریسپانس تاثیر می گذارند
         }
     }
