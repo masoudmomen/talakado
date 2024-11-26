@@ -16,6 +16,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem
         public int MaxStockThreshold { get; set; }
         public List<AddNewCatalogItemFeature_Dto>? Features { get; set; }
         public List<AddNewCatalogItemImage_Dto>? Images { get; set; }
+        public string? IsSpecialProduct { get; set; }
     }
 
     public class AddNewCatalogItemDtoValidator: AbstractValidator<AddNewCatalogItemDto>

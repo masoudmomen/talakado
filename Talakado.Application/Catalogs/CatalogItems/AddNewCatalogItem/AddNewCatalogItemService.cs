@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Amazon.Runtime.Internal;
+using AutoMapper;
 using Talakado.Application.Contexts;
 using Talakado.Application.Dtos;
 using Talakado.Domain.Catalogs;
@@ -30,6 +31,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.AddNewCatalogItem
             catalogItem.SetPrice(request.Price);
             catalogItem.Name = (request.Name == null) ? "" : request.Name;
             catalogItem.Slug = (request.Name == null) ? "" : request.Name;
+            catalogItem.IsSpecialProduct = (request.IsSpecialProduct == "true") ? true : false;
 
             context.CatalogItems.Add(catalogItem);
             if(context.SaveChanges() > 0)
