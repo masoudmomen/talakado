@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using Talakado.Application.ContentManager;
+using Talakado.Application.UriComposer;
 using Talakado.Infrastructure.CacheHelpers;
 using Talakado.Web.Models;
 using Talakado.Web.Models.Home;
@@ -20,13 +21,19 @@ namespace Talakado.Web.Controllers
         private readonly IDistributedCache cache;
         private readonly IContentManagerService contentManagerService;
         private readonly IMapper mapper;
+        private readonly IUriComposerService uriComposerService;
 
-        public HomeController(ILogger<HomeController> logger, IDistributedCache cache,IContentManagerService contentManagerService, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, 
+            IDistributedCache cache,
+            IContentManagerService contentManagerService, 
+            IMapper mapper,
+            IUriComposerService uriComposerService)
         {
             _logger = logger;
             this.cache = cache;
             this.contentManagerService = contentManagerService;
             this.mapper = mapper;
+            this.uriComposerService = uriComposerService;
         }
 
         public IActionResult Index()
@@ -52,6 +59,10 @@ namespace Talakado.Web.Controllers
             #endregion
 
             var result = contentManagerService.GetHomePageContent();
+            foreach (var item in result.SpecialCatalogs)
+            {
+                item.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(item.CatalogItemImages.First().Src);
+            }
             var model = mapper.Map<HomePageViewmodel>(result);
 
 

@@ -136,7 +136,14 @@
                                 </table>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <input type="checkbox" name="SpecialProduct" id="SpecialProduct" class="checkbox" style="display:inline" />
+                                    <label style="display:inline"> به عنوان محصول ویژه در صفحه اصلی نمایش داده شود</label>
+                                </fieldset>
+                            </div>
+                        </div>
                         <div class="card col-md-12 row">
                             <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
                                 <fieldset class="form-group">
@@ -227,7 +234,7 @@
             data.append("MaxStockThreshold", $("#MaxStockThreshold").val());
             data.append("Price", $("#Price").val());
             data.append("Description", $("#Description").val());
-
+            data.append("IsSpecialProduct", $('#SpecialProduct').prop('checked'));
             data.append("CatalogTypeId", $('#Category').find('option:selected').val());
             data.append("CatalogBrandId", $('#Brand').find('option:selected').val());
 
