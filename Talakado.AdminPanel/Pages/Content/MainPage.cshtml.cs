@@ -104,6 +104,8 @@ namespace Talakado.AdminPanel.Pages.Content
         public BannerContent? BannerBR { get; set; }
         public BannerContent? BannerBL { get; set; }
         public BannerContent? BannerMid { get; set; }
+        public SliderContent? SlideAfterSpecil { get; set; }
+        public BannerContent? BannerAfterSpecil { get; set; }
 
     }
 
