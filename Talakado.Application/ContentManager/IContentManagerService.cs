@@ -107,7 +107,8 @@ namespace Talakado.Application.ContentManager
             var AfterSpecil = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLeft")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
-            CatalogItem? bannerCatalogMid = new CatalogItem();
+            CatalogItem? bannerCatalogMid = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogMid.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-mid") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-mid").Value;
@@ -127,7 +128,8 @@ namespace Talakado.Application.ContentManager
 
             }
 
-            CatalogItem? bannerCatalogTR = new CatalogItem();
+            CatalogItem? bannerCatalogTR = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogTR.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tr") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tr").Value;
@@ -146,7 +148,8 @@ namespace Talakado.Application.ContentManager
                 }
                 
             }
-            CatalogItem? bannerCatalogTL = new CatalogItem();
+            CatalogItem? bannerCatalogTL = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogTL.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-tl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-tl").Value;
@@ -164,7 +167,8 @@ namespace Talakado.Application.ContentManager
                     });
                 }
             }
-            CatalogItem? bannerCatalogBR = new CatalogItem();
+            CatalogItem? bannerCatalogBR = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogBR.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-br") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-br").Value;
@@ -182,7 +186,8 @@ namespace Talakado.Application.ContentManager
                     });
                 }
             }
-            CatalogItem? bannerCatalogBL = new CatalogItem();
+            CatalogItem? bannerCatalogBL = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogBL.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-bl") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-bl").Value;
@@ -200,12 +205,13 @@ namespace Talakado.Application.ContentManager
                     });
                 }
             }
-            CatalogItem? bannerCatalogAfterSpecil = new CatalogItem();
+            CatalogItem bannerCatalogAfterSpecil = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
+            bannerCatalogAfterSpecil.CatalogItemImages.Add(new CatalogItemImage());
             if (context.Contents.FirstOrDefault(c => c.Key == "bannerItem-banner-afterSpecil") != null)
             {
                 var bannerCatalogId = context.Contents.First(d => d.Key == "bannerItem-banner-afterSpecil").Value;
                 var catalogId = int.Parse(bannerCatalogId);
-                bannerCatalogAfterSpecil = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).FirstOrDefault(c => c.Id == catalogId);
+                bannerCatalogAfterSpecil = context.CatalogItems.Include(m => m.Discounts).Include(m => m.CatalogItemImages).First(c => c.Id == catalogId);
                 if (bannerCatalogAfterSpecil.CatalogItemImages.Count() > 0)
                 {
                     bannerCatalogAfterSpecil.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(bannerCatalogAfterSpecil.CatalogItemImages.First().Src);

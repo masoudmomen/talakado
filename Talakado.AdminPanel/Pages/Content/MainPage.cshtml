@@ -428,8 +428,9 @@
                             </textarea>
                         </div>
                     </div>
+
                     <div class="box-footer">
-                            <button type="button" onclick="SendBannersItems('afterSpecil')" class="btn btn-primary">ثبت</button>
+                        <button type="button" onclick="SendBannersItems('afterSpecil')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
             </div>
@@ -450,8 +451,7 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
-
-                    <div class="box-footer">
+                    <div class="box-footer" style="margin-top:183px;">
                             <button type="button" onclick="SendImage('bannerAfterSpecilLeft')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
@@ -475,7 +475,7 @@
                     </div>
                     <!-- /.box-body -->
 
-                    <div class="box-footer">
+                        <div class="box-footer" style="margin-top:53px;">
                             <button type="button" onclick="SendContent('bannerAfterSpecilLefttxt', 'bannerAfterSpecilLefttxtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
                     </div>
                 </form>
@@ -573,6 +573,7 @@
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomRighttxt');   
             new nicEditor({ fullPanel: true }).panelInstance('bannerItembottomlefttxt');
             new nicEditor({ fullPanel: true }).panelInstance('bannerItemMiddletxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerItemAfterSpeciltxt');
             new nicEditor({ fullPanel: true }).panelInstance('bannerAfterSpecilLefttxt');
         });
 
