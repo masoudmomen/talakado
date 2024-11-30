@@ -101,9 +101,12 @@ namespace Talakado.Application.ContentManager
 
         public HomePageDto? GetHomePageContent()
         {
-            var slide1 = context.Contents.FirstOrDefault(c => c.Key == "slide1")?.Value;
-            var slide2 = context.Contents.FirstOrDefault(c => c.Key == "slide2")?.Value;
-            var slide3 = context.Contents.FirstOrDefault(c => c.Key == "slide3")?.Value;
+            var slide1 = (context.Contents.FirstOrDefault(c => c.Key == "slide1") != null)?
+                context.Contents.First(c => c.Key == "slide1").Value : null;
+            var slide2 = (context.Contents.FirstOrDefault(c => c.Key == "slide2") != null)?
+                context.Contents.First(c => c.Key == "slide2").Value : null;
+            var slide3 = (context.Contents.FirstOrDefault(c => c.Key == "slide3") != null)?
+                context.Contents.First(c => c.Key == "slide3").Value : null;
             var AfterSpecil = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLeft")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
@@ -291,6 +294,10 @@ namespace Talakado.Application.ContentManager
                     ImageAddress = (AfterSpecil != null) ? uriComposerService.ComposeImageUri(AfterSpecil) : "",
                     SlideText = (context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLefttxt")?.Value) ?? ""
                 },
+                NewestCatalogs = context.CatalogItems
+                .Include(c=>c.CatalogItemImages)
+                .Include (c=>c.Discounts)
+                .Take(10).OrderByDescending(c=>c.CatalogTypeId).ToList(),
             };
             return model;
         }

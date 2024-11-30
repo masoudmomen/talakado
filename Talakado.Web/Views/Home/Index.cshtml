@@ -7,88 +7,88 @@
 @* <div class="hero-wrap style2">
     <div class="container-fluid"> *@
 <div class="row px-0 mx-0">
-            <div class="col-md-12">
-                <div dir="rtl" class="hero-slider-two swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="hero-slider-item style2  bg-black">
-                                <div class="hero-shape-1">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="hero-shape-2">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="hero-content">
-                                                <div class="hero-text">
+    <div class="col-md-12">
+        <div dir="rtl" class="hero-slider-two swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="hero-slider-item style2  bg-black">
+                        <div class="hero-shape-1">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="hero-shape-2">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-content">
+                                        <div class="hero-text">
                                             @Html.Raw(Model.Slide1?.SlideText)
-                                                </div>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="hero-img">
-                                        <img src="@Model.Slide1?.ImageAddress" alt="Image">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="hero-slider-item style2  bg-black">
-                                <div class="hero-shape-1">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="hero-shape-2">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="hero-content">
-                                                <div class="hero-text">
-                                            @Html.Raw(Model.Slide2?.SlideText)
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="hero-img">
-                                        <img src="@Model.Slide2?.ImageAddress" alt="Image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="hero-slider-item style2  bg-black">
-                                <div class="hero-shape-1">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="hero-shape-2">
-                                    <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
-                                </div>
-                                <div class="container">
-                                    <div class="hero-img">
-                                <img src="@Model.Slide3?.ImageAddress" alt="Image">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="hero-content">
-                                                <div class="hero-text">
-                                                    @Html.Raw(Model.Slide3?.SlideText)
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="hero-img">
+                                <img src="@Model.Slide1?.ImageAddress" alt="Image">
                             </div>
                         </div>
                     </div>
-                    <div class="container">
-                        <div class="hero-two-pagination slider-pagination style5"></div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="hero-slider-item style2  bg-black">
+                        <div class="hero-shape-1">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="hero-shape-2">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-content">
+                                        <div class="hero-text">
+                                            @Html.Raw(Model.Slide2?.SlideText)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-img">
+                                <img src="@Model.Slide2?.ImageAddress" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="hero-slider-item style2  bg-black">
+                        <div class="hero-shape-1">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="hero-shape-2">
+                            <img src="~/theme/assets/img/hero/hero-shape-3.png" alt="Image">
+                        </div>
+                        <div class="container">
+                            <div class="hero-img">
+                                <img src="@Model.Slide3?.ImageAddress" alt="Image">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-content">
+                                        <div class="hero-text">
+                                            @Html.Raw(Model.Slide3?.SlideText)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="hero-two-pagination slider-pagination style5"></div>
+            </div>
         </div>
+    </div>
+</div>
 @*     </div>
 </div> *@
 <!-- Hero section end -->
@@ -114,7 +114,7 @@
                                     {
                                         <span class="discount">@Model.BannerTR.CatalogItem.OldPrice?.ToString("n0") تومان</span>
                                     }
-                                    </div>
+                                </div>
                                 <p class="product-promo-text">
                                     @Html.Raw(Model.BannerTR.Text)
                                 </p>
@@ -146,7 +146,7 @@
                                     {
                                         <span class="discount">@Model.BannerBR.CatalogItem.OldPrice?.ToString("n0") تومان</span>
                                     }
-                                    </div>
+                                </div>
                                 <p class="product-promo-text">
                                     @Html.Raw(Model.BannerBR.Text)
                                 </p>
@@ -168,12 +168,12 @@
                 <div class="hero-product-box style4 bg-f" style="background-image: url(@((Model?.BannerMid?.CatalogItem?.CatalogItemImages?.FirstOrDefault() != null)? 
                         Model.BannerMid.CatalogItem.CatalogItemImages.First().Src : ""));">
                     <div class="hero-product-info" style="background-color:rgba(108, 117, 125, 0.3);border:solid 1px darkgray">
-                       
+
                         @if (Model.BannerMid.CatalogItem.PercentDiscount.HasValue && Model.BannerMid.CatalogItem.PercentDiscount > 0)
                         {
                             <span class="discount-tag">%@Model.BannerMid.CatalogItem.PercentDiscount</span>
                         }
-                        
+
                         <ul class="ratings style1 list-style">
                             <li class="rated"><i class="las la-star"></i></li>
                             <li class="rated"><i class="las la-star"></i></li>
@@ -185,8 +185,8 @@
                         <div class="product-price"><span class="text-sienna">@Model.BannerMid.CatalogItem.Price.ToString("n0") تومان</span>
                             @if (Model.BannerMid.CatalogItem.PercentDiscount.HasValue && Model.BannerMid.CatalogItem.PercentDiscount > 0)
                             {
-                            <span class="discount">@Model.BannerMid.CatalogItem.OldPrice?.ToString("n0") تومان</span>
-                        }
+                                <span class="discount">@Model.BannerMid.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                            }
                         </div>
                         <p class="product-promo-text" style="color:black">
                             @Html.Raw(Model.BannerMid.Text)
@@ -312,20 +312,20 @@
 <!-- Best Selling Item Section start -->
 @if (Model.SpecialCatalogs.Count>0)
 {
-<section class="product-wrap pb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
-                <div class="section-title style3 text-center mb-40">
-                    <h2 class="text-black">محصولات ویژه</h2>
-                    <p>پیشنهاد زمستانی با 75% تخفیف ویژه</p>
-                    <div class="section-seperator">
+    <section class="product-wrap pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                    <div class="section-title style3 text-center mb-40">
+                        <h2 class="text-black">محصولات ویژه</h2>
+                        <p>پیشنهاد زمستانی با 75% تخفیف ویژه</p>
+                        <div class="section-seperator">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            
+            <div class="row justify-content-center">
+
                 @foreach (var item in Model.SpecialCatalogs)
                 {
                     <div class="col-xl-3 col-lg-4 col-md-6">
@@ -365,8 +365,8 @@
                         </div>
                     </div>
                 }
-            
-           @*  <div class="col-xl-3 col-lg-4 col-md-6">
+
+                @*  <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="product-card style2">
                     <div class="product-img">
                         <img src="~/theme/assets/img/product/product-16.png" alt="Image">
@@ -590,51 +590,55 @@
                     </div>
                 </div>
             </div> *@
-        </div>
-        @* <div class="row mt-30">
+            </div>
+            @* <div class="row mt-30">
             <div class="col-md-12 text-center">
                 <a href="shop-left-sidebar.html" class="btn style4">مشاهده بیشتر</a>
             </div>
         </div> *@
-    </div>
-</section>
+        </div>
+    </section>
 }
 <!-- Best Selling Item Section end -->
 <!-- Feature Product Category Section start -->
 <section class="feature-category pb-75">
     <div class="container">
         <div class="row">
-            <div class="col-xl-8 col-lg-12">
-                <div class="feature-cat-item style3 bg-f bg-linen td-aztech">
-                    <div class="feature-cat-img">
-                        <img src="~/theme/assets/img/featured/feature-cat-img.png" alt="Image">
-                        <div class="deal-countdown style3">
-                            <div class="countdown text-center" data-countdown="2022/12/11"></div>
+            @if(Model.BannerAfterSpecil != null){
+                <div class="col-xl-8 col-lg-12">
+                    <div class="feature-cat-item style3 bg-f bg-linen td-aztech">
+                        <div class="feature-cat-img">
+                            <img src="@Model.BannerAfterSpecil.CatalogItem.CatalogItemImages.First().Src" alt="Image">
+                            @* <div class="deal-countdown style3">
+                                <div class="countdown text-center" data-countdown="2022/12/11"></div>
+                            </div> *@
+                        </div>
+                        <div class="feature-text">
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="non-rated"><i class="las la-star"></i></li>
+                            </ul>
+                            <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">@Model.BannerAfterSpecil.CatalogItem.Name</a></h4>
+                            <div class="product-price">
+                                <span class="text-sienna">@Model.BannerAfterSpecil.CatalogItem.Price.ToString("n0") تومان</span>
+                                @if(Model.BannerAfterSpecil.CatalogItem.PercentDiscount>0 && Model.BannerAfterSpecil.CatalogItem.Discounts != null)
+                                {
+                                    <span class="discount">@Model.BannerAfterSpecil.CatalogItem.OldPrice?.ToString("n0") تومان</span>
+                                }
+                            </div>
+                            <a href="single-product.html" class="btn style1"><i class="las la-shopping-basket"></i> افزودن به سبد</a>
                         </div>
                     </div>
-                    <div class="feature-text">
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="non-rated"><i class="las la-star"></i></li>
-                        </ul>
-                        <h4 class="product-name"><a class="text-black" href="shop-left-sidebar.html">گوشواره طلایی منحصر به فرد با سنگ های قیمتی</a></h4>
-                        <div class="product-price"><span class="text-sienna">1100 تومان</span><span class="discount">2100 تومان</span></div>
-                        <a href="single-product.html" class="btn style1"><i class="las la-shopping-basket"></i> افزودن به سبد</a>
-                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-12">
-                <div class="feature-cat-item style4 bg-f  feature-bg-3">
+            }
+            <div class="col-xl-4 col-lg-12" >
+                <div class="feature-cat-item style4 bg-f  feature-bg-3" style="background-image:url(@Model.SlideAfterSpecil.ImageAddress) !important">
                     <div class="grad_overlay two"></div>
                     <div class="feature-text">
-                        <h3 class="text-white">
-                            فروش ویژه
-                        </h3>
-                        <span class="text-rajah">%25 تخفیف ویژه</span>
-                        <a href="#" class="link style3">اکنون بخرید<i class="las la-angle-double-left"></i></a>
+                        @(Html.Raw(Model.SlideAfterSpecil.SlideText))
                     </div>
                 </div>
             </div>
@@ -660,39 +664,48 @@
             <div class="product-slider-wrap">
                 <div dir="rtl" class="product-slider-one swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="product-card style1">
-                                <div class="product-img">
-                                    <img src="~/theme/assets/img/product/product-9.png" alt="Image">
-                                    <div class="product-option">
-                                        <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                                        <button class="add-to-wishlist" type="button">
-                                            <i class="lar la-heart"></i>
-                                        </button>
-                                        <button class="add-to-cart" type="button">
-                                            <i class="las la-shopping-cart"></i>
-                                        </button>
+                        @foreach (var item in Model.NewestCatalogs)
+                        {
+                            <div class="swiper-slide">
+                                <div class="product-card style1">
+                                    <div class="product-img">
+                                        <img src="@((item.CatalogItemImages.FirstOrDefault() != null)?
+                                            item.CatalogItemImages.First().Src : "")" alt="Image">
+                                        <div class="product-option">
+                                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                            <button class="add-to-wishlist" type="button">
+                                                <i class="lar la-heart"></i>
+                                            </button>
+                                            <button class="add-to-cart" type="button">
+                                                <i class="las la-shopping-cart"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-info">
-                                    <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه زمرد</a></h4>
-                                    <p class="product-promo-text">
-                                        موجود در انبار و نسخه کمیاب
-                                    </p>
-                                    <div class="product-price">
-                                        <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                                    <div class="product-info">
+                                        <h4 class="product-name"><a class="text-black" href="single-product.html">
+                                            @item.Name
+                                        </a></h4>
+                                        <p class="product-promo-text">
+                                            @Html.Raw(item.Description)
+                                        </p>
+                                        <div class="product-price">
+                                            <span class="text-sienna">@item.Price.ToString("n0") تومان</span> 
+                                            @if(item.Discounts != null && item.PercentDiscount>0){
+                                                <span class="discount">@item.OldPrice?.ToString("n0") تومان</span>
+                                            }
+                                        </div>
+                                        <ul class="ratings style1 list-style">
+                                            <li class="rated"><i class="las la-star"></i></li>
+                                            <li class="rated"><i class="las la-star"></i></li>
+                                            <li class="rated"><i class="las la-star"></i></li>
+                                            <li class="rated"><i class="las la-star"></i></li>
+                                            <li class="rated"><i class="las la-star"></i></li>
+                                        </ul>
                                     </div>
-                                    <ul class="ratings style1 list-style">
-                                        <li class="rated"><i class="las la-star"></i></li>
-                                        <li class="rated"><i class="las la-star"></i></li>
-                                        <li class="rated"><i class="las la-star"></i></li>
-                                        <li class="rated"><i class="las la-star"></i></li>
-                                        <li class="rated"><i class="las la-star"></i></li>
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
+                        }
+                        @* <div class="swiper-slide">
                             <div class="product-card style1">
                                 <div class="product-img">
                                     <img src="~/theme/assets/img/product/product-10.png" alt="Image">
@@ -851,7 +864,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
                 <div class="slider-btn style1 product-next-one"><i class="las la-angle-right"></i></div>
