@@ -879,33 +879,25 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <div class="feature-cat-item style2 bg-f bg-white-linen feature-bg-1">
+                <div class="feature-cat-item style2 bg-f bg-white-linen feature-bg-1" style="background-image:url(@Model.SlideAfterNewestCatalogsRight.ImageAddress) !important">
                     <div class="grad_overlay one"></div>
                     <div class="feature-text">
-                        <h3 class="text-white">
-                            انگشتر دونفره الماس تخفیف بگیرید
-                        </h3>
-                        <span class="text-white">%25 تخفیف انگشتر الماس</span>
-                        <a href="#" class="link style3">اکنون بخرید<i class="las la-angle-double-left"></i></a>
+                            @(Html.Raw(Model.SlideAfterNewestCatalogsRight.SlideText))
                     </div>
-                    <span class="discount-tag">
+                    @* <span class="discount-tag">
                         %25-
-                    </span>
+                    </span> *@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="feature-cat-item style2 bg-f bg-white-linen feature-bg-2">
+                <div class="feature-cat-item style2 bg-f bg-white-linen feature-bg-2" style="background-image:url(@Model.SlideAfterNewestCatalogsLeft.ImageAddress) !important">
                     <div class="grad_overlay one"></div>
                     <div class="feature-text">
-                        <h3 class="text-white">
-                            انگشتر دونفره الماس تخفیف بگیرید
-                        </h3>
-                        <span class="text-white">%5 تخفیف انگشتر الماس</span>
-                        <a href="#" class="link style3">اکنون بخرید<i class="las la-angle-double-left"></i></a>
+                        @(Html.Raw(Model.SlideAfterNewestCatalogsLeft.SlideText))
                     </div>
-                    <span class="discount-tag">
+                    @* <span class="discount-tag">
                         %5-
-                    </span>
+                    </span> *@
                 </div>
             </div>
         </div>

@@ -106,7 +106,8 @@ namespace Talakado.AdminPanel.Pages.Content
         public BannerContent? BannerMid { get; set; }
         public SliderContent? SlideAfterSpecil { get; set; }
         public BannerContent? BannerAfterSpecil { get; set; }
-
+        public SliderContent? SlideAfterNewestCatalogsRight { get; set; }
+        public SliderContent? SlideAfterNewestCatalogsLeft { get; set; }
     }
 
     public class UploadDto

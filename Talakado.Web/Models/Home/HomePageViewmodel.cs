@@ -19,5 +19,7 @@ namespace Talakado.Web.Models.Home
         public SliderContent? SlideAfterSpecil { get; set; }
         public BannerContent? BannerAfterSpecil { get; set; }
         public List<CatalogItem> NewestCatalogs { get; set; }
+        public SliderContent? SlideAfterNewestCatalogsRight { get; set; }
+        public SliderContent? SlideAfterNewestCatalogsLeft { get; set; }
     }
 }

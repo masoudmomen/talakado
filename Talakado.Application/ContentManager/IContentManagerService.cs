@@ -108,6 +108,8 @@ namespace Talakado.Application.ContentManager
             var slide3 = (context.Contents.FirstOrDefault(c => c.Key == "slide3") != null)?
                 context.Contents.First(c => c.Key == "slide3").Value : null;
             var AfterSpecil = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterSpecilLeft")?.Value;
+            var AfterNewestLeft = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterNewestCatalogsLeft")?.Value;
+            var AfterNewestRight = context.Contents.FirstOrDefault(c => c.Key == "bannerAfterNewestCatalogsRight")?.Value;
             var banner = context.Contents.FirstOrDefault(c => c.Key == "bannerImage")?.Value;
 
             CatalogItem? bannerCatalogMid = new CatalogItem() { CatalogItemImages = new List<CatalogItemImage>() };
@@ -298,6 +300,16 @@ namespace Talakado.Application.ContentManager
                 .Include(c=>c.CatalogItemImages)
                 .Include (c=>c.Discounts)
                 .Take(10).OrderByDescending(c=>c.CatalogTypeId).ToList(),
+                SlideAfterNewestCatalogsLeft = new SliderContent
+                {
+                    ImageAddress = (AfterNewestLeft != null) ? uriComposerService.ComposeImageUri(AfterNewestLeft) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "bannerAfterNewestCatalogsLefttxt")?.Value) ?? ""
+                },
+                SlideAfterNewestCatalogsRight = new SliderContent
+                {
+                    ImageAddress = (AfterNewestRight != null) ? uriComposerService.ComposeImageUri(AfterNewestRight) : "",
+                    SlideText = (context.Contents.FirstOrDefault(c => c.Key == "bannerAfterNewestCatalogsRighttxt")?.Value) ?? ""
+                },
             };
             return model;
         }

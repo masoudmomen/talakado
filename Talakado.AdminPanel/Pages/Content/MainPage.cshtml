@@ -437,7 +437,7 @@
         </div>
         <div class="col-md-4">
             <div class="box box-primary">
-                    <img style="max-width:100%;max-height:100%;position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.SlideAfterSpecil?.ImageAddress" />
+                    <img style="max-width:50%;max-height:50%;position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.SlideAfterSpecil?.ImageAddress" />
                 <div class="box-header">
                     <h3 class="box-title">آپلود عکس بنر سمت چپ</h3>
                 </div>
@@ -483,6 +483,107 @@
         </div>
     </div>
 </div>
+<br />
+    <div class="row mainpageRow">
+        <h4 class="box-header text-bold">بنر بعد از محصولات جدید</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <img style="max-width:50%;max-height:50%;position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.SlideAfterNewestCatalogsRight?.ImageAddress" />
+                    <div class="box-header">
+                        <h3 class="box-title">آپلود عکس بنر سمت راست</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس بنر </label>
+                                <input type="file" class="form-control" id="bannerAfterNewestCatalogsRight" multiple class="form-control" accept="image/*" name="bannerAfterNewestCatalogsRight">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" >
+                            <button type="button" onclick="SendImage('bannerAfterNewestCatalogsRight')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <img style="max-width:50%;max-height:50%;position:absolute;top:0;left:0" src="@Model.HomePageViewmodel.SlideAfterNewestCatalogsLeft?.ImageAddress" />
+                    <div class="box-header">
+                        <h3 class="box-title">آپلود عکس بنر سمت چپ</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" asp-antiforgery="true" asp-page-handler="AddImage">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">عکس بنر </label>
+                                <input type="file" class="form-control" id="bannerAfterNewestCatalogsLeft" multiple class="form-control" accept="image/*" name="bannerAfterNewestCatalogsLeft">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="button" onclick="SendImage('bannerAfterNewestCatalogsLeft')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">متن بنر سمت راست</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" id="bannerAfterNewestCatalogsRighttxtForm" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">قابل طراحی با ادیتور</label>
+                                <textarea id="bannerAfterNewestCatalogsRighttxt" name="bannerAfterNewestCatalogsRighttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.SlideAfterNewestCatalogsRight?.SlideText)
+                        </textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" onclick="SendContent('bannerAfterNewestCatalogsRighttxt', 'bannerAfterNewestCatalogsRighttxtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">متن بنر سمت چپ</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" id="bannerAfterNewestCatalogsLefttxtForm" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="">قابل طراحی با ادیتور</label>
+                                <textarea id="bannerAfterNewestCatalogsLefttxt" name="bannerAfterNewestCatalogsLefttxt" class="form-control" rows="5">
+                                    @Html.Raw(Model.HomePageViewmodel.SlideAfterNewestCatalogsLeft?.SlideText)
+                        </textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer" >
+                            <button type="button" onclick="SendContent('bannerAfterNewestCatalogsLefttxt', 'bannerAfterNewestCatalogsLefttxtForm', 'null', 'editor')" class="btn btn-primary">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 <!-- modal -->
@@ -575,6 +676,8 @@
             new nicEditor({ fullPanel: true }).panelInstance('bannerItemMiddletxt');
             new nicEditor({ fullPanel: true }).panelInstance('bannerItemAfterSpeciltxt');
             new nicEditor({ fullPanel: true }).panelInstance('bannerAfterSpecilLefttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerAfterNewestCatalogsRighttxt');
+            new nicEditor({ fullPanel: true }).panelInstance('bannerAfterNewestCatalogsLefttxt');
         });
 
         // $(function () {
