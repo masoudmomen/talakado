@@ -299,7 +299,7 @@ namespace Talakado.Application.ContentManager
                 NewestCatalogs = context.CatalogItems
                 .Include(c=>c.CatalogItemImages)
                 .Include (c=>c.Discounts)
-                .Take(10).OrderByDescending(c=>c.CatalogTypeId).ToList(),
+                .Take(1).OrderBy(c=>c.CatalogTypeId).ToList(),
                 SlideAfterNewestCatalogsLeft = new SliderContent
                 {
                     ImageAddress = (AfterNewestLeft != null) ? uriComposerService.ComposeImageUri(AfterNewestLeft) : "",
@@ -310,6 +310,11 @@ namespace Talakado.Application.ContentManager
                     ImageAddress = (AfterNewestRight != null) ? uriComposerService.ComposeImageUri(AfterNewestRight) : "",
                     SlideText = (context.Contents.FirstOrDefault(c => c.Key == "bannerAfterNewestCatalogsRighttxt")?.Value) ?? ""
                 },
+                BestSellerCatalogs = context.CatalogItems
+                .Include(c => c.CatalogItemImages)
+                .Include(c => c.Discounts)
+                .Include(c=>c.OrderItems)
+                .OrderByDescending(c=>c.OrderItems.Count).Take(5).ToList(),
             };
             return model;
         }

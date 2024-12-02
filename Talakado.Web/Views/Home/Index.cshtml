@@ -905,283 +905,294 @@
 </section>
 <!-- Feature Product Category Section end -->
 <!-- Best Selling Item Section start -->
-<section class="product-wrap pb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
-                <div class="section-title style3 text-center mb-40">
-                    <h2 class="text-black">پرفروش ترین محصولات</h2>
-                    <p>پیشنهاد زمستانی با 75% تخفیف ویژه</p>
-                    <div class="section-seperator">
+@if (Model.BestSellerCatalogs != null && Model.BestSellerCatalogs.Count>0)
+{
+    <section class="product-wrap pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                    <div class="section-title style3 text-center mb-40">
+                        <h2 class="text-black">پرفروش ترین محصولات</h2>
+                        <p>پیشنهاد زمستانی با 75% تخفیف ویژه</p>
+                        <div class="section-seperator">
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                @foreach (var item in Model.BestSellerCatalogs)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="product-card style1">
+                            <div class="product-img">
+                                <img src="@((item.CatalogItemImages.FirstOrDefault() != null)? 
+                                            item.CatalogItemImages.First().Src : "")" alt="Image">
+                                <div class="product-option">
+                                    <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                    <button class="add-to-wishlist" type="button">
+                                        <i class="lar la-heart"></i>
+                                    </button>
+                                    <button class="add-to-cart" type="button">
+                                        <i class="las la-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name"><a class="text-black" href="single-product.html">@item.Name</a></h4>
+                                <p class="product-promo-text">
+                                    @(Html.Raw(item.Description))
+                                </p>
+                                <div class="product-price">
+                                    <span class="text-sienna">@item.Price.ToString("n0") تومان</span>
+                                    @if (item.Discounts != null && item.PercentDiscount > 0)
+                                    {
+                                        <span class="discount">@item.OldPrice?.ToString("n0") تومان</span>
+                                    }
+                                </div>
+                                <ul class="ratings style1 list-style">
+                                    <li class="rated"><i class="las la-star"></i></li>
+                                    <li class="rated"><i class="las la-star"></i></li>
+                                    <li class="rated"><i class="las la-star"></i></li>
+                                    <li class="rated"><i class="las la-star"></i></li>
+                                    <li class="rated"><i class="las la-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @* <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-2.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه الماس</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="non-rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-3.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه طلا</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="non-rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-4.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه ازدواج</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-5.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">گردنبند سنگ</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="non-rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-6.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">گوشواره زمرد</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="non-rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-7.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">دستبند طلا</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card style1">
+                        <div class="product-img">
+                            <img src="~/theme/assets/img/product/product-8.jpg" alt="Image">
+                            <div class="product-option">
+                                <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
+                                <button class="add-to-wishlist" type="button">
+                                    <i class="lar la-heart"></i>
+                                </button>
+                                <button class="add-to-cart" type="button">
+                                    <i class="las la-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a class="text-black" href="single-product.html">گوشواره مروارید</a></h4>
+                            <p class="product-promo-text">
+                                موجود در انبار و نسخه کمیاب
+                            </p>
+                            <div class="product-price">
+                                <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
+                            </div>
+                            <ul class="ratings style1 list-style">
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                                <li class="rated"><i class="las la-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> *@
+            </div>
+            <div class="row mt-30">
+                <div class="col-md-12 text-center">
+                    <a href="shop-left-sidebar.html" class="btn style4">مشاهده بیشتر</a>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-1.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه زمرد</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-2.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه الماس</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="non-rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-3.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه طلا</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="non-rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-4.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">حلقه ازدواج</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-5.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">گردنبند سنگ</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="non-rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-6.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">گوشواره زمرد</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="non-rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-7.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">دستبند طلا</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="product-card style1">
-                    <div class="product-img">
-                        <img src="~/theme/assets/img/product/product-8.jpg" alt="Image">
-                        <div class="product-option">
-                            <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                            <button class="add-to-wishlist" type="button">
-                                <i class="lar la-heart"></i>
-                            </button>
-                            <button class="add-to-cart" type="button">
-                                <i class="las la-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a class="text-black" href="single-product.html">گوشواره مروارید</a></h4>
-                        <p class="product-promo-text">
-                            موجود در انبار و نسخه کمیاب
-                        </p>
-                        <div class="product-price">
-                            <span class="text-sienna">1100 تومان</span> <span class="discount">2100 تومان</span>
-                        </div>
-                        <ul class="ratings style1 list-style">
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                            <li class="rated"><i class="las la-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-30">
-            <div class="col-md-12 text-center">
-                <a href="shop-left-sidebar.html" class="btn style4">مشاهده بیشتر</a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}
 <!-- Best Selling Item Section end -->
 <!-- Testimonial Section start -->
 <section class="testimonial-wrap bg-linen">

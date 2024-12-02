@@ -21,5 +21,6 @@ namespace Talakado.Web.Models.Home
         public List<CatalogItem> NewestCatalogs { get; set; }
         public SliderContent? SlideAfterNewestCatalogsRight { get; set; }
         public SliderContent? SlideAfterNewestCatalogsLeft { get; set; }
+        public List<CatalogItem> BestSellerCatalogs { get; set; }
     }
 }

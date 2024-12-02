@@ -104,7 +104,7 @@
                             @if (Model.OldPrice != 0)
                                 {
                                     <span class="discount">
-                                        @Model.OldPrice.Value.ToString("n0") تومان
+                                        @Model.OldPrice?.ToString("n0") تومان
 
                                     </span>
                                 }
