@@ -59,13 +59,7 @@ namespace Talakado.Web.Controllers
             #endregion
 
             var result = contentManagerService.GetHomePageContent();
-            foreach (var item in result.SpecialCatalogs)
-            {
-                item.CatalogItemImages.First().Src = uriComposerService.ComposeImageUri(item.CatalogItemImages.First().Src);
-            }
             var model = mapper.Map<HomePageViewmodel>(result);
-
-
             return View(model);
         }
         [Authorize]

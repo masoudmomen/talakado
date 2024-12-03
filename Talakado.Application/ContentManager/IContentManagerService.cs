@@ -299,7 +299,7 @@ namespace Talakado.Application.ContentManager
                 NewestCatalogs = context.CatalogItems
                 .Include(c=>c.CatalogItemImages)
                 .Include (c=>c.Discounts)
-                .Take(1).OrderBy(c=>c.CatalogTypeId).ToList(),
+                .Take(3).OrderByDescending(c=>c.Id).ToList(),
                 SlideAfterNewestCatalogsLeft = new SliderContent
                 {
                     ImageAddress = (AfterNewestLeft != null) ? uriComposerService.ComposeImageUri(AfterNewestLeft) : "",
@@ -316,6 +316,30 @@ namespace Talakado.Application.ContentManager
                 .Include(c=>c.OrderItems)
                 .OrderByDescending(c=>c.OrderItems.Count).Take(5).ToList(),
             };
+            foreach (var item in model.SpecialCatalogs)
+            {
+                foreach (var image in item.CatalogItemImages)
+                {
+                    image.Src = uriComposerService.ComposeImageUri(image.Src);
+                }
+
+            }
+            foreach (var item in model.NewestCatalogs)
+            {
+                foreach (var image in item.CatalogItemImages)
+                {
+                    image.Src = uriComposerService.ComposeImageUri(image.Src);
+                }
+                
+            }
+            foreach (var item in model.BestSellerCatalogs)
+            {
+                foreach (var image in item.CatalogItemImages)
+                {
+                    image.Src = uriComposerService.ComposeImageUri(image.Src);
+                }
+
+            }
             return model;
         }
 
