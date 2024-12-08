@@ -11,6 +11,7 @@ using Talakado.Domain.Contents;
 using Talakado.Domain.Discounts;
 using Talakado.Domain.Order;
 using Talakado.Domain.Payments;
+using Talakado.Domain.Personels;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
 
@@ -33,6 +34,7 @@ namespace Talakado.Application.Contexts
         DbSet<DiscountUsagehistory> DiscountUsagehistories { get; set; }
         DbSet<CatalogItemFavorite> CatalogItemFavorites { get; set; }
         DbSet<Content> Contents { get; set; }
+        DbSet<Personel> Personels { get; set; }
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

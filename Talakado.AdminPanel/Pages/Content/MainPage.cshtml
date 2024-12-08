@@ -10,68 +10,78 @@
 }
 <div class="container-fluid">
 
-    <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بخش هدر(قسمت بالای سایت)</h4>
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">متن بالای هدر</h3>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="adverticePhrase">متن </label>
-                            <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.HomePageViewmodel.AdvertisePhrase">
-                        </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="advetiseIsShow" asp-for="@Model.HomePageViewmodel.IsShowAdvertisePhrase" /> نمایش متن فعال باشد
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="button" onclick="SendContent('advertisementPhrase', 'adverticePhrase', 'advetiseIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
-                    </div>
-                </form>
-            </div>
+    <div class="box">
+        <div class="box-header with-border" style="cursor:pointer" data-widget="collapse">
+            <h3 class="box-title">بخش هدر(قسمت بالای سایت)</h3>
         </div>
-        <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">شماره تماس فروشگاه</h3>
+        <div class="box-body" style="">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">متن بالای هدر</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="adverticePhrase">متن </label>
+                                    <input type="text" class="form-control" id="adverticePhrase" placeholder="" value="@Model.HomePageViewmodel.AdvertisePhrase">
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="advetiseIsShow" asp-for="@Model.HomePageViewmodel.IsShowAdvertisePhrase" /> نمایش متن فعال باشد
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <button type="button" onclick="SendContent('advertisementPhrase', 'adverticePhrase', 'advetiseIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
+                            </div>
+                        </form>
                     </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="adverticePhrase">شماره </label>
-                                <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
-                            </div>
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-
-                        <div class="box-footer">
-                        <button type="button" onclick="SendContent('phoneNumber', 'phoneNumber', 'phoneNumberIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
-                        </div>
-                    </form>
                 </div>
-            </div>
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">شماره تماس فروشگاه</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form role="form" method="post" asp-antiforgery="true" asp-page-handler="SetContent">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="adverticePhrase">شماره </label>
+                                    <input type="text" class="form-control" id="phoneNumber" placeholder="" value="@Model.HomePageViewmodel.PhoneNumber">
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="phoneNumberIsShow" asp-for="@Model.HomePageViewmodel.IsShowPhoneNumber" /> نمایش شماره فعال باشد
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <button type="button" onclick="SendContent('phoneNumber', 'phoneNumber', 'phoneNumberIsShow', 'noEditor')" class="btn btn-primary">ثبت</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
     </div>
+
     <br />
-    <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بخش اسلایدر</h4>
+
+    <div class="box">
+        <div class="box-header with-border" style="cursor:pointer" data-widget="collapse">
+            <h3 class="box-title">بخش اسلایدر</h3>
+        </div>
+        <div class="box-body" style="">
         <div class="row">
             <div class="col-md-4">
                 <div class="box box-primary">
@@ -218,10 +228,15 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
     <br />
-    <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بنرهای حاوی محصول</h4>
+
+    <div class="box">
+        <div class="box-header with-border" style="cursor:pointer" data-widget="collapse">
+            <h3 class="box-title">بنرهای حاوی محصول </h3>
+        </div>
+        <div class="box-body" style="">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
@@ -396,10 +411,14 @@
             </div>
         </div>
     </div>
+    </div>
 
 <br />
-<div class="row mainpageRow">
-    <h4 class="box-header text-bold">بنر بعد از محصولات ویژه</h4>
+    <div class="box">
+        <div class="box-header with-border" style="cursor:pointer" data-widget="collapse">
+            <h3 class="box-title">بنر بعد از محصولات ویژه </h3>
+        </div>
+        <div class="box-body" style="">
     <div class="row">
         <div class="col-md-4">
             <div class="box box-primary">
@@ -483,9 +502,14 @@
         </div>
     </div>
 </div>
+</div>
+
 <br />
-    <div class="row mainpageRow">
-        <h4 class="box-header text-bold">بنر بعد از محصولات جدید</h4>
+    <div class="box">
+        <div class="box-header with-border" style="cursor:pointer" data-widget="collapse">
+            <h3 class="box-title">بنر بعد از محصولات جدید </h3>
+        </div>
+        <div class="box-body" style="">
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
@@ -532,7 +556,7 @@
                 </div>
             </div>
             </div>
-            <div class="row">
+        <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -584,8 +608,9 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
-</div>
+
 <!-- modal -->
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">

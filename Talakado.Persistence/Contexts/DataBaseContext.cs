@@ -12,6 +12,7 @@ using Talakado.Domain.Contents;
 using Talakado.Domain.Discounts;
 using Talakado.Domain.Order;
 using Talakado.Domain.Payments;
+using Talakado.Domain.Personels;
 using Talakado.Domain.Users;
 using Talakado.Domain.Visitors;
 using Talakado.Persistence.EntityConfigurations;
@@ -106,5 +107,6 @@ namespace Talakado.Persistence.Contexts
         public DbSet<DiscountUsagehistory> DiscountUsagehistories { get; set; }
         public DbSet<CatalogItemFavorite> CatalogItemFavorites { get; set; }
         public DbSet<Content> Contents { get; set; }
+        public DbSet<Personel> Personels { get; set; }
     }
 }
