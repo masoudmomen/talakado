@@ -13,5 +13,6 @@ namespace Talakado.Domain.Personels
         public string Job { get; set; }
         public string Description { get; set; }
         public bool IsShowAsOurTeam { get; set; }
+        public string ImageAddress { get; set; }
     }
 }
