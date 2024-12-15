@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talakado.Application.Contexts;
+using Talakado.Application.UriComposer;
 using Talakado.Domain.Personels;
 
 namespace Talakado.Application.ContentManager
@@ -18,12 +19,15 @@ namespace Talakado.Application.ContentManager
     {
         private readonly IDataBaseContext context;
         private readonly IMapper mapper;
+        private readonly IUriComposerService uriComposerService;
 
         public PersonelManager(IDataBaseContext context,
-            IMapper mapper)
+            IMapper mapper,
+            IUriComposerService uriComposerService)
         {
             this.context = context;
             this.mapper = mapper;
+            this.uriComposerService = uriComposerService;
         }
 
         public PersonelDto? AddPersonel(PersonelDto personel)
@@ -37,7 +41,12 @@ namespace Talakado.Application.ContentManager
 
         public List<PersonelDto> GetPersonelsList()
         {
-            return mapper.Map<List<PersonelDto>>(context.Personels.ToList());
+            var result = mapper.Map<List<PersonelDto>>(context.Personels.ToList());
+            foreach (var item in result)
+            {
+                item.ImageAddress = uriComposerService.ComposeImageUri(item.ImageAddress);
+            }
+            return result;
         }
     }
 

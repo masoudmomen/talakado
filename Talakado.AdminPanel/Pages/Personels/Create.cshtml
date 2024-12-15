@@ -1,0 +1,87 @@
+﻿@page
+@model Talakado.AdminPanel.Pages.Personels.CreateModel
+@{
+    ViewData["Title"] = "ایجاد فرد";
+}
+@section Styles {
+    <link href="~/css/personelcreate.css" rel="stylesheet" />
+}
+<div class="container-fluid">
+    <form method="post" asp-page-handler="AddPerson" asp-asp-antiforgery="true">
+    <div class="row">
+        <div class="col-md-6">
+            <label>نام فرد</label>
+            <input type="text" name="name" id="name" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label>شغل فرد</label>
+            <input type="text" name="job" id="job" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>عکس فرد</label>
+            <input type="file" name="image" id="image" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label>نمایش داده شود؟</label>
+            <input type="checkbox" name="isShow" checked id="isShow" class="checkbox" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>توصیف فرد</label>
+            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+            <br />
+            <button name="save" id="save" onclick="Save()" class="btn btn-success">ثبت</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        function Save() {
+            var data = new FormData();
+            data.append("name", $('#name').val());
+            data.append("job", $('#job').val());
+            data.append("description", $('#description').val());
+            data.append("isShow", $('#isShow').is(':checked'));
+
+            var imageTag = document.getElementById("image");
+            if (imageTag.files.length > 0) {
+                data.append("image", imageTag.files[0]);
+            }
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                contentType: false,
+                processData: false,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./create?handler=AddPerson",
+                data: data,
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'فرد جدید با موفقیت ثبت شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ثبت انجام نشد " ,
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+    </script>
+}

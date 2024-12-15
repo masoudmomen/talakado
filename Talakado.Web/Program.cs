@@ -80,6 +80,7 @@ builder.Services.AddTransient<ICatalogItemService, CatalogItemService>();
 builder.Services.AddTransient<ICustomerOrderService, CustomerOrderService>();
 builder.Services.AddTransient<IContentManagerService, ContentManagerService>();
 builder.Services.AddTransient<ICatalogTypeService, CatalogTypeService>();
+builder.Services.AddTransient<IPersonelManager, PersonelManager>();
 
 
 builder.Services.AddScoped<SaveVisitorFilter>();
