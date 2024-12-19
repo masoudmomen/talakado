@@ -33,7 +33,7 @@
             <label>توصیف فرد</label>
             <textarea name="description" id="description" class="form-control" rows="5"></textarea>
             <br />
-            <button name="save" id="save" onclick="Save()" class="btn btn-success">ثبت</button>
+            <button type="button" name="save" id="save" onclick="Save()" class="btn btn-success">ثبت</button>
         </div>
     </div>
     </form>
@@ -52,6 +52,7 @@
 
             var imageTag = document.getElementById("image");
             if (imageTag.files.length > 0) {
+                console.log(imageTag.files[0])
                 data.append("image", imageTag.files[0]);
             }
             //ارسال به سرور با ای جکس
