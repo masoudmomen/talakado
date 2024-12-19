@@ -9,7 +9,7 @@ namespace Talakado.Application.ContentManager
     public interface IPersonelManager
     {
         List<PersonelDto> GetPersonelsList();
-
+        PersonelDto Create(PersonelDto request);
     }
 
 
