@@ -1201,85 +1201,91 @@
 }
 <!-- Best Selling Item Section end -->
 <!-- Testimonial Section start -->
-<section class="testimonial-wrap bg-linen">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div dir="rtl" class="testimonial-slider-two swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="testimonial-item style2 ptb-100">
-                                <div class="client-info">
-                                    <div class="client-img">
-                                        <img src="~/theme/assets/img/testimonial/client-10.jpg" alt="Image">
-                                    </div>
-                                    <div class="client-name">
-                                        <h6> اما واتسون</h6>
-                                        <span>طراح وب</span>
+@if (Model.Personels != null && Model.Personels.Count>0)
+{
+    <section class="testimonial-wrap bg-linen">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div dir="rtl" class="testimonial-slider-two swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach (var item in Model.Personels.Where(c => c.IsShowAsOurTeam))
+                            {
+                                <div class="swiper-slide">
+                                    <div class="testimonial-item style2 ptb-100">
+                                        <div class="client-info">
+                                            <div class="client-img">
+                                                <img src="@item.ImageAddress" alt="Image">
+                                            </div>
+                                            <div class="client-name">
+                                                <h6> @item.Name</h6>
+                                                <span>@item.Job</span>
+                                            </div>
+                                        </div>
+                                        <div class="client-quote">
+                                            <div class="quote-icon-one">
+                                                <i class="flaticon-right-quotation-mark"></i>
+                                            </div>
+                                            <p>@item.Description</p>
+                                            <div class="quote-icon-two">
+                                                <i class="flaticon-quote-left"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="client-quote">
-                                    <div class="quote-icon-one">
-                                        <i class="flaticon-right-quotation-mark"></i>
-                                    </div>
-                                    <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به مدت 40 سال استاندارد  صنعت بوده است. لورم ایپسوم به سادگی  متن را در بر می گیرد.</p>
-                                    <div class="quote-icon-two">
-                                        <i class="flaticon-quote-left"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            }
+                            @* <div class="swiper-slide">
+                        <div class="testimonial-item style2 ptb-100">
+                        <div class="client-info">
+                        <div class="client-img">
+                        <img src="~/theme/assets/img/testimonial/client-11.jpg" alt="Image">
+                        </div>
+                        <div class="client-name">
+                        <h6>لارا کرافت</h6>
+                        <span>طراح وب</span>
+                        </div>
+                        </div>
+                        <div class="client-quote">
+                        <div class="quote-icon-one">
+                        <i class="flaticon-right-quotation-mark"></i>
+                        </div>
+                        <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به مدت 40 سال استاندارد  صنعت بوده است. لورم ایپسوم به سادگی  متن را در بر می گیرد. </p>
+                        <div class="quote-icon-two">
+                        <i class="flaticon-quote-left"></i>
+                        </div>
+                        </div>
+                        </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="testimonial-item style2 ptb-100">
-                                <div class="client-info">
-                                    <div class="client-img">
-                                        <img src="~/theme/assets/img/testimonial/client-11.jpg" alt="Image">
-                                    </div>
-                                    <div class="client-name">
-                                        <h6>لارا کرافت</h6>
-                                        <span>طراح وب</span>
-                                    </div>
-                                </div>
-                                <div class="client-quote">
-                                    <div class="quote-icon-one">
-                                        <i class="flaticon-right-quotation-mark"></i>
-                                    </div>
-                                    <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به مدت 40 سال استاندارد  صنعت بوده است. لورم ایپسوم به سادگی  متن را در بر می گیرد. </p>
-                                    <div class="quote-icon-two">
-                                        <i class="flaticon-quote-left"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="testimonial-item style2 ptb-100">
+                        <div class="client-info">
+                        <div class="client-img">
+                        <img src="~/theme/assets/img/testimonial/client-12.jpg" alt="Image">
                         </div>
-                        <div class="swiper-slide">
-                            <div class="testimonial-item style2 ptb-100">
-                                <div class="client-info">
-                                    <div class="client-img">
-                                        <img src="~/theme/assets/img/testimonial/client-12.jpg" alt="Image">
-                                    </div>
-                                    <div class="client-name">
-                                        <h6> مگان تیلور</h6>
-                                        <span>طراح وب</span>
-                                    </div>
-                                </div>
-                                <div class="client-quote">
-                                    <div class="quote-icon-one">
-                                        <i class="flaticon-right-quotation-mark"></i>
-                                    </div>
-                                    <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به مدت 40 سال استاندارد  صنعت بوده است. لورم ایپسوم به سادگی  متن را در بر می گیرد. </p>
-                                    <div class="quote-icon-two">
-                                        <i class="flaticon-quote-left"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="client-name">
+                        <h6> مگان تیلور</h6>
+                        <span>طراح وب</span>
                         </div>
+                        </div>
+                        <div class="client-quote">
+                        <div class="quote-icon-one">
+                        <i class="flaticon-right-quotation-mark"></i>
+                        </div>
+                        <p>لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است. لورم ایپسوم به مدت 40 سال استاندارد  صنعت بوده است. لورم ایپسوم به سادگی  متن را در بر می گیرد. </p>
+                        <div class="quote-icon-two">
+                        <i class="flaticon-quote-left"></i>
+                        </div>
+                        </div>
+                        </div>
+                        </div> *@
+                        </div>
+                        <div class="slider-pagination style2 testimonial-pagination-two"></div>
                     </div>
-                    <div class="slider-pagination style2 testimonial-pagination-two"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 <!-- Testimonial Section end -->
 <!-- Blog Section start -->
 <section class="blog-wrap pt-100 pb-75">

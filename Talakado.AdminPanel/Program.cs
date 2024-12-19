@@ -45,6 +45,7 @@ builder.Services.AddTransient<IDiscountHistoryService, DiscountHistoryService>()
 builder.Services.AddTransient<IUriComposerService, UriComposerService>();
 builder.Services.AddTransient<IContentManagerService, ContentManagerService>();
 builder.Services.AddTransient<IGetCatalogItemPLPService, GetCatalogItemPLPService>();
+builder.Services.AddTransient<IPersonelManager, PersonelManager>();
 builder.Services.AddHttpClient<ImageUploadService>();
 
 #endregion

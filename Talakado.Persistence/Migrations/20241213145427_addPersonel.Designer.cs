@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talakado.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Talakado.Persistence.Contexts;
 namespace Talakado.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241213145427_addPersonel")]
+    partial class addPersonel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 337, DateTimeKind.Local).AddTicks(1497));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 176, DateTimeKind.Local).AddTicks(7180));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -95,7 +98,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 337, DateTimeKind.Local).AddTicks(4437));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 177, DateTimeKind.Local).AddTicks(211));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -139,7 +142,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 337, DateTimeKind.Local).AddTicks(7194));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 177, DateTimeKind.Local).AddTicks(2880));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -208,7 +211,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 338, DateTimeKind.Local).AddTicks(1347));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 177, DateTimeKind.Local).AddTicks(5821));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -273,7 +276,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 338, DateTimeKind.Local).AddTicks(5749));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 178, DateTimeKind.Local).AddTicks(201));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -315,7 +318,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 338, DateTimeKind.Local).AddTicks(8002));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 178, DateTimeKind.Local).AddTicks(2378));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -357,7 +360,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 339, DateTimeKind.Local).AddTicks(276));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 178, DateTimeKind.Local).AddTicks(4654));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -395,7 +398,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 339, DateTimeKind.Local).AddTicks(2683));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 178, DateTimeKind.Local).AddTicks(7116));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -504,7 +507,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 339, DateTimeKind.Local).AddTicks(5956));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 179, DateTimeKind.Local).AddTicks(384));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -581,7 +584,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 340, DateTimeKind.Local).AddTicks(589));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 179, DateTimeKind.Local).AddTicks(5131));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -631,7 +634,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 340, DateTimeKind.Local).AddTicks(5093));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 179, DateTimeKind.Local).AddTicks(9506));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -689,7 +692,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 340, DateTimeKind.Local).AddTicks(8218));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 180, DateTimeKind.Local).AddTicks(2340));
 
                     b.Property<bool>("IsPay")
                         .HasColumnType("bit");
@@ -730,10 +733,6 @@ namespace Talakado.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsShowAsOurTeam")
                         .HasColumnType("bit");
 
@@ -765,7 +764,7 @@ namespace Talakado.Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 15, 1, 11, 39, 341, DateTimeKind.Local).AddTicks(800));
+                        .HasDefaultValue(new DateTime(2024, 12, 13, 18, 24, 27, 180, DateTimeKind.Local).AddTicks(4771));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()

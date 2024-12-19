@@ -22,18 +22,21 @@ namespace Talakado.Web.Controllers
         private readonly IContentManagerService contentManagerService;
         private readonly IMapper mapper;
         private readonly IUriComposerService uriComposerService;
+        private readonly IPersonelManager personelManager;
 
         public HomeController(ILogger<HomeController> logger, 
             IDistributedCache cache,
             IContentManagerService contentManagerService, 
             IMapper mapper,
-            IUriComposerService uriComposerService)
+            IUriComposerService uriComposerService,
+            IPersonelManager personelManager)
         {
             _logger = logger;
             this.cache = cache;
             this.contentManagerService = contentManagerService;
             this.mapper = mapper;
             this.uriComposerService = uriComposerService;
+            this.personelManager = personelManager;
         }
 
         public IActionResult Index()
@@ -60,6 +63,7 @@ namespace Talakado.Web.Controllers
 
             var result = contentManagerService.GetHomePageContent();
             var model = mapper.Map<HomePageViewmodel>(result);
+            model.Personels = personelManager.GetPersonelsList();
             return View(model);
         }
         [Authorize]
