@@ -25,10 +25,20 @@
                 <td>@item.Name</td>
                 <td><img src="@item.ImageAddress" width="50px" height="50px" /></td>
                 <td>@item.Job</td>
-                <td><input type="checkbox" value="@item.IsShowAsOurTeam" /></td>
+                <td>@{
+                        if (item.IsShowAsOurTeam)
+                        {
+                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" checked="checked"  />
+                        }
+                        else
+                        {
+                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" />
+                        }
+                    }
+                </td>
                 <td>@item.Description</td>
                 <td>
-                    <img id="btn_edit" class="btn" width="50px" title="ویرایش" src="~/image/EditButton.png" />
+                    <img id="btn_edit" class="btn btn_edit" width="50px" title="ویرایش" src="~/image/EditButton.png" />
                     <img id="btn_delete" class="btn" width="50px" title="حذف" src="~/image/OIP.jfif" />
                     <input type="hidden" id="id" value="@item.Id" />
                 </td>
@@ -40,8 +50,9 @@
 
 @section Scripts {
     <script>
-        $('#btn_edit').click(function () {
-            console.log(this.parentElement.parentElement.children[0].innerHTML)
+        $('.btn_edit').click(function () {
+            var isShow = this.parentElement.parentElement.children[4].children[0].getAttribute("value");
+            console.log(this.parentElement.parentElement.children[4].children[0].getAttribute("value"))
         })
     </script>
 }
