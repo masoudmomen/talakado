@@ -48,11 +48,66 @@
 </table>
 
 
+<!--edit modal -->
+
+<div class="modal edit_modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-weight:bold">ویرایش اطلاعات افراد</h5>
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>نام فرد</label>
+                    <input type="text" id="personel_name" class="form-control" value="" />
+                </div>
+                <div>
+                    <label>عکس فرد</label>
+                    <input type="file" id="personel_image" class="" style="display:inline" />
+                    <img src="" id="personel_image_show" width="50px" height="50px" class="" style="margin-top:10px" />
+                </div>
+                <div>
+                    <label>شغل فرد</label>
+                    <input type="text" id="personel_job" class="form-control" value="" />
+                </div>
+                <div>
+                    <label>نمایش داده شود</label>
+                    <input type="checkbox" id="personel_isShow" class="" value="" style="margin-top:20px;margin-bo:20px" />
+                </div>
+                <div>
+                    <label>توصیف فرد</label>
+                    <textarea id="personel_description" class="form-control" rows="5"></textarea>   
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary">اعمال تغییرات</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end modal -->
+
 @section Scripts {
     <script>
         $('.btn_edit').click(function () {
+            var name = this.parentElement.parentElement.children[1].innerText;
+            var image = this.parentElement.parentElement.children[2].children[0].getAttribute("src");
+            var job = this.parentElement.parentElement.children[3].innerText;
             var isShow = this.parentElement.parentElement.children[4].children[0].getAttribute("value");
-            console.log(this.parentElement.parentElement.children[4].children[0].getAttribute("value"))
+            var description = this.parentElement.parentElement.children[5].innerText;
+
+            $('#personel_name').val(name);
+            $('#personel_image_show').attr("src", image);
+            $('#personel_job').val(job);
+            if(isShow === "True"){
+                $('#personel_isShow').prop("checked", true);
+            }
+            $('#personel_description').text(description);
+ 
+            $('.edit_modal').modal("show");
         })
     </script>
 }
