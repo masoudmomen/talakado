@@ -28,11 +28,11 @@
                 <td>@{
                         if (item.IsShowAsOurTeam)
                         {
-                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" checked="checked"  />
+                                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" checked="checked"  />
                         }
                         else
                         {
-                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" />
+                                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" />
                         }
                     }
                 </td>
@@ -40,7 +40,7 @@
                 <td>
                     <img id="btn_edit" class="btn btn_edit" width="50px" title="ویرایش" src="~/image/EditButton.png" />
                     <img id="btn_delete" class="btn" width="50px" title="حذف" src="~/image/OIP.jfif" />
-                    <input type="hidden" id="id" value="@item.Id" />
+                    <input type="hidden" value="@item.Id" />
                 </td>
             </tr>
         }
@@ -51,9 +51,10 @@
 <!--edit modal -->
 
 <div class="modal edit_modal" tabindex="-1">
+    <form method="post" asp-page-handler="EditPersonel" asp-asp-antiforgery="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:lightgray">
                 <h5 class="modal-title" style="font-weight:bold">ویرایش اطلاعات افراد</h5>
                 @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
             </div>
@@ -81,11 +82,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                <button type="button" class="btn btn-primary">اعمال تغییرات</button>
+                <button type="button" id="modal-btn-close" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button type="button" id="modal-btn-edit" class="btn btn-primary">اعمال تغییرات</button>
+                <input type="hidden" id="personel_id" value="" />
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 <!-- end modal -->
@@ -93,21 +96,68 @@
 @section Scripts {
     <script>
         $('.btn_edit').click(function () {
+            var id = this.parentElement.children[2].getAttribute("value");
             var name = this.parentElement.parentElement.children[1].innerText;
             var image = this.parentElement.parentElement.children[2].children[0].getAttribute("src");
             var job = this.parentElement.parentElement.children[3].innerText;
             var isShow = this.parentElement.parentElement.children[4].children[0].getAttribute("value");
             var description = this.parentElement.parentElement.children[5].innerText;
 
+            $('#personel_id').val(id);
             $('#personel_name').val(name);
             $('#personel_image_show').attr("src", image);
             $('#personel_job').val(job);
-            if(isShow === "True"){
+            if (isShow === "True") {
                 $('#personel_isShow').prop("checked", true);
+            } else {
+                $('#personel_isShow').prop("checked", false);
             }
             $('#personel_description').text(description);
  
             $('.edit_modal').modal("show");
         })
+
+        $('#modal-btn-edit').click(function () {
+            var data = new FormData();
+            var image = document.getElementById("personel_image")
+            if (image.files.length > 0) {
+                data.append("image", image.files[0])
+            }
+            data.append("Id", $('#personel_id').val())
+            data.append("Name", $('#personel_name').val())
+            data.append("Job", $('#personel_job').val())
+            data.append("IsShow", $('#personel_isShow').is(':checked'))
+            data.append("Description", $('#personel_description').text())
+
+            //ارسال به سرور با ای جکس
+            var ajaxRequest = $.ajax({
+                type: "post",
+                contentType: false,
+                processData: false,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./create?handler=EditPersonel",
+                data: data,
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'ویرایش با موفقیت انجام شد',
+                            'success'
+                        );
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات ویرایش انجام نشد ",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            
+        });
     </script>
 }

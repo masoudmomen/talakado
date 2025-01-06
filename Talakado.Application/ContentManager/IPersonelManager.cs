@@ -14,6 +14,7 @@ namespace Talakado.Application.ContentManager
     {
         List<PersonelDto> GetPersonelsList();
         PersonelDto? AddPersonel(PersonelDto personel);
+        PersonelDto? EditPersonel(PersonelDto personel);
     }
     public class PersonelManager: IPersonelManager
     {
@@ -37,6 +38,19 @@ namespace Talakado.Application.ContentManager
             context.Personels.Add(result);
             context.SaveChanges();
             return mapper.Map<PersonelDto?>(result);
+        }
+
+        public PersonelDto? EditPersonel(PersonelDto personel)
+        {
+            if (personel == null) return null;
+            var person = context.Personels.Find(personel.Id);
+            if (person == null) return null;
+            person = mapper.Map<Personel>(personel); ;
+            if (context.SaveChanges() > 0)
+            {
+                return mapper.Map<PersonelDto?>(person);
+            }
+            return null;
         }
 
         public List<PersonelDto> GetPersonelsList()
