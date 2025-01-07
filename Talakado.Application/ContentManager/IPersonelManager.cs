@@ -15,6 +15,7 @@ namespace Talakado.Application.ContentManager
         List<PersonelDto> GetPersonelsList();
         PersonelDto? AddPersonel(PersonelDto personel);
         PersonelDto? EditPersonel(PersonelDto personel);
+        bool DeletePersonel(int id);
     }
     public class PersonelManager: IPersonelManager
     {
@@ -40,12 +41,24 @@ namespace Talakado.Application.ContentManager
             return mapper.Map<PersonelDto?>(result);
         }
 
+        public bool DeletePersonel(int id)
+        {
+            var person = context.Personels.Find(id);
+            if (person == null) return false;
+            context.Personels.Remove(person);
+            return context.SaveChanges()>0;
+        }
+
         public PersonelDto? EditPersonel(PersonelDto personel)
         {
             if (personel == null) return null;
             var person = context.Personels.Find(personel.Id);
             if (person == null) return null;
-            person = mapper.Map<Personel>(personel); ;
+            person.Name = personel.Name;
+            if(!string.IsNullOrEmpty(personel.ImageAddress)) person.ImageAddress = personel.ImageAddress;
+            person.Description = personel.Description;
+            person.Job = personel.Job;
+            person.IsShowAsOurTeam = personel.IsShowAsOurTeam;
             if (context.SaveChanges() > 0)
             {
                 return mapper.Map<PersonelDto?>(person);

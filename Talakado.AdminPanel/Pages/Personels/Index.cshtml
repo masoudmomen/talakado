@@ -28,18 +28,18 @@
                 <td>@{
                         if (item.IsShowAsOurTeam)
                         {
-                                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" checked="checked"  />
+                            <input type="checkbox" disabled value="@item.IsShowAsOurTeam.ToString()" checked="checked" />
                         }
                         else
                         {
-                                            <input type="checkbox" value="@item.IsShowAsOurTeam.ToString()" />
+                            <input type="checkbox" disabled value="@item.IsShowAsOurTeam.ToString()" />
                         }
                     }
                 </td>
                 <td>@item.Description</td>
                 <td>
-                    <img id="btn_edit" class="btn btn_edit" width="50px" title="ویرایش" src="~/image/EditButton.png" />
-                    <img id="btn_delete" class="btn" width="50px" title="حذف" src="~/image/OIP.jfif" />
+                    <img class="btn btn_edit" width="50px" title="ویرایش" src="~/image/EditButton.png" />
+                    <img class="btn btn_delete" width="50px" title="حذف" src="~/image/OIP.jfif" />
                     <input type="hidden" value="@item.Id" />
                 </td>
             </tr>
@@ -74,7 +74,7 @@
                 </div>
                 <div>
                     <label>نمایش داده شود</label>
-                    <input type="checkbox" id="personel_isShow" class="" value="" style="margin-top:20px;margin-bo:20px" />
+                    <input type="checkbox" id="personel_isShow" class="" value="" style="margin-top:20px;margin-bottom:20px" />
                 </div>
                 <div>
                     <label>توصیف فرد</label>
@@ -117,6 +117,10 @@
             $('.edit_modal').modal("show");
         })
 
+        $('#modal-btn-close').click(function(){
+            $('.edit_modal').modal("hide");
+        });
+
         $('#modal-btn-edit').click(function () {
             var data = new FormData();
             var image = document.getElementById("personel_image")
@@ -135,15 +139,21 @@
                 contentType: false,
                 processData: false,
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                url: "./create?handler=EditPersonel",
+                url: "./index?handler=EditPersonel",
                 data: data,
                 success: function (result) {
+                    $('.edit_modal').modal("hide");
                     if (result === "true") {
                         swal.fire(
                             'پیام موفقیت!',
                             'ویرایش با موفقیت انجام شد',
                             'success'
-                        );
+                                ).then((result) => {
+                                  if (result.isConfirmed) {
+                                    location.reload()
+                                  }
+                                });
+                        
                     } else {
                         swal.fire(
                             'پیام هشدار!',
@@ -159,5 +169,56 @@
             });
             
         });
+
+        $('.btn_delete').click(function(){
+            var tr = this.parentElement.parentElement;
+            var id = this.parentElement.children[2].getAttribute("value");
+            Swal.fire({
+              title: 'آیا از حذف فرد اطمینان دارید؟',
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonText: 'بله، حذف کن',
+              denyButtonText: 'خیر',
+            }).then((result) => {
+              if (result.isConfirmed) {
+
+                   //ارسال به سرور با ای جکس
+                    var ajaxRequest = $.ajax({
+                type: "post",
+                // contentType: false,
+                // processData: false,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                url: "./index?handler=DeletePersonel",
+                data: {"id":id},
+                success: function (result) {
+                    if (result === "true") {
+                        swal.fire(
+                            'پیام موفقیت!',
+                            'حذف فرد با موفقیت انجام شد',
+                            'success'
+                                ).then((result) => {
+                                  if (result.isConfirmed) {
+                                      tr.remove();
+                                  }
+                                });
+
+                    } else {
+                        swal.fire(
+                            'پیام هشدار!',
+                            "عملیات حذف انجام نشد ",
+                            'Error'
+                        );
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+
+                    //Swal.fire('Saved!', '', 'success')
+              }
+            })
+        })
     </script>
 }
