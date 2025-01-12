@@ -15,7 +15,7 @@
                 <div class="col-lg-12">
                     <ul class="breadcrumb-menu list-style">
                         <li><a href="index.html">خانه</a></li>
-                        <li>فروشگاه سایدبار 2</li>
+                        <li>فروشگاه</li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
     </div>
     <!-- Breadcrumb end -->
     <!-- Shop Start -->
-    <div class="shop-wrap ptb-100">
+    <div class="shop-wrap ptb-50">
         <div class="container">
             <div class="row gx-5">
                 <div class="col-xl-3 col-lg-4">
@@ -34,83 +34,14 @@
                                 <button type="submit"> <i class="flaticon-search-interface-symbol"></i> </button>
                             </form>
                         </div>
-                        <div class="sidebar-widget categories">
-                            <h4>دسته بندی ها</h4>
-                            <ul class="product-category-list list-style">
-                                <li class="has-subcat">
-                                    <a class="active" href="javascript:void(0)">جواهرات طلا </a>
-                                    <ul class="subcategory  list-style">
-                                        <li><a href="shop-left-sidebar.html"><i class="las la-angle-left"></i>گوشواره</a></li>
-                                        <li><a href="shop-4-column.html"><i class="las la-angle-left"></i>دستبند</a></li>
-                                        <li><a href="shop-right-sidebar.html"><i class="las la-angle-left"></i>حلقه</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-subcat">
-                                    <a href="javascript:void(0)">مروارید </a>
-                                    <ul class="subcategory  list-style">
-                                        <li><a href="shop-left-sidebar.html"><i class="las la-angle-left"></i>گوشواره</a></li>
-                                        <li><a href="shop-4-column.html"><i class="las la-angle-left"></i>دستبند</a></li>
-                                        <li><a href="shop-right-sidebar.html"><i class="las la-angle-left"></i>حلقه</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-subcat">
-                                    <a href="javascript:void(0)">الماس</a>
-                                    <ul class="subcategory  list-style">
-                                        <li><a href="shop-left-sidebar.html"><i class="las la-angle-left"></i>گوشواره</a></li>
-                                        <li><a href="shop-4-column.html"><i class="las la-angle-left"></i>دستبند</a></li>
-                                        <li><a href="shop-right-sidebar.html"><i class="las la-angle-left"></i>حلقه</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-subcat">
-                                    <a href="javascript:void(0)">جواهرات نقره </a>
-                                    <ul class="subcategory  list-style">
-                                        <li><a href="shop-left-sidebar.html"><i class="las la-angle-left"></i>گوشواره</a></li>
-                                        <li><a href="shop-4-column.html"><i class="las la-angle-left"></i>دستبند</a></li>
-                                        <li><a href="shop-right-sidebar.html"><i class="las la-angle-left"></i>حلقه</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                    <!-- menu component -->
+                    @await Component.InvokeAsync("GetMenuCategories")
+                    <!-- end menu component -->
+
                         <div class="sidebar-widget price-range-widget">
                             <h4>فیلتر قیمت</h4>
-
-                            <div class="checkbox-item-wrap">
-                                <div class="checkbox-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_1">
-                                        <label for="check_1">11 تومان - 15 تومان</label>
-                                    </div>
-                                    <span>(11)</span>
-                                </div>
-                                <div class="checkbox-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_2">
-                                        <label for="check_2">15 تومان - 20 تومان</label>
-                                    </div>
-                                    <span>(6)</span>
-                                </div>
-                                <div class="checkbox-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_3">
-                                        <label for="check_3">25 تومان - 30 تومان</label>
-                                    </div>
-                                    <span>(15)</span>
-                                </div>
-                                <div class="checkbox-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_4">
-                                        <label for="check_4">30 تومان - 35 تومان</label>
-                                    </div>
-                                    <span>(12)</span>
-                                </div>
-                                <div class="checkbox-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_5">
-                                        <label for="check_5">40 تومان - 45 تومان</label>
-                                    </div>
-                                    <span>(9)</span>
-                                </div>
-                            </div>
+                        @await Component.InvokeAsync("PriceFilterComponent")
+                            
                         </div>
                         <div class="sidebar-widget price-range-widget">
                             <h4>فیلتر اندازه</h4>
@@ -262,10 +193,19 @@
                                 <div class="product-img">
                                     <img src="@item.Image" alt="Image">
                                     <div class="product-option">
-                                        <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal"> <i class="lar la-eye"></i> </button>
-                                        <a asp-area="Customers" asp-controller="MyFavorite" asp-action="AddToMyFavorite" asp-route-CatalogsItemId="@item.Id" class="btn add-to-wishlist" type="button">
+                                        <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal">
+                                            <i class="lar la-eye"></i> 
+                                            <input type="hidden" value="@item.Id" />
+                                            <input type="hidden" value="@item.Name" />
+                                            <input type="hidden" value="@item.Image" />
+                                            <input type="hidden" value="@item.Price" />
+                                            <input type="hidden" value="@item." />
+                                        </button>
+                                        <button class="add-to-wishlist" type="button">
+                                        @* <a asp-area="Customers" asp-controller="MyFavorite" asp-action="AddToMyFavorite" asp-route-CatalogsItemId="@item.Id" class="btn add-to-wishlist" type="button"> *@
                                             <i class="lar la-heart"></i>
-                                        </a>
+                                        @* </a> *@
+                                        </button>
                                         <button class="add-to-cart" type="button">
                                             <i class="las la-shopping-cart"></i>
                                         </button>
@@ -314,3 +254,11 @@
 
 @* </div> *@
 <!-- Content wrapper end -->
+
+@section Scripts{
+    <script>
+        $('.quickview').click(function () {
+            console.log(this.children[1].)
+        })
+    </script>
+}

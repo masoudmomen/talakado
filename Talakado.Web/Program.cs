@@ -27,6 +27,7 @@ using Talakado.Application.Orders.CustomerOrderServices;
 using Talakado.Web.Middlewares;
 using Talakado.Application.ContentManager;
 using Talakado.Application.Catalogs.CatalogTypes;
+using Talakado.Application.Catalogs.CatalogItemsFilter;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -81,6 +82,7 @@ builder.Services.AddTransient<ICustomerOrderService, CustomerOrderService>();
 builder.Services.AddTransient<IContentManagerService, ContentManagerService>();
 builder.Services.AddTransient<ICatalogTypeService, CatalogTypeService>();
 builder.Services.AddTransient<IPersonelManager, PersonelManager>();
+builder.Services.AddTransient<IGetCatalogsPriceFilterService, GetCatalogsPriceFilterService>();
 
 
 builder.Services.AddScoped<SaveVisitorFilter>();

@@ -84,7 +84,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
                 Slug = p.Slug,
                 Price = p.Price,
                 Rate = 4,
-                Image = uriComposerService.ComposeImageUri(p.CatalogItemImages.FirstOrDefault().Src)
+                Image = uriComposerService.ComposeImageUri(p.CatalogItemImages.FirstOrDefault().Src),
+                
             }).ToList();
             return new PaginatedItemDto<CatalogPLPDto>(request.page, request.pageSize, rowCount,data);
         }
@@ -98,6 +99,12 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
         public int Price { get; set; }
         public string Image { get; set; }
         public byte Rate { get; set; }
+        public string Type { get; set; }
+        public string Brand { get; set; }
+        public int? OldPrice { get; set; }
+        public int? PercentDiscount { get; set; }
+        public string Description { get; set; }
+
     }
 
 

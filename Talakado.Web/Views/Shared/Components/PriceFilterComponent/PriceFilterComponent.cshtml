@@ -1,0 +1,65 @@
+﻿@using Talakado.Web.Models.ViewComponents
+@model List<Talakado.Application.Catalogs.CatalogItemsFilter.PriceFilterDto>
+@{
+    Layout = null;
+}
+
+<div class="checkbox-item-wrap">
+    @if(Model != null)
+    {
+        <div class="checkbox-item">
+            <div class="checkbox">
+                <input type="radio" id="check_0" name="check" checked>
+                <label for="check_0">همه قیمت ها</label>
+            </div>
+            <span>(11)</span>
+        </div>
+        var i = 1;
+        foreach (var item in Model)
+        {
+            <div class="checkbox-item">
+                <div class="checkbox">
+                    <input type="radio" id="check_@i" name="check">
+                    <label for="check_@i">@item.MinPrice.ToString("n0") الی @item.MaxPrice.ToString("n0") تومان</label>
+                </div>
+                <span>(@item.Count)</span>
+            </div>
+            i++;
+        }
+    }
+    @* <div class="checkbox-item">
+        <div class="checkbox">
+            <input type="checkbox" id="check_1">
+            <label for="check_1">11 تومان - 15 تومان</label>
+        </div>
+        <span>(11)</span>
+    </div>
+    <div class="checkbox-item">
+        <div class="checkbox">
+            <input type="checkbox" id="check_2">
+            <label for="check_2">15 تومان - 20 تومان</label>
+        </div>
+        <span>(6)</span>
+    </div>
+    <div class="checkbox-item">
+        <div class="checkbox">
+            <input type="checkbox" id="check_3">
+            <label for="check_3">25 تومان - 30 تومان</label>
+        </div>
+        <span>(15)</span>
+    </div>
+    <div class="checkbox-item">
+        <div class="checkbox">
+            <input type="checkbox" id="check_4">
+            <label for="check_4">30 تومان - 35 تومان</label>
+        </div>
+        <span>(12)</span>
+    </div>
+    <div class="checkbox-item">
+        <div class="checkbox">
+            <input type="checkbox" id="check_5">
+            <label for="check_5">40 تومان - 45 تومان</label>
+        </div>
+        <span>(9)</span>
+    </div> *@
+</div>
