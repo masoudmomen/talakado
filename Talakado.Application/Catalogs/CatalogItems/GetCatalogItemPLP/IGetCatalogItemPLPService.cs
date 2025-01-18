@@ -32,6 +32,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
             var query = context.CatalogItems
                 .Include(p => p.Discounts)
                 .Include(p => p.CatalogItemImages)
+                .Include(p => p.CatalogBrand)
+                .Include(p=>p.CatalogType)
                 .OrderByDescending(p => p.Id)
                 .AsQueryable();
             // Apply Filter :
@@ -85,7 +87,11 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
                 Price = p.Price,
                 Rate = 4,
                 Image = uriComposerService.ComposeImageUri(p.CatalogItemImages.FirstOrDefault().Src),
-                
+                Brand = p.CatalogBrand.Brand,
+                Description = p.Description,
+                OldPrice = p.OldPrice,
+                PercentDiscount = p.PercentDiscount,
+                Type = p.CatalogType.Type
             }).ToList();
             return new PaginatedItemDto<CatalogPLPDto>(request.page, request.pageSize, rowCount,data);
         }

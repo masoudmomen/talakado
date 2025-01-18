@@ -195,12 +195,16 @@
                                     <div class="product-option">
                                         <button class="quickview" type="button" data-bs-toggle="modal" data-bs-target="#productModal">
                                             <i class="lar la-eye"></i> 
-                                            <input type="hidden" value="@item.Id" />
-                                            <input type="hidden" value="@item.Name" />
-                                            <input type="hidden" value="@item.Image" />
-                                            <input type="hidden" value="@item.Price" />
-                                            <input type="hidden" value="@item." />
                                         </button>
+                                        <input type="hidden" id="id" value="@item.Id" />
+                                        <input type="hidden" id="name" value="@item.Name" />
+                                        <input type="hidden" id="image" value="@item.Image" />
+                                        <input type="hidden" id="price" value="@item.Price" />
+                                        <input type="hidden" id="type" value="@item.Type" />
+                                        <input type="hidden" id="type" value="@item.Brand" />
+                                        <input type="hidden" id="type" value="@item.Description" />
+                                        <input type="hidden" id="type" value="@item.OldPrice" />
+                                        <input type="hidden" id="type" value="@item.PercentDiscount" />
                                         <button class="add-to-wishlist" type="button">
                                         @* <a asp-area="Customers" asp-controller="MyFavorite" asp-action="AddToMyFavorite" asp-route-CatalogsItemId="@item.Id" class="btn add-to-wishlist" type="button"> *@
                                             <i class="lar la-heart"></i>
@@ -258,7 +262,7 @@
 @section Scripts{
     <script>
         $('.quickview').click(function () {
-            console.log(this.children[1].)
+            console.log(this.parentElement.children[1])
         })
     </script>
 }

@@ -24,7 +24,7 @@ namespace Talakado.Application.Catalogs.CatalogItemsFilter
 
         public List<PriceFilterDto> GetCatalogsPriceFilterList()
         {
-            //var minPrice = context.CatalogItems.Min(c=>c.Price);
+            if(!context.CatalogItems.Any()) return new List<PriceFilterDto> { new PriceFilterDto() };
             var minPrice = 0;
             var maxPrice = context.CatalogItems.Max(c=>c.Price);
             var domainPrice = (maxPrice - minPrice)/5;
