@@ -91,7 +91,8 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
                 Description = p.Description,
                 OldPrice = p.OldPrice,
                 PercentDiscount = p.PercentDiscount,
-                Type = p.CatalogType.Type
+                Type = p.CatalogType.Type,
+                AvailableStock = p.AvailableStock,
             }).ToList();
             return new PaginatedItemDto<CatalogPLPDto>(request.page, request.pageSize, rowCount,data);
         }
@@ -110,6 +111,7 @@ namespace Talakado.Application.Catalogs.CatalogItems.GetCatalogItemPLP
         public int? OldPrice { get; set; }
         public int? PercentDiscount { get; set; }
         public string Description { get; set; }
+        public int AvailableStock { get; set; }
 
     }
 

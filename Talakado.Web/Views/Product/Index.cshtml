@@ -201,10 +201,11 @@
                                         <input type="hidden" id="image" value="@item.Image" />
                                         <input type="hidden" id="price" value="@item.Price" />
                                         <input type="hidden" id="type" value="@item.Type" />
-                                        <input type="hidden" id="type" value="@item.Brand" />
-                                        <input type="hidden" id="type" value="@item.Description" />
-                                        <input type="hidden" id="type" value="@item.OldPrice" />
-                                        <input type="hidden" id="type" value="@item.PercentDiscount" />
+                                        <input type="hidden" id="brand" value="@item.Brand" />
+                                        <input type="hidden" id="description" value="@item.Description" />
+                                        <input type="hidden" id="oldPrice" value="@item.OldPrice" />
+                                        <input type="hidden" id="percentDiscount" value="@item.PercentDiscount" />
+                                        <input type="hidden" id="availableStock" value="@item.AvailableStock" />
                                         <button class="add-to-wishlist" type="button">
                                         @* <a asp-area="Customers" asp-controller="MyFavorite" asp-action="AddToMyFavorite" asp-route-CatalogsItemId="@item.Id" class="btn add-to-wishlist" type="button"> *@
                                             <i class="lar la-heart"></i>
@@ -263,6 +264,7 @@
     <script>
         $('.quickview').click(function () {
             console.log(this.parentElement.children[1])
+
         })
     </script>
 }
