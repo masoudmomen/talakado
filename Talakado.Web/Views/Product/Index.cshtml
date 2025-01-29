@@ -263,8 +263,7 @@
 @section Scripts{
     <script>
         $('.quickview').click(function () {
-            console.log(this.parentElement.children[1])
-
+            $('#catalogName').text(this.parentElement.children[2].getAttribute("value"));
         })
     </script>
 }
